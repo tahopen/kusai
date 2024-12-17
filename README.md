@@ -1,19 +1,3 @@
-<a href="#readme"></a>
-
-<!-- [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a5a3157a6798401e980a5aabe37f3ede)](https://www.codacy.com/app/Spicule/saiku?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OSBI/saiku&amp;utm_campaign=Badge_Grade) -->
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/OSBI/saiku/assets/L.png" align="left">
-  <img src="https://raw.githubusercontent.com/OSBI/saiku/assets/R.png" align="right">
-  <b>
-    When something doesn't work as expected, then please subscribe to the
-    <a href="https://groups.google.com/a/saiku.meteorite.bi/forum/#!forum/user">Saiku User Group list</a>
-    and send your doubt. If that doesn't solve your problem, then please ask for help on
-    <a href="https://groups.google.com/a/saiku.meteorite.bi/forum/#!forum/dev">Saiku Dev Group</a>.
-  </b>
-</p>
-
-***
 
 <h1 align="center"><a href="https://www.meteorite.bi/products/saiku">Saiku Analytics</a></h1>
 <h2 align="center">The world's greatest open source OLAP browser</h2>
