@@ -68,10 +68,6 @@ Check [CONTRIBUTING.md](./CONTRIBUTING.md) for more details. Some important info
 
 ## History
 
+Kusai is a fork of Saiku
 For detailed changelog, check [Releases](https://github.com/OSBI/saiku/releases).
 
-## License
-
-Saiku and the Saiku UI are free software. The UI, contained in this repository, is available under the terms of the Apache License Version 2. A copy is attached for your convenience.
-
-**[⬆ back to top](#readme)**
