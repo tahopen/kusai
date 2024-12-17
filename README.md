@@ -1,6 +1,6 @@
 
-<h1 align="center"><a href="https://www.meteorite.bi/products/saiku">Saiku Analytics</a></h1>
-<h2 align="center">The world's greatest open source OLAP browser</h2>
+<h1 align="center"><a href="https://www.meteorite.bi/products/saiku">Kusai Analytics</a></h1>
+<h2 align="center">Open source OLAP browser</h2>
 <p align="center"><a href="https://www.meteorite.bi/products/saiku"><img src="https://raw.githubusercontent.com/OSBI/saiku/assets/saiku-demo-1.jpg"/></a></p>
 <hr />
 <p align="center">
