@@ -51,23 +51,6 @@ Then remove the backups with:
 find . -name "*.versionsBackup" -type f -delete
 ```
 
-## Get Saiku License
-
-Saiku is open source and free to use. Our default server does ship with a license server installed. To get a license you can visit https://licensing.meteorite.bi and get a FREE license which is pinned to the major release of the server. This helps us with a more accurate picture of installation numbers and deployments.
-
-## Wiki
-
-* [Saiku Wiki](https://saiku-documentation.readthedocs.io/en/latest/)
-
-## Community
-
-* [Saiku Community](https://community.meteorite.bi/)
-
-## Bugs and Feature Requests
-
-* [GitHub Issues](https://github.com/OSBI/saiku/issues/new)
-
-
 ## Browser Support
 
 We do care about it.
