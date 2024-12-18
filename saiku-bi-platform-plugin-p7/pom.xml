@@ -39,12 +39,6 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>bi.meteorite</groupId>
-                                    <artifactId>licenseserver-core</artifactId>
-                                    <version>1.0-SNAPSHOT</version>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
                                     <groupId>org.mozilla</groupId>
                                     <artifactId>rhino</artifactId>
                                     <outputDirectory>target/dist/saiku/lib</outputDirectory>
@@ -212,6 +206,7 @@
                                 <artifactItem>
                                     <groupId>iText</groupId>
                                     <artifactId>iText</artifactId>
+                                    <version>5.0.1</version>
                                     <outputDirectory>target/dist/saiku/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
@@ -360,29 +355,6 @@
         </plugins>
     </build>
     <repositories>
-        <repository>
-            <id>Analytical Labs Repo</id>
-            <name>Analytical Labs Repo-releases</name>
-            <url>http://repo.meteorite.bi/repository/alabs-release-local/</url>
-        </repository>
-        <repository>
-            <id>Analytical Labs snapshots</id>
-            <name>Analytical Labs Repo-releases</name>
-            <url>http://repo.meteorite.bi/repository/alabs-snapshot-local</url>
-        </repository>
-        <repository>
-            <id>pentaho-third-party</id>
-            <url>http://nexus.pentaho.org/content/repositories/proxied-3rd-party-releases/</url>
-        </repository>
-        <repository>
-            <id>pentaho-public-release</id>
-            <url>http://nexus.pentaho.org/content/repositories/pentaho-public-release-repos/</url>
-        </repository>
-        <repository>
-            <id>pentaho-snapshot</id>
-            <url>http://nexus.pentaho.org/content/repositories/public-snapshots/</url>
-        </repository>
-
         <repository>
             <id>central</id>
             <name>Maven Repository Switchboard</name>
@@ -770,6 +742,7 @@
         <dependency>
             <groupId>iText</groupId>
             <artifactId>iText</artifactId>
+            <version>5.0.1</version>
         </dependency>
 
         <dependency>

@@ -38,12 +38,6 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>bi.meteorite</groupId>
-                                    <artifactId>licenseserver-core</artifactId>
-                                    <version>1.0-SNAPSHOT</version>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
                                     <groupId>org.mozilla</groupId>
                                     <artifactId>rhino</artifactId>
                                     <outputDirectory>target/dist/saiku/lib</outputDirectory>
@@ -179,8 +173,9 @@
                                     <outputDirectory>target/dist/saiku/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>iText</groupId>
-                                    <artifactId>iText</artifactId>
+                                    <groupId>com.lowagie</groupId>
+                                    <artifactId>itext</artifactId>
+                                    <version>4.2.0</version>
                                     <outputDirectory>target/dist/saiku/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
@@ -733,8 +728,9 @@
             <artifactId>xmlgraphics-commons</artifactId>
         </dependency>
         <dependency>
-            <groupId>iText</groupId>
-            <artifactId>iText</artifactId>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>4.2.0</version>
         </dependency>
 
         <dependency>
