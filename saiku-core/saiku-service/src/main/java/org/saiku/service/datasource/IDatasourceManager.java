@@ -35,7 +35,6 @@ public interface IDatasourceManager {
 
   void unload();
 
-
   SaikuDatasource addDatasource(SaikuDatasource datasource) throws Exception;
 
   SaikuDatasource setDatasource(SaikuDatasource datasource) throws Exception;
@@ -100,9 +99,9 @@ public interface IDatasourceManager {
 
   void restoreRepository(byte[] data);
 
-    boolean hasHomeDirectory(String name);
+  boolean hasHomeDirectory(String name);
 
-    void restoreLegacyFiles(byte[] data);
+  void restoreLegacyFiles(byte[] data);
 
   String getFoodmartschema();
 
@@ -119,7 +118,6 @@ public interface IDatasourceManager {
   void setFoodmarturl(String foodmarturl);
 
   String getFoodmarturl();
-
 
   String getEarthquakeUrl();
 
@@ -138,6 +136,6 @@ public interface IDatasourceManager {
   String[] getAvailablePropertiesKeys();
 
   List<JujuSource> getJujuDatasources();
-  
+
   String getType();
 }
