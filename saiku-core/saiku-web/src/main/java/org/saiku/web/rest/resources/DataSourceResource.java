@@ -56,9 +56,9 @@ public class DataSourceResource {
      * @summary Get Data Sources
      */
     @GET
-    @Produces({"application/json"})
+    @Produces({ "application/json" })
     public Collection<SaikuDatasource> getDatasources() {
-        //TODO: admin security?
+        // TODO: admin security?
         try {
             return datasourceService.getDatasources(userService.getCurrentUserRoles()).values();
         } catch (SaikuServiceException e) {
@@ -89,13 +89,13 @@ public class DataSourceResource {
      * @summary Get Data Source.
      */
     @GET
-    @Produces({"application/json"})
+    @Produces({ "application/json" })
     @Path("/{id}")
-    @ReturnType("org.saiku.web.rest.objects.DataSourceMapper")
     public Response getDatasourceById(@PathParam("id") String id) {
         try {
             SaikuDatasource saikuDatasource = null;
-            Map<String, SaikuDatasource> datasources = datasourceService.getDatasources(userService.getCurrentUserRoles());
+            Map<String, SaikuDatasource> datasources = datasourceService
+                    .getDatasources(userService.getCurrentUserRoles());
             for (SaikuDatasource currentDatasource : datasources.values()) {
                 if (currentDatasource.getProperties().getProperty("id").equals(id)) {
                     saikuDatasource = currentDatasource;
@@ -105,20 +105,20 @@ public class DataSourceResource {
             return Response.ok().type("application/json").entity(new DataSourceMapper(saikuDatasource)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getLocalizedMessage())
-                .type("text/plain").build();
+                    .type("text/plain").build();
         }
     }
 
     @PUT
-    @Produces({"application/json"})
-    @Consumes({"application/json"})
+    @Produces({ "application/json" })
+    @Consumes({ "application/json" })
     @Path("/{id}")
-    @ReturnType("org.saiku.web.rest.objects.DataSourceMapper")
     public Response updateDatasourceLocale(String locale, @PathParam("id") String id) {
         boolean overwrite = true;
         try {
             SaikuDatasource saikuDatasource = null;
-            Map<String, SaikuDatasource> datasources = datasourceService.getDatasources(userService.getCurrentUserRoles());
+            Map<String, SaikuDatasource> datasources = datasourceService
+                    .getDatasources(userService.getCurrentUserRoles());
             for (SaikuDatasource currentDatasource : datasources.values()) {
                 if (currentDatasource.getProperties().getProperty("id").equals(id)) {
                     saikuDatasource = currentDatasource;
@@ -130,7 +130,7 @@ public class DataSourceResource {
             return Response.ok().type("application/json").entity(saikuDatasource).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getLocalizedMessage())
-                .type("text/plain").build();
+                    .type("text/plain").build();
         }
     }
 
@@ -155,11 +155,11 @@ public class DataSourceResource {
     }
 
     public UserService getUserService() {
-      return userService;
+        return userService;
     }
 
     public void setUserService(UserService userService) {
-      this.userService = userService;
+        this.userService = userService;
     }
 
 }

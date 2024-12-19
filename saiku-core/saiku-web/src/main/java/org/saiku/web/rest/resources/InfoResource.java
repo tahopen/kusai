@@ -37,31 +37,31 @@ import javax.xml.bind.annotation.XmlAccessorType;
  */
 @Component
 @Path("/saiku/info")
-@XmlAccessorType( XmlAccessType.NONE)
+@XmlAccessorType(XmlAccessType.NONE)
 public class InfoResource {
 
-  private static final Logger log = LoggerFactory.getLogger( InfoResource.class );
+  private static final Logger log = LoggerFactory.getLogger(InfoResource.class);
 
   private PlatformUtilsService platformService;
 
-  //@Autowired
+  // @Autowired
   public void setPlatformUtilsService(PlatformUtilsService ps) {
     this.platformService = ps;
   }
 
   /**
    * Get a list of available plugins.
+   * 
    * @summary Get plugins
    * @return A response containing a list of plugins.
    */
   @GET
-  @Produces({"application/json" })
-  @ReturnType("java.util.List<Plugin>")
+  @Produces({ "application/json" })
   public Response getAvailablePlugins() {
 
-    GenericEntity<List<Plugin>> entity =
-         new GenericEntity<List<Plugin>>(platformService.getAvailablePlugins()){};
-     return Response.ok(entity).build();
+    GenericEntity<List<Plugin>> entity = new GenericEntity<List<Plugin>>(platformService.getAvailablePlugins()) {
+    };
+    return Response.ok(entity).build();
   }
 
 }

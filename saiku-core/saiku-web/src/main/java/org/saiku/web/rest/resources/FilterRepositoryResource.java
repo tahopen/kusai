@@ -15,27 +15,11 @@
  */
 package org.saiku.web.rest.resources;
 
-import org.saiku.olap.dto.SimpleCubeElement;
-import org.saiku.olap.dto.filter.SaikuFilter;
-import org.saiku.service.ISessionService;
-import org.saiku.service.olap.OlapQueryService;
-import org.saiku.service.util.exception.SaikuServiceException;
-
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -47,8 +31,22 @@ import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
+import org.saiku.olap.dto.filter.SaikuFilter;
+import org.saiku.service.ISessionService;
+import org.saiku.service.olap.OlapQueryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
- * QueryServlet contains all the methods required when manipulating an OLAP Query.
+ * QueryServlet contains all the methods required when manipulating an OLAP
+ * Query.
+ * 
  * @author Paul Stoellberger
  *
  */
@@ -65,16 +63,15 @@ public class FilterRepositoryResource {
 	private OlapQueryService olapQueryService;
 	private ISessionService sessionService;
 
-	//@Autowired
+	// @Autowired
 	public void setOlapQueryService(OlapQueryService olapqs) {
 		olapQueryService = olapqs;
 	}
-	
-	//@Autowired
+
+	// @Autowired
 	public void setSessionService(ISessionService ss) {
 		sessionService = ss;
 	}
-
 
 	private Map<String, SaikuFilter> getFiltersInternal() throws Exception {
 		return getFiltersInternal(null);
@@ -82,57 +79,52 @@ public class FilterRepositoryResource {
 
 	private Map<String, SaikuFilter> getFiltersInternal(String query) {
 		Map<String, SaikuFilter> allFilters = new HashMap<>();
-		//Map<String, SaikuFilter> filters = deserialize(getUserFile());
-		//allFilters.putAll(filters);
+		// Map<String, SaikuFilter> filters = deserialize(getUserFile());
+		// allFilters.putAll(filters);
 		if (StringUtils.isNotBlank(query)) {
 			allFilters = olapQueryService.getValidFilters(query, allFilters);
 		}
 
-		//return MapUtils.orderedMap(allFilters);
-	  return null;
+		// return MapUtils.orderedMap(allFilters);
+		return null;
 	}
 
-
-
-
-  /**
-   * Get filternames as JSON.
-   * @param queryName The query name.
-   * @return A response containing the filter names.
-   */
+	/**
+	 * Get filternames as JSON.
+	 * 
+	 * @param queryName The query name.
+	 * @return A response containing the filter names.
+	 */
 	@GET
-	@Produces({"application/json" })
+	@Produces({ "application/json" })
 	@Path("/names/")
-    @ReturnType("java.lang.List<String>")
-    public Response getSavedFilterNames(@QueryParam("queryname") String queryName)
-	{
+	public Response getSavedFilterNames(@QueryParam("queryname") String queryName) {
 		try {
 			Map<String, SaikuFilter> allFilters = getFiltersInternal(queryName);
 			List<String> filternames = new ArrayList<>(allFilters.keySet());
 			Collections.sort(filternames);
 			return Response.ok(filternames).build();
 
-		} catch(Exception e){
-			log.error("Cannot filter names",e);
+		} catch (Exception e) {
+			log.error("Cannot filter names", e);
 			String error = ExceptionUtils.getRootCauseMessage(e);
 			return Response.serverError().entity(error).build();
 		}
 	}
 
-
-  /**
-   * Get Saved Filters as JSON.
-   * @summary Get filters as JSON.
-   * @param queryName The query name.
-   * @param filterName The filter name.
-   * @return A response containing the JSON.
-   */
+	/**
+	 * Get Saved Filters as JSON.
+	 * 
+	 * @summary Get filters as JSON.
+	 * @param queryName  The query name.
+	 * @param filterName The filter name.
+	 * @return A response containing the JSON.
+	 */
 	@GET
-	@Produces({"application/json" })
+	@Produces({ "application/json" })
 	public Response getSavedFilters(
 			@QueryParam("query") String queryName,
-			@QueryParam("filtername") String filterName) 
-	{
+			@QueryParam("filtername") String filterName) {
 		try {
 			Map<String, SaikuFilter> allFilters = new HashMap<>();
 			if (StringUtils.isNotBlank(queryName)) {
@@ -148,43 +140,41 @@ public class FilterRepositoryResource {
 				allFilters = getFiltersInternal();
 			}
 			return Response.ok(allFilters).build();
-		} catch(Exception e){
-			log.error("Cannot get filter details",e);
+		} catch (Exception e) {
+			log.error("Cannot get filter details", e);
 			String error = ExceptionUtils.getRootCauseMessage(e);
 			return Response.serverError().entity(error).build();
 		}
 	}
 
-  /**
-   * Save filter
-   * @summary Save Filter.
-   * @param filterJSON The Filter JSON object.
-   * @return A response containing the filter.
-   */
+	/**
+	 * Save filter
+	 * 
+	 * @summary Save Filter.
+	 * @param filterJSON The Filter JSON object.
+	 * @return A response containing the filter.
+	 */
 	@POST
-	@Produces({"application/json" })
+	@Produces({ "application/json" })
 	@Path("/{filtername}")
-    @ReturnType("org.saiku.olap.dto.filter.SaikuFilter")
-    public Response saveFilter(
-			@FormParam ("filter") String filterJSON)
-	{
+	public Response saveFilter(
+			@FormParam("filter") String filterJSON) {
 		try {
-			
+
 			ObjectMapper mapper = new ObjectMapper();
-		    mapper.setVisibilityChecker(mapper.getVisibilityChecker().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
+			mapper.setVisibilityChecker(
+					mapper.getVisibilityChecker().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
 			SaikuFilter filter = mapper.readValue(filterJSON, SaikuFilter.class);
 			String username = sessionService.getAllSessionObjects().get("username").toString();
 			filter.setOwner(username);
 			Map<String, SaikuFilter> filters = getFiltersInternal();
 			filters.put(filter.getName(), filter);
 			return Response.ok(filter).build();
-		}
-		catch (Exception e) {
-			log.error("Cannot save filter (" + filterJSON + ")",e);
+		} catch (Exception e) {
+			log.error("Cannot save filter (" + filterJSON + ")", e);
 			String error = ExceptionUtils.getRootCauseMessage(e);
 			return Response.serverError().entity(error).build();
 		}
 	}
-
 
 }

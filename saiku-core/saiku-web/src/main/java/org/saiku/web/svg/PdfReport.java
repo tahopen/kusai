@@ -16,23 +16,23 @@ import org.apache.batik.transcoder.print.PrintTranscoder;
 import org.apache.commons.lang.StringUtils;
 import org.saiku.olap.dto.resultset.CellDataSet;
 import org.saiku.olap.dto.resultset.DataCell;
-
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.HeaderFooter;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.html.WebColors;
-import com.lowagie.text.pdf.PdfContentByte;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.html.WebColors;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 public class PdfReport {
 	private final ReportData section = new ReportData();
@@ -43,7 +43,7 @@ public class PdfReport {
 		section.setRowHeader(c.getCellSetHeaders());
 
 		Document document = new Document(PageSize.A4.rotate(), 0, 0, 30, 10);
-		Color color = WebColors.getRGBColor("#002266");
+		BaseColor color = WebColors.getRGBColor("#002266");
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		int dim = section.dimTab(c.getCellSetBody(), c.getCellSetHeaders());
@@ -53,13 +53,14 @@ public class PdfReport {
 			document.open();
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Date date = new Date();
-			document.setHeader(
-					new HeaderFooter(new Phrase("Saiku Export - " + dateFormat.format(date) + " Page: "), null));
+			document.addHeader(
+					("Saiku Export - " + dateFormat.format(date) + " Page: "), null);
 
 			ArrayList<ReportData.Section> rowGroups = section.section(c.getCellSetBody(), c.getCellSetHeaders(), 0, dim,
 					null);
 
-			populatePdf(document, rowGroups, dim, color, 0);
+			populatePdf(document, rowGroups, dim, new Color(color.getRed(), color.getBlue(),
+					color.getGreen()), 0);
 
 			// do we want to add a svg image?
 			if (StringUtils.isNotBlank(svg)) {
@@ -98,13 +99,12 @@ public class PdfReport {
 		return baos.toByteArray();
 	}
 
-	private Color color(Color c, float percent) {
-		Color end = new Color(255, 255, 255);
+	private BaseColor color(Color c, float percent) {
+		BaseColor end = new BaseColor(255, 255, 255);
 		int r = c.getRed() + (int) (percent * (end.getRed() - c.getRed()));
 		int b = c.getBlue() + (int) (percent * (end.getBlue() - c.getBlue()));
 		int g = c.getGreen() + (int) (percent * (end.getGreen() - c.getGreen()));
-		c = new Color(r, g, b);
-		return c;
+		return new BaseColor(r, g, b);
 	}
 
 	private void populatePdf(Document doc, ArrayList<ReportData.Section> section, int dim, Color color, float c) {
@@ -119,13 +119,14 @@ public class PdfReport {
 			table.setWidthPercentage(90);
 
 			Font myFont = FontFactory.getFont(
-					FontFactory.HELVETICA, 8, Color.WHITE);
+					FontFactory.HELVETICA, 8);
 			if (aSection.getDes() != null) {
 				if (aSection.getParent() != null && aSection.getParent().getDes() != null) {
 					aSection.setDes(aSection.getParent().getDes().trim() + "." + aSection.getDes().trim());
 				}
 				PdfPCell row = new PdfPCell(new Phrase(aSection.getDes(), myFont));
-				row.setBackgroundColor(color);
+				row.setBackgroundColor(new BaseColor(color.getRed(), color.getBlue(),
+						color.getGreen()));
 				row.setBorder(Rectangle.NO_BORDER);
 				row.setBorder(Rectangle.BOTTOM);
 				row.setTop(100);
@@ -187,7 +188,10 @@ public class PdfReport {
 				log.error("Error creating PDF", e);
 			}
 
-			populatePdf(doc, aSection.getChild(), dim, color(color, c + 0.15f), c);
+			BaseColor bc = color(color, c + 0.15f);
+
+			populatePdf(doc, aSection.getChild(), dim, new Color(
+					bc.getRed(), bc.getGreen(), bc.getBlue()), c);
 		}
 	}
 
