@@ -377,7 +377,6 @@
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>2.3</version>
             </plugin>
-            <!-- "Release Audit" report (checks license headers etc.) -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>rat-maven-plugin</artifactId>

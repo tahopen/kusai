@@ -334,8 +334,7 @@ public class Database {
             if (!fileObject.exists()) {
                 throw new IOException("File does not exist: " + path);
             }
-            repoURL = fileObject.getURL();
-            if (repoURL == null) {
+            if (fileObject.getURL() == null) {
                 throw new Exception(
                         "Cannot load connection repository from path: " + path);
             } else {
