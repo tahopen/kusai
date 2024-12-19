@@ -9,8 +9,6 @@ import org.saiku.datasources.datasource.SaikuDatasource;
 import org.saiku.service.datasource.IDatasourceManager;
 import org.saiku.service.importer.LegacyImporter;
 import org.saiku.service.importer.LegacyImporterImpl;
-import org.saiku.service.license.Base64Coder;
-import org.saiku.service.license.ILicenseUtils;
 
 import org.h2.jdbcx.JdbcDataSource;
 import org.slf4j.Logger;
@@ -47,18 +45,6 @@ public class Database {
 
     @Autowired
     ServletContext servletContext;
-
-    private ILicenseUtils licenseUtils;
-
-    private URL repoURL;
-
-    public ILicenseUtils getLicenseUtils() {
-        return licenseUtils;
-    }
-
-    public void setLicenseUtils(ILicenseUtils licenseUtils) {
-        this.licenseUtils = licenseUtils;
-    }
 
     private static final int SIZE = 2048;
 
@@ -371,59 +357,6 @@ public class Database {
             }
         } catch (Exception e) {
             //LOG_EELOADER.error("Exception", e);
-        }
-    }
-    public void importLicense() {
-        setPath("res:saiku-license");
-        try {
-            if (repoURL != null) {
-                File[] files = new File(repoURL.getFile()).listFiles();
-                if (files != null) {
-                    for (File file : files) {
-                        if (!file.isHidden() && file.getName().equals("license.lic")) {
-
-                            ObjectInputStream si = null;
-                            byte[] sig;
-                            byte[] data = null;
-                            try {
-                                si = new ObjectInputStream(new FileInputStream(file));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                            try {
-                                int sigLength = si.readInt();
-                                sig = new byte[sigLength];
-                                si.read(sig);
-
-                                ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
-                                byte[] buf = new byte[SIZE];
-                                int len;
-                                while ((len = si.read(buf)) != -1) {
-                                    dataStream.write(buf, 0, len);
-                                }
-                                dataStream.flush();
-                                data = dataStream.toByteArray();
-                                dataStream.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            } finally {
-                                try {
-                                    si.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-
-                            licenseUtils.setLicense(new String(Base64Coder.encode(data)));
-
-                        }
-                    }
-                }
-            }
-        } catch (Exception e1) {
-            e1.printStackTrace();
         }
     }
 }
