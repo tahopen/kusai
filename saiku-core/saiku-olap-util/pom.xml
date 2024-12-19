@@ -57,12 +57,6 @@
 		</plugins>
 	</build>
 	<dependencies>
-
-		<dependency>
-			<groupId>pentaho</groupId>
-			<artifactId>mondrian</artifactId>
-			<version>4.7.0.22-mdx-0.24</version>
-		</dependency>
 		<dependency>
 			<groupId>eigenbase</groupId>
 			<artifactId>eigenbase-properties</artifactId>

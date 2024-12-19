@@ -18,6 +18,7 @@
     </modules>
 
     <properties>
+        <parent.project.basedir>${project.basedir}</parent.project.basedir>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <top.dir>${project.basedir}</top.dir>
@@ -38,21 +39,6 @@
 
     <repositories>
         <repository>
-            <id>central</id>
-            <name>Maven Repository Switchboard</name>
-            <layout>default</layout>
-            <url>http://repo1.maven.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>key</id>
-            <url>https://repository.kyligence.io/repository/maven-public/</url>
-        </repository>
-
-        <repository>
             <id>clojars</id>
             <url>https://conjars.wensel.net/repo</url>
         </repository>
@@ -60,6 +46,11 @@
         <repository>
             <id>jboss</id>
             <url>https://repository.jboss.org/</url>
+        </repository>
+
+        <repository>
+            <id>key</id>
+            <url>https://repository.kyligence.io/repository/maven-public/</url>
         </repository>
 
         <repository>
@@ -77,9 +68,6 @@
             <name>Apache repo</name>
             <layout>default</layout>
             <url>https://repository.apache.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
         </repository>
 
         <repository>
@@ -88,18 +76,8 @@
         </repository>
 
         <repository>
-            <id>atlassian2</id>
-            <url>http://repository.opencastproject.org/</url>
-        </repository>
-
-        <repository>
             <id>unihill</id>
             <url>https://projects.sse.uni-hildesheim.de/qm/maven/</url>
-        </repository>
-
-        <repository>
-            <id>neomind</id>
-            <url>https://nexus.neomind.com.br/nexus/repository/neomind/gi/</url>
         </repository>
 
         <repository>
@@ -293,13 +271,11 @@
             <groupId>jdk.tools</groupId>
             <artifactId>jdk.tools</artifactId>
             <version>1.6</version>
-            <scope>system</scope>
-            <systemPath>C:\Users\sandrewTx08\Downloads\jdk.tools-1.6.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>pentaho</groupId>
             <artifactId>mondrian</artifactId>
-            <version>3.14.0.19-JS-2</version>
+            <version>4.7.0.22-mdx-0.24</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.olap4j</groupId>
@@ -310,6 +286,17 @@
     </dependencies>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>pentaho</groupId>
+                <artifactId>mondrian</artifactId>
+                <version>4.7.0.22-mdx-0.24</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.olap4j</groupId>
+                        <artifactId>olap4j-tck</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
             <dependency>
                 <groupId>com.sun.jersey.jersey-test-framework</groupId>
                 <artifactId>jersey-test-framework-core</artifactId>
@@ -684,17 +671,6 @@
                 <groupId>org.saiku</groupId>
                 <artifactId>saiku-query</artifactId>
                 <version>${saiku-query.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>pentaho</groupId>
-                <artifactId>mondrian</artifactId>
-                <version>4.7.0.22-mdx-0.24</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.olap4j</groupId>
-                        <artifactId>olap4j-tck</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <!-- Spring modules -->
             <dependency>

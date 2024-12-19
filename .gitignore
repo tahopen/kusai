@@ -42,7 +42,7 @@ osgitests/
 .mtj.tmp/
 
 # Package Files #
-*.jar
+target/
 *.war
 *.ear
 *.zip

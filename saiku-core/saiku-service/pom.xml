@@ -103,8 +103,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.0.2</version>
 				<configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
@@ -129,8 +129,6 @@
 		<dependency>
 			<groupId>org.saiku</groupId>
 			<artifactId>saiku-query</artifactId>
-			<scope>system</scope>
-			<systemPath>C:\Users\sandrewtx08\Documents\saiku-query\target\saiku-query-0.4-SNAPSHOT.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.saikuanalytics</groupId>
@@ -182,7 +180,12 @@
 		<dependency>
 			<groupId>pentaho</groupId>
 			<artifactId>mondrian</artifactId>
+			<version>4.7.0.22-mdx-0.24</version>
 			<exclusions>
+				<exclusion>
+					<groupId>org.olap4j</groupId>
+					<artifactId>olap4j-tck</artifactId>
+				</exclusion>
 				<exclusion>
 					<groupId>javax.servlet</groupId>
 					<artifactId>jsp-api</artifactId>
