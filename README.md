@@ -6,6 +6,8 @@
 
 ```sh
 ./start.sh
+./saiku-server/target/dist/saiku-server/set-java.sh
+./saiku-server/target/dist/saiku-server/start-saiku.sh
 ```
 
 <p align="center">
