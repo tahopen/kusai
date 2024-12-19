@@ -324,21 +324,6 @@
     </build>
     <repositories>
         <repository>
-            <id>Analytical Labs Repo</id>
-            <name>Analytical Labs Repo-releases</name>
-            <url>http://repo.meteorite.bi/repository/alabs-release-local/</url>
-        </repository>
-        <repository>
-            <id>Analytical Labs snapshots</id>
-            <name>Analytical Labs Repo-releases</name>
-            <url>http://repo.meteorite.bi/repository/alabs-snapshot-local</url>
-        </repository>
-        <repository>
-            <id>pentaho-third-party</id>
-            <url>http://nexus.pentaho.org/content/groups/omni</url>
-        </repository>
-
-        <repository>
             <id>central</id>
             <name>Maven Repository Switchboard</name>
             <layout>default</layout>
@@ -407,7 +392,7 @@
         <dependency>
             <groupId>pentaho</groupId>
             <artifactId>cpf-pentaho</artifactId>
-            <version>7.1.0.30-235</version>
+            <version>7.1.0.0-12</version>
             <exclusions>
                 <exclusion>
                     <groupId>pentaho</groupId>

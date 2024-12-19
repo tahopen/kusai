@@ -419,7 +419,7 @@
                     <artifactId>janino</artifactId>
                 </exclusion>
             </exclusions>
-            <version>6.0.0.0-353</version>
+            <version>6.1.0.3-223</version>
         </dependency>
         <dependency>
             <groupId>pentaho</groupId>
