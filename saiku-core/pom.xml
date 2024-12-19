@@ -13,11 +13,6 @@
     <name>saiku - core libraries</name>
     <version>3.17</version>
 
-    <properties>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-    </properties>
-
     <modules>
         <module>saiku-olap-util</module>
         <module>saiku-service</module>

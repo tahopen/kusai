@@ -40,8 +40,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.0.2</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
@@ -241,9 +241,9 @@
         </dependency>
 
         <dependency>
-            <groupId>iText</groupId>
-            <artifactId>iText</artifactId>
-            <version>5.0.1</version>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>4.2.0</version>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.htmlcleaner</groupId>
