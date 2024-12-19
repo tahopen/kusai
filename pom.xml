@@ -68,6 +68,11 @@
         </repository>
 
         <repository>
+            <id>jasper</id>
+            <url>https://jaspersoft.jfrog.io/artifactory/jrs-ce-addons-releases/</url>
+        </repository>
+
+        <repository>
             <id>apache</id>
             <name>Apache repo</name>
             <layout>default</layout>
@@ -290,6 +295,17 @@
             <version>1.6</version>
             <scope>system</scope>
             <systemPath>C:\Users\sandrewTx08\Downloads\jdk.tools-1.6.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>pentaho</groupId>
+            <artifactId>mondrian</artifactId>
+            <version>3.14.0.19-JS-2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.olap4j</groupId>
+                    <artifactId>olap4j-tck</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     <dependencyManagement>
