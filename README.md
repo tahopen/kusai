@@ -2,6 +2,12 @@
 
 <!-- [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a5a3157a6798401e980a5aabe37f3ede)](https://www.codacy.com/app/Spicule/saiku?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OSBI/saiku&amp;utm_campaign=Badge_Grade) -->
 
+## How to run
+
+```sh
+./start.sh
+```
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/OSBI/saiku/assets/L.png" align="left">
   <img src="https://raw.githubusercontent.com/OSBI/saiku/assets/R.png" align="right">
@@ -13,7 +19,7 @@
   </b>
 </p>
 
-***
+---
 
 <h1 align="center"><a href="https://www.meteorite.bi/products/saiku">Saiku Analytics</a></h1>
 <h2 align="center">The world's greatest open source OLAP browser</h2>
@@ -29,7 +35,7 @@
   <a href="https://twitter.com/SaikuAnalytics"><b>News</b></a>
 </p>
 
-***
+---
 
 <p align="justify">
   Saiku allows business users to explore complex data sources,
@@ -41,7 +47,7 @@
   <a href="https://www.meteorite.bi">(more)</a>
 </p>
 
-***
+---
 
 ## Setup
 
@@ -73,22 +79,22 @@ Saiku is open source and free to use. Our default server does ship with a licens
 
 ## Wiki
 
-* [Saiku Wiki](https://saiku-documentation.readthedocs.io/en/latest/)
+- [Saiku Wiki](https://saiku-documentation.readthedocs.io/en/latest/)
 
 ## Community
 
-* [Saiku Community](https://community.meteorite.bi/)
+- [Saiku Community](https://community.meteorite.bi/)
 
 ## Bugs and Feature Requests
 
-* [GitHub Issues](https://github.com/OSBI/saiku/issues/new)
+- [GitHub Issues](https://github.com/OSBI/saiku/issues/new)
 
 ## Discussion List
 
-* [Saiku Dev Group](https://groups.google.com/a/saiku.meteorite.bi/forum/#!forum/dev)
-* [Saiku User Group](https://groups.google.com/a/saiku.meteorite.bi/forum/#!forum/user)
-* [Stack Overflow](https://stackoverflow.com/questions/tagged/saiku)
-* [Freenode IRC - Channel: ##saiku](https://webchat.freenode.net/?randomnick=1&channels=%23%23saiku)
+- [Saiku Dev Group](https://groups.google.com/a/saiku.meteorite.bi/forum/#!forum/dev)
+- [Saiku User Group](https://groups.google.com/a/saiku.meteorite.bi/forum/#!forum/user)
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/saiku)
+- [Freenode IRC - Channel: ##saiku](https://webchat.freenode.net/?randomnick=1&channels=%23%23saiku)
 
 ## Browser Support
 
@@ -110,11 +116,11 @@ We do care about it.
 
 Check [CONTRIBUTING.md](./CONTRIBUTING.md) for more details. Some important information:
 
-* To get started, [sign the Contributor License Agreement](https://www.clahub.com/agreements/OSBI/saiku).
+- To get started, [sign the Contributor License Agreement](https://www.clahub.com/agreements/OSBI/saiku).
 
-* If you find a bug then please create an issue [here](https://github.com/OSBI/saiku/issues/new).
+- If you find a bug then please create an issue [here](https://github.com/OSBI/saiku/issues/new).
 
-* If you have a feature request, then please get in touch. We'd love to hear from you! Send a email for: [info@meteorite.bi](mailto:info@meteorite.bi)
+- If you have a feature request, then please get in touch. We'd love to hear from you! Send a email for: [info@meteorite.bi](mailto:info@meteorite.bi)
 
 ## History
 
