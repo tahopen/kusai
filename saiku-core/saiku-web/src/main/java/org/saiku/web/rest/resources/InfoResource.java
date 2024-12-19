@@ -18,8 +18,6 @@ package org.saiku.web.rest.resources;
 import org.saiku.service.PlatformUtilsService;
 import org.saiku.service.util.dto.Plugin;
 
-import com.qmino.miredot.annotations.ReturnType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

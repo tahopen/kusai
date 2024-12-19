@@ -21,8 +21,6 @@ import org.saiku.service.user.UserService;
 import org.saiku.service.util.exception.SaikuServiceException;
 import org.saiku.web.rest.objects.DataSourceMapper;
 
-import com.qmino.miredot.annotations.ReturnType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

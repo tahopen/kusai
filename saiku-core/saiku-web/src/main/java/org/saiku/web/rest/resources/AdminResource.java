@@ -27,7 +27,6 @@ import org.saiku.service.util.exception.SaikuDataSourceException;
 import org.saiku.service.util.exception.SaikuServiceException;
 import org.saiku.web.rest.objects.DataSourceMapper;
 
-import com.qmino.miredot.annotations.ReturnType;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
 

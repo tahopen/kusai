@@ -23,7 +23,6 @@ import org.saiku.service.util.exception.SaikuServiceException;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qmino.miredot.annotations.ReturnType;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;

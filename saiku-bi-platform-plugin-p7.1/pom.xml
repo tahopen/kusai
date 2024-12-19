@@ -402,11 +402,12 @@
                     <artifactId>janino</artifactId>
                 </exclusion>
             </exclusions>
-            <version>7.1.0.0-12</version>
+            <version>7.1.0.12-132</version>
         </dependency>
         <dependency>
             <groupId>pentaho</groupId>
             <artifactId>cpf-pentaho</artifactId>
+            <version>7.1.0.30-235</version>
             <exclusions>
                 <exclusion>
                     <groupId>pentaho</groupId>
@@ -424,10 +425,7 @@
                     <groupId>pentaho</groupId>
                     <artifactId>pentaho-platform-extensions</artifactId>
                 </exclusion>
-
             </exclusions>
-            <version>7.1.0.0-12</version>
-
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -440,7 +438,7 @@
         <dependency>
             <groupId>pentaho</groupId>
             <artifactId>pentaho-platform-repository</artifactId>
-            <version>7.1.0.0-12</version>
+            <version>7.1.0.31-241</version>
         </dependency>
         <!--
                 <dependency>

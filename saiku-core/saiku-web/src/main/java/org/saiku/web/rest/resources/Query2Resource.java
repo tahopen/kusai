@@ -30,7 +30,6 @@ import org.saiku.web.rest.util.RestUtil;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
-import com.qmino.miredot.annotations.ReturnType;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;

@@ -12,8 +12,6 @@ import org.saiku.service.license.Base64Coder;
 import org.saiku.service.user.UserService;
 import org.saiku.web.rest.objects.UserList;
 
-import com.qmino.miredot.annotations.ReturnType;
-
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;

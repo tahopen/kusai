@@ -127,11 +127,6 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>1.0.6</version>
-		</dependency>
-		<dependency>
 			<groupId>org.saiku</groupId>
 			<artifactId>saiku-query</artifactId>
 			<scope>system</scope>

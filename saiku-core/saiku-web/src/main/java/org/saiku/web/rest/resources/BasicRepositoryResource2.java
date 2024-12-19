@@ -29,7 +29,6 @@ import org.saiku.service.ISessionService;
 import org.saiku.service.datasource.DatasourceService;
 import org.saiku.service.util.exception.SaikuServiceException;
 
-import com.qmino.miredot.annotations.ReturnType;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
 
@@ -151,7 +150,6 @@ public class BasicRepositoryResource2 implements ISaikuRepository {
   @GET
   @Produces({"application/json" })
   @Path("/resource/acl")
-  @ReturnType("org.saiku.repository.AclEntry")
   public AclEntry getResourceAcl(@QueryParam("file") String file) {
 	try {
 	  String username = sessionService.getAllSessionObjects().get("username").toString();
