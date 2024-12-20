@@ -14,6 +14,14 @@
  *   limitations under the License.
  */
 
+var LICENSE_TRIAL = {
+	licenseType: "trial",
+	expiration: new Date(),
+	userLimit: 1,
+	name: "Community Edition",
+	email: "community@meteorite.bi",
+};
+
 /**
  * Model which fetches the information of license
  */
@@ -25,18 +33,9 @@ var License = Backbone.Model.extend({
 	},
 
 	fetch_license: function(path, callback) {
-		this.fetch({
-			success: function(res) {
-				if (callback && typeof(callback) === 'function') {
-					callback({status: 'success', data: res});
-				}
-			},
-			error: function(err) {
-				if (callback && typeof(callback) === 'function') {
-					callback({status: 'error', data: err});
-				}
-			}
-		});
+		callback({status: 'success', data: {toJSON: function() {
+			return LICENSE_TRIAL;
+		}}});
 	}
 });
 
@@ -60,12 +59,16 @@ var LicenseQuota = Backbone.Model.extend({
 		this.fetch({
 			success: function(res) {
 				if (callback && typeof(callback) === 'function') {
-					callback({status: 'success', data: res});
+					callback({status: 'success', data: {toJSON: function() {
+						return LICENSE_TRIAL;
+					}}});
 				}
 			},
 			error: function(err) {
 				if (callback && typeof(callback) === 'function') {
-					callback({status: 'error', data: err});
+					callback({status: 'success', data: function() {
+						return LICENSE_TRIAL;
+					}});
 				}
 			}
 		});
