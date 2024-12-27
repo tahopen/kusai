@@ -32,7 +32,6 @@ var SplashScreen = Backbone.View.extend({
                     '<li class="active"><a class="welcome head" href="#">Welcome</a></li>' +
                     '<li><a class="features head" href="#">Features</a></li>' +
                     '<li><a class="help head" href="#">Get Help</a></li>' +
-                    '<li class="enterprisetoggle enterprise"><a class="enterprise head" href="#">Enterprise</a></li>' +
                 '</ul>' +
                 '<h2>Explore Data. Visualise. Act.</h2>' +
             '</nav>' +
@@ -48,7 +47,6 @@ var SplashScreen = Backbone.View.extend({
                             '<li> <a href="http://www.meteorite.bi/products/saiku" target="_blank">Visit the website</a></li>' +
                             '<li><a class="help head" href="#">Tutorials</a></li>' +
                         '</ul>' +
-                        '<p class="fixed"><a class="enterprisetoggle button" href="http://meteorite.bi" target="_blank">Get Enterprise</a></p>' +
                     '</div>' +
                     '<div style="width: 40%; margin-left: 10%; float: left;" id="dyn_content" class="enterprisetoggle">' +
                         '<h2>Discover more about Saiku</h2>' +
@@ -88,13 +86,7 @@ var SplashScreen = Backbone.View.extend({
                             '<td>If you require more, <br/><a href="mailto:info@meteorite.bi">contact us</a> for support.</td>' +
                         '</tr>' +
                     '</table>' +
-                '</section>' +
-                '<section style="display: none !important; margin-top: 50px;" id="enterprise">' +
-                    '<h1 class="saikulogo">Saiku</h1>' +
-                    '<h2>Enterprise</h2>' +
-                    '<p>Saiku Enterprise is our fully supported and tested server and Pentaho plugin system. Buy Saiku Enterprise from as little as $15 per user per month and enjoy the addtional features Saiku Enterprise has to offer!</p>' +
-                    '<p>To find out more visit our <a href="http://meteorite.bi" target="_blank">site</a> or <a href="mailto:info@meteorite.bi">schedule a call</a> with one of us and we can show you why you should choose Saiku Enterprise!</p>' +
-                '</section>' +
+                '</section>' +           
             '</section>' +
         '</div>'
     ),

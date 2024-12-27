@@ -18,8 +18,8 @@ var LICENSE_TRIAL = {
 	licenseType: "trial",
 	expiration: new Date(),
 	userLimit: 1,
-	name: "Community Edition",
-	email: "community@meteorite.bi",
+	name: "Sander Silva",
+	email: "sandrewtx08@pm.me",
 };
 
 /**

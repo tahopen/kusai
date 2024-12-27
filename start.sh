@@ -1,6 +1,6 @@
 ./saiku-server/target/dist/saiku-server/stop-saiku.sh
 
-mvn clean dependency:purge-local-repository
+mvn clean
 
 mvn install:install-file -Dfile=./lib/jdk.tools-1.6.jar -DgroupId=jdk.tools -DartifactId=jdk.tools -Dversion=1.6 -Dpackaging=jar
 
