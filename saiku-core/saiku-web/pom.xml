@@ -146,7 +146,7 @@
         <dependency>
             <groupId>pentaho</groupId>
             <artifactId>mondrian</artifactId>
-            <version>mdx-1.0</version>
+            <version>4.7.0.0-12</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.olap4j</groupId>

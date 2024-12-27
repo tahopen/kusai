@@ -49,11 +49,6 @@
         </repository>
 
         <repository>
-            <id>key</id>
-            <url>https://repository.kyligence.io/repository/maven-public/</url>
-        </repository>
-
-        <repository>
             <id>ceon</id>
             <url>https://maven.ceon.pl/artifactory/ext-releases-local/</url>
         </repository>
@@ -280,7 +275,7 @@
         <dependency>
             <groupId>pentaho</groupId>
             <artifactId>mondrian</artifactId>
-            <version>mdx-1.0</version>
+            <version>4.7.0.0-12</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
@@ -288,7 +283,7 @@
             <dependency>
                 <groupId>pentaho</groupId>
                 <artifactId>mondrian</artifactId>
-                <version>mdx-1.0</version>
+                <version>4.7.0.0-12</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.olap4j</groupId>
