@@ -327,140 +327,12 @@
 
         </plugins>
     </build>
-    <repositories>
-        <!-- <repository>
-            <id>pnt</id>
-            <url>https://repo.orl.eng.hitachivantara.com/artifactory/pnt-mvn/</url>
-        </repository> -->
-
-        <repository>
-            <id>nui</id>
-            <url>https://nexus.nuiton.org/nexus/</url>
-        </repository>
-    </repositories>
     <dependencies>
-        <!--<dependency>
-            <groupId>org.saikuanalytics</groupId>
-            <artifactId>saiku-bi-platform-plugin-p5</artifactId>
-            <version>${pom.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>pentaho</groupId>
-                    <artifactId>mondrian</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>eigenbase</groupId>
-                    <artifactId>eigenbase-properties</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>eigenbase</groupId>
-                    <artifactId>eigenbase-resgen</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>eigenbase</groupId>
-                    <artifactId>eigenbase-xom</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>-->
-        <dependency>
-            <groupId>pentaho</groupId>
-            <artifactId>salesforce-partner</artifactId>
-            <version>24.0</version>
-        </dependency>
         <dependency>
             <groupId>org.saikuanalytics</groupId>
             <artifactId>saiku-service</artifactId>
+            <version>3.17</version>
         </dependency>
-        <dependency>
-            <groupId>org.saikuanalytics</groupId>
-            <artifactId>saiku-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.saikuanalytics</groupId>
-            <artifactId>saiku-olap-util</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>pentaho</groupId>
-            <artifactId>cpf-core</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>pentaho</groupId>
-                    <artifactId>salesforce-partner</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>janino</groupId>
-                    <artifactId>janino</artifactId>
-                </exclusion>
-            </exclusions>
-            <version>LATEST</version>
-        </dependency>
-        <dependency>
-            <groupId>pentaho</groupId>
-            <artifactId>cpf-pentaho</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>pentaho</groupId>
-                    <artifactId>pentaho-user-console-package</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>janino</groupId>
-                    <artifactId>janino</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>pentaho-kettle</groupId>
-                    <artifactId>kettle-ui-swt</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>pentaho</groupId>
-                    <artifactId>pentaho-platform-extensions</artifactId>
-                </exclusion>
-
-            </exclusions>
-            <version>LATEST</version>
-
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>pentaho</groupId>
-            <artifactId>pentaho-platform-repository</artifactId>
-            <version>LATEST</version>
-        </dependency>
-        <!--
-                <dependency>
-                    <groupId>pentaho</groupId>
-                    <artifactId>cda</artifactId>
-                    <version>TRUNK-SNAPSHOT</version>
-                </dependency>
-                <dependency>
-                     <groupId>pentaho-library</groupId>
-                      <artifactId>libloader</artifactId>
-                      <version>${pentaho.platform.version}</version>
-                </dependency>
-        -->
-        <!--	<dependency>
-                <groupId>pentaho</groupId>
-                <artifactId>mondrian</artifactId>
-                <version>3.6.7</version>
-            </dependency>
-            <dependency>
-                <groupId>eigenbase</groupId>
-                <artifactId>eigenbase-properties</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>eigenbase</groupId>
-                <artifactId>eigenbase-resgen</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>eigenbase</groupId>
-                <artifactId>eigenbase-xom</artifactId>
-            </dependency>-->
         <dependency>
             <groupId>org.olap4j</groupId>
             <artifactId>olap4j-xmla</artifactId>
@@ -493,10 +365,6 @@
             <artifactId>pentaho-platform-core</artifactId>
             <scope>provided</scope>
             <exclusions>
-                <exclusion>
-                    <groupId>pentaho</groupId>
-                    <artifactId>salesforce-partner</artifactId>
-                </exclusion>
                 <exclusion>
                     <groupId>gnujaxp</groupId>
                     <artifactId>gnujaxp</artifactId>
@@ -548,10 +416,6 @@
             <artifactId>pentaho-platform-extensions</artifactId>
             <scope>provided</scope>
             <exclusions>
-                <exclusion>
-                    <groupId>pentaho</groupId>
-                    <artifactId>salesforce-partner</artifactId>
-                </exclusion>
                 <exclusion>
                     <groupId>javax.faces</groupId>
                     <artifactId>jsf-api</artifactId>

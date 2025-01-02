@@ -10,7 +10,7 @@ Follow these steps to set up and run Kusai:
 
 Ensure that the `JAVA_HOME` and `PATH` environment variables are configured for JDK 8. Verify the setup by running:
 
-    $ java -version
+    java -version
 
 The output should confirm Java version 1.8.x, similar to the example below:
 
@@ -22,13 +22,13 @@ The output should confirm Java version 1.8.x, similar to the example below:
 
 Run the installation script to set up the required dependencies:
 
-    $ ./install.sh
+    ./install.sh
 
 ### 3\. Start the Server
 
 Start the Kusai server, which will be available at [http://localhost:8080](http://localhost:8080), by executing:
 
-    $ ./start.sh
+    ./start.sh
 
 ### 4\. Default Login Credentials
 

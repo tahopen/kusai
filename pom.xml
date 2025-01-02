@@ -60,11 +60,6 @@
             <id>jboss</id>
             <url>https://repository.jboss.org/</url>
         </repository>
-        
-        <repository>
-            <id>ceon</id>
-            <url>https://maven.ceon.pl/artifactory/ext-releases-local/</url>
-        </repository>
 
         <repository>
             <id>unihill</id>
@@ -75,6 +70,11 @@
             <id>magic</id>
             <url>https://developer.marklogic.com/maven2/</url>
         </repository>
+
+        <!-- <repository>
+            <id>ceon</id>
+            <url>https://maven.ceon.pl/artifactory/ext-releases-local/</url>
+        </repository> -->
     </repositories>
     <build>
         <plugins>
@@ -272,6 +272,36 @@
             <groupId>pentaho</groupId>
             <artifactId>mondrian</artifactId>
             <version>4.7.0.0-12</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho</groupId>
+            <artifactId>cpf-core</artifactId>
+            <version>7.1.0.0-12</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>pentaho</groupId>
+                    <artifactId>pentaho-platform-repository</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>pentaho</groupId>
+                    <artifactId>cpf-plugin</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>pentaho</groupId>
+            <artifactId>pentaho-platform-repository</artifactId>
+            <version>7.1.0.0-12</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>pentaho</groupId>
+                    <artifactId>cpf-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>pentaho</groupId>
+                    <artifactId>cpf-plugin</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     <dependencyManagement>
@@ -816,17 +846,6 @@
             </dependency>
             <dependency>
                 <groupId>pentaho</groupId>
-                <artifactId>cpf-core</artifactId>
-                <version>7.1.0.0-12</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>janino</groupId>
-                        <artifactId>janino</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>pentaho</groupId>
                 <artifactId>cpf-pentaho</artifactId>
                 <version>7.1.0.0-12</version>
                 <exclusions>
@@ -853,10 +872,6 @@
                 <artifactId>pentaho-platform-api</artifactId>
                 <version>${pentaho.platform.version}</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>pentaho</groupId>
-                <artifactId>pentaho-platform-repository</artifactId>
             </dependency>
             <dependency>
                 <groupId>pentaho</groupId>
