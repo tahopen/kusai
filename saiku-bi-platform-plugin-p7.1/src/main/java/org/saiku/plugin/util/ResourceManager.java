@@ -7,8 +7,6 @@ package org.saiku.plugin.util;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
-import org.saiku.service.license.Base64Coder;
-
 import org.pentaho.platform.api.engine.IPluginResourceLoader;
 import org.pentaho.platform.engine.core.system.PentahoSystem;
 

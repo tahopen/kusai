@@ -98,4 +98,21 @@
 			<version>1.2.14</version>
 		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>pentaho</groupId>
+				<artifactId>cpf-plugin</artifactId>
+				<version>7.1.0.0-12</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>pentaho</groupId>
+				<artifactId>pentaho-platform-ce-parent</artifactId>
+				<version>7.1.0.0-12</version>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

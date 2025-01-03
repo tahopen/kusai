@@ -52,29 +52,14 @@
         </repository>
 
         <repository>
-            <id>redhat</id>
-            <url>https://maven.repository.redhat.com/ga/</url>
-        </repository>
-
-        <repository>
-            <id>jboss</id>
-            <url>https://repository.jboss.org/</url>
-        </repository>
-
-        <repository>
-            <id>unihill</id>
-            <url>https://projects.sse.uni-hildesheim.de/qm/maven/</url>
+            <id>neomind</id>
+            <url>https://nexus.neomind.com.br/nexus/repository/neomind-jboss/</url>
         </repository>
 
         <repository>
             <id>magic</id>
             <url>https://developer.marklogic.com/maven2/</url>
         </repository>
-
-        <!-- <repository>
-            <id>ceon</id>
-            <url>https://maven.ceon.pl/artifactory/ext-releases-local/</url>
-        </repository> -->
     </repositories>
     <build>
         <plugins>

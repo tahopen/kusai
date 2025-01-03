@@ -21,8 +21,6 @@ import org.pentaho.platform.engine.core.system.PentahoSystem;
 import org.saiku.plugin.util.PentahoAuditHelper;
 import org.saiku.service.ISessionService;
 
-import bi.meteorite.license.LicenseVersionExpiredException;
-import bi.meteorite.license.SaikuLicense2;
 import org.saiku.service.user.UserService;
 
 import org.pentaho.platform.util.logging.SimpleLogger;
