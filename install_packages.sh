@@ -17,19 +17,35 @@ else
     JAR_DIR="$1"  # Directory provided
 fi
 
+# Function to extract metadata from MANIFEST.MF
+extract_manifest_metadata() {
+    local file="$1"
+    manifest=$(unzip -p "$file" META-INF/MANIFEST.MF 2>/dev/null)
+
+    groupId=$(echo "$manifest" | grep -i "^Implementation-Vendor-Id:" | head -n 1 | cut -d':' -f2 | xargs)
+    artifactId=$(echo "$manifest" | grep -i "^Implementation-Title:" | head -n 1 | cut -d':' -f2 | xargs)
+    version=$(echo "$manifest" | grep -i "^Implementation-Version:" | head -n 1 | cut -d':' -f2 | xargs)
+}
+
 # Function to process a single JAR file
 process_file() {
     local file="$1"
     local extension="${file##*.}"
 
     if [ "$extension" == "jar" ]; then
-        # Extract metadata from the JAR file
+        # Extract metadata from pom.properties
         pom_properties=$(unzip -p "$file" META-INF/maven/*/*/pom.properties 2>/dev/null)
 
         # Parse groupId, artifactId, and version
         groupId=$(echo "$pom_properties" | grep "^groupId=" | head -n 1 | cut -d'=' -f2 | xargs)
         artifactId=$(echo "$pom_properties" | grep "^artifactId=" | head -n 1 | cut -d'=' -f2 | xargs)
         version=$(echo "$pom_properties" | grep "^version=" | head -n 1 | cut -d'=' -f2 | xargs)
+
+        # If pom.properties metadata is incomplete, fall back to MANIFEST.MF
+        if [ -z "$groupId" ] || [ -z "$artifactId" ] || [ -z "$version" ]; then
+            echo "Falling back to MANIFEST.MF for metadata: $file"
+            extract_manifest_metadata "$file"
+        fi
 
         # Validate metadata
         if [ -z "$groupId" ] || [ -z "$artifactId" ] || [ -z "$version" ]; then

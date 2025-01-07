@@ -15,7 +15,7 @@
         <module>saiku-ui</module>
         <module>saiku-webapp</module>
         <module>saiku-server</module>
-        <!-- <module>saiku-bi-platform-plugin-p7.1</module> -->
+        <module>saiku-bi-platform-plugin-p7.1</module>
     </modules>
 
     <properties>
