@@ -500,7 +500,7 @@ var WorkspaceToolbar = Backbone.View.extend({
             window.location = Settings.REST_URL +
             this.workspace.query.url() + "/export/" + type + "/" + 
             this.workspace.query.getProperty('saiku.olap.result.formatter') + 
-            "?exportname=" + "\"" + encodeURIComponent(filename) + "." + type + "\"";
+            "?exportname=" + "\"" + encodeURIComponent(filename) + type + "\"";
         }
         else {
             window.location = Settings.REST_URL +
