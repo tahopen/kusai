@@ -72,11 +72,6 @@ public class JSConverter {
     }
 
     private static String appendSaikuCommercialIfNecessary(String content) {
-        if (getVersion() != null && !getVersion().contains("EE")) {
-            content =
-                content + "<div style='margin-top:10px;'><h5>Export Provided By Saiku Analytics Community Edition(http://meteorite.bi)"
-                    + "</h5></div>";
-        }
         content = content.replaceAll("&nbsp;", " ");
         content = content.replaceAll("&nbsp", " ");
         return content;

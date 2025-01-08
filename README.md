@@ -37,6 +37,14 @@ After starting the server, you can log in using the following default credential
 - **Username:** `admin`
 - **Password:** `admin`
 
+### Troubleshooting UI Changes
+
+When making UI updates, follow these steps to ensure changes are properly reflected:
+
+1. Clean Maven project:
+```bash
+mvn clean install
+
 ---
 
 For more information or troubleshooting, refer to the official Tahopen documentation or contact the support team.
