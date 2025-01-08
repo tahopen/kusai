@@ -491,6 +491,51 @@ var WorkspaceToolbar = Backbone.View.extend({
         (new ReportTitlesModal({ query: this.workspace.query })).render().open();
     },
 
+    handleExport: function(type, button) {
+        $('.processing, .processing_container').show();
+        $(button).addClass('disabled_toolbar');
+    
+        var downloadLink = document.createElement('a');
+        if(this.workspace.query.name!=undefined) {
+            var filename = this.workspace.query.name.substring(this.workspace.query.name.lastIndexOf('/')+1).slice(0, -5);
+            downloadLink.href = Settings.REST_URL +
+            this.workspace.query.url() + "/export/" + type + "/" + 
+            this.workspace.query.getProperty('saiku.olap.result.formatter') + 
+            "?exportname=" + "\"" + encodeURIComponent(filename) + type + "\"";
+        }
+        else {
+            downloadLink.href = Settings.REST_URL +
+            this.workspace.query.url() + "/export/" + type + "/" + 
+            this.workspace.query.getProperty('saiku.olap.result.formatter');
+        }
+    
+        // Create an iframe to track download completion
+        var downloadFrame = document.createElement('iframe');
+        downloadFrame.style.display = 'none';
+        document.body.appendChild(downloadFrame);
+    
+        // Start download
+        downloadFrame.src = downloadLink.href;
+    
+        // Monitor download completion
+        var checkDownload = setInterval(function() {
+            try {
+                if (downloadFrame.contentDocument.readyState === 'complete') {
+                    clearInterval(checkDownload);
+                    $('.processing, .processing_container').hide();
+                    $(button).removeClass('disabled_toolbar');
+                    document.body.removeChild(downloadFrame);
+                }
+            } catch(e) {
+                // If we can't access the iframe content, download is likely complete
+                clearInterval(checkDownload);
+                $('.processing, .processing_container').hide();
+                $(button).removeClass('disabled_toolbar');
+                document.body.removeChild(downloadFrame);
+            }
+        }, 1000);
+    },
+
     export_xls: function(event) {
 		if(this.workspace.query.name!=undefined){
 			var filename = this.workspace.query.name.substring(this.workspace.query.name.lastIndexOf('/')+1).slice(0, -5);
