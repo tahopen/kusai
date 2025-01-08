@@ -10,7 +10,7 @@ fi
 
 # Check if a specific JAR file or directory is provided
 if [ -z "$1" ]; then
-    JAR_DIR="./"  # Default to current directory
+    JAR_DIR="./lib"  # Default to current directory
 elif [ -f "$1" ]; then
     JAR_FILE="$1"  # Single JAR file provided
 else

@@ -42,8 +42,27 @@ After starting the server, you can log in using the following default credential
 When making UI updates, follow these steps to ensure changes are properly reflected:
 
 1. Clean Maven project:
+
 ```bash
 mvn clean install
+```
+
+# Kusai OLAP
+
+... (Existing content)
+
+### 2a. Configure Maven Settings
+
+Copy the provided [./settings.xml](settings.xml) to your Maven configuration directory:
+
+- Linux/MacOS: `~/.m2/settings.xml`
+- Windows: `C:\Users\YourUsername\.m2\settings.xml`
+
+If you don't have a `.m2` directory or `settings.xml` file, you can use this script to set it up:
+
+```bash:setup-maven.sh
+mkdir -p ~/.m2 && cp settings.xml ~/.m2/settings.xml
+```
 
 ---
 
