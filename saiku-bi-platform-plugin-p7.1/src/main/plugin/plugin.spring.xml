@@ -127,15 +127,7 @@
 	<pen:publish as-type="INTERFACES"/>
   </bean>
 
-
-
 	<bean id="repositoryDsManager" class="org.saiku.plugin.PentahoRepositoryResource"/>
-
-	<bean id="licenseBean" class="org.saiku.plugin.resources.PentahoLicenseResource">
-		<property name="licenseUtils" ref="licenseUtilsBeanPlugin"/>
-		<property name="userService" ref="userServiceBean"/>
-	</bean>
-
 
 	<bean id="startupBean" scope="singleton" class="org.saiku.web.rest.util.StartupResource"  init-method="init"  />
 	
