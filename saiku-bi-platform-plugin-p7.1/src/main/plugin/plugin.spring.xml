@@ -74,7 +74,6 @@
 	
 	<bean id="sessionService" class="org.saiku.plugin.PentahoSessionServiceSeven">
 		<property name="userService" ref="userServiceBean"/>
-		<property name="l" ref="licenseUtilsBeanPlugin"/>
 	</bean>
 
     <bean id="sessionResource" class="org.saiku.plugin.resources.PentahoSessionResource">
@@ -131,10 +130,6 @@
 
 
 	<bean id="repositoryDsManager" class="org.saiku.plugin.PentahoRepositoryResource"/>
-
-	<bean id="licenseUtilsBeanPlugin" class="org.saiku.plugin.LicenseUtils" init-method="init">
-		<property name="repositoryDatasourceManager" ref="repositoryDsManager"/>
-	</bean>
 
 	<bean id="licenseBean" class="org.saiku.plugin.resources.PentahoLicenseResource">
 		<property name="licenseUtils" ref="licenseUtilsBeanPlugin"/>
