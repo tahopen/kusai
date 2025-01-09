@@ -137,7 +137,7 @@ var Session = Backbone.Model.extend({
 
                 license.fetch_license('api/license/', function(opt) {
                     if (opt.status === 'success') {
-                        Settings.LICENSE = opt.data.toJSON();
+                        Settings.LICENSE = LICENSE_TRIAL;
                     }
                     if(Saiku.session.isAdmin) {
 
@@ -145,7 +145,7 @@ var Session = Backbone.Model.extend({
 
                         quota.fetch_quota('api/license/quota', function (opt) {
                             if (opt.status === 'success') {
-                                Settings.LICENSEQUOTA = opt.data.toJSON();
+                                Settings.LICENSEQUOTA = LICENSE_TRIAL;
                             }
                         });
                     }
