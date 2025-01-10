@@ -325,11 +325,7 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
-        </dependency>
+        </dependency>       
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>

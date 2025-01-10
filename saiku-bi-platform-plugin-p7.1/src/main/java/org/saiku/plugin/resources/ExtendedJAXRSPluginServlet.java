@@ -18,7 +18,7 @@ package org.saiku.plugin.resources;
 import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.spi.container.WebApplication;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
 import org.pentaho.platform.web.servlet.JAXRSPluginServlet;
 
 import java.io.IOException;

@@ -120,16 +120,8 @@
             <artifactId>spring-security-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
             <groupId>xml-apis</groupId>
@@ -233,15 +225,7 @@
                     <artifactId>batik-js</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>avalon-framework</groupId>
-            <artifactId>avalon-framework-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>avalon-framework</groupId>
-            <artifactId>avalon-framework-impl</artifactId>
-        </dependency>
+        </dependency>       
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>xmlgraphics-commons</artifactId>

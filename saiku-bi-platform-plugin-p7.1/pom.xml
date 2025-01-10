@@ -170,12 +170,11 @@
                                     <artifactId>jackson-annotations</artifactId>
                                     <outputDirectory>target/dist/saiku/lib</outputDirectory>
                                 </artifactItem>
-
-                                <!--<artifactItem>
+                                <artifactItem>
                                     <groupId>avalon-framework</groupId>
                                     <artifactId>avalon-framework</artifactId>
                                     <outputDirectory>target/dist/saiku/lib</outputDirectory>
-                                </artifactItem>-->
+                                </artifactItem>
                                 <artifactItem>
                                     <groupId>org.apache.xmlgraphics</groupId>
                                     <artifactId>xmlgraphics-commons</artifactId>
@@ -356,6 +355,16 @@
             </exclusions>
         </dependency>-->
         <dependency>
+            <groupId>avalon-framework</groupId>
+            <artifactId>avalon-framework-api</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>avalon-framework</groupId>
+            <artifactId>avalon-framework-impl</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.saikuanalytics</groupId>
             <artifactId>saiku-service</artifactId>
         </dependency>
@@ -401,16 +410,8 @@
 
             </exclusions>
             <version>8.3.0.0-371</version>
+        </dependency>
 
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
         <dependency>
             <groupId>pentaho</groupId>
             <artifactId>pentaho-platform-repository</artifactId>
@@ -605,15 +606,6 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-base</artifactId>
-            <version>2.5.1</version>
-        </dependency>
-        <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-client</artifactId>
         </dependency>
@@ -707,10 +699,6 @@
         <dependency>
             <groupId>net.sourceforge.htmlcleaner</groupId>
             <artifactId>htmlcleaner</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
             <groupId>com.orientechnologies</groupId>
