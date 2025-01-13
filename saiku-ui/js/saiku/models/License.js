@@ -14,60 +14,76 @@
  *   limitations under the License.
  */
 
+var LICENSE_TRIAL = {
+	licenseType: "trial",
+	expiration: Number.MAX_SAFE_INTEGER,
+	userLimit: 1,
+	name: "Sander Silva",
+	email: "sandrewtx08@pm.me",
+};
+
 /**
  * Model which fetches the information of license
  */
 var License = Backbone.Model.extend({
-	url: 'api/license',
+	url: "api/license",
 
-	initialize: function() {
-		_.bindAll(this, 'fetch_license');
+	initialize: function () {
+		_.bindAll(this, "fetch_license");
 	},
 
-	fetch_license: function(path, callback) {
-		this.fetch({
-			success: function(res) {
-				if (callback && typeof(callback) === 'function') {
-					callback({status: 'success', data: res});
-				}
+	fetch_license: function (path, callback) {
+		callback({
+			status: "success",
+			data: {
+				toJSON: function () {
+					return LICENSE_TRIAL;
+				},
 			},
-			error: function(err) {
-				if (callback && typeof(callback) === 'function') {
-					callback({status: 'error', data: err});
-				}
-			}
 		});
-	}
+	},
 });
 
 var LicenseUserModel = Backbone.Model.extend({
-	url: 'api/license/users'
+	url: "api/license/users",
 });
 
 var LicenseUsersCollection = Backbone.Collection.extend({
-	url: 'api/license/users',
-    model: LicenseUserModel
+	url: "api/license/users",
+	model: LicenseUserModel,
 });
 
 var LicenseQuota = Backbone.Model.extend({
-	url: 'api/license/quota',
+	url: "api/license/quota",
 
-	initialize: function() {
-		_.bindAll(this, 'fetch_quota');
+	initialize: function () {
+		_.bindAll(this, "fetch_quota");
 	},
 
-	fetch_quota: function(path, callback) {
+	fetch_quota: function (path, callback) {
 		this.fetch({
-			success: function(res) {
-				if (callback && typeof(callback) === 'function') {
-					callback({status: 'success', data: res});
+			success: function (res) {
+				if (callback && typeof callback === "function") {
+					callback({
+						status: "success",
+						data: {
+							toJSON: function () {
+								return LICENSE_TRIAL;
+							},
+						},
+					});
 				}
 			},
-			error: function(err) {
-				if (callback && typeof(callback) === 'function') {
-					callback({status: 'error', data: err});
+			error: function (err) {
+				if (callback && typeof callback === "function") {
+					callback({
+						status: "success",
+						data: function () {
+							return LICENSE_TRIAL;
+						},
+					});
 				}
-			}
+			},
 		});
-	}
+	},
 });
