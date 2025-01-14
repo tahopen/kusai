@@ -67,16 +67,6 @@ public class SessionService implements ISessionService {
 		this.anonymous = allow;
 	}
 
-	private ILicenseUtils l;
-
-	public ILicenseUtils getL() {
-		return l;
-	}
-
-	public void setL(ILicenseUtils l) {
-		this.l = l;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
