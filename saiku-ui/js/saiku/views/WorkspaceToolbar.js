@@ -518,8 +518,12 @@ var WorkspaceToolbar = Backbone.View.extend({
                 a.click();
                 window.URL.revokeObjectURL(url);
                 $('.processing, .processing_container').hide();
-            }.bind(this));
-    },
+            }.bind(this))
+            .catch(function(error) {
+                console.error('Export failed:', error);
+                $('.processing, .processing_container').hide();
+            });
+    },    
     
     export_xls: function(event) {
         this.export_file('xls');
