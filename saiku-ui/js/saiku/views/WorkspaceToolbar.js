@@ -495,13 +495,17 @@ var WorkspaceToolbar = Backbone.View.extend({
         $('.processing, .processing_container').show();
         
         var extension = type;
-        var sliceLength = type === 'xls' ? -5 : -6;
-        
+        var filename = null;
         var url = Settings.REST_URL + this.workspace.query.url() + "/export/" + type + "/" + 
             this.workspace.query.getProperty('saiku.olap.result.formatter');
         
         if(this.workspace.query.name) {
-            var filename = this.workspace.query.name.substring(this.workspace.query.name.lastIndexOf('/')+1).slice(sliceLength);
+            filename = this.workspace.query.name
+                .substring(this.workspace.query.name.lastIndexOf('/')+1);
+            var lastDotIndex = filename.lastIndexOf('.');
+            filename = lastDotIndex !== -1 ? 
+                filename.substring(0, lastDotIndex) + '.' + extension :
+                filename + '.' + extension;
             url += "?exportname=" + "\"" + encodeURIComponent(filename) + "\"";
         }
     
@@ -513,7 +517,7 @@ var WorkspaceToolbar = Backbone.View.extend({
                 var url = window.URL.createObjectURL(blob);
                 var a = document.createElement('a');
                 a.href = url;
-                a.download = this.workspace.query.name || 'export.' + extension;
+                a.download = filename || 'export.' + extension;
                 document.body.appendChild(a);
                 a.click();
                 window.URL.revokeObjectURL(url);
@@ -523,7 +527,7 @@ var WorkspaceToolbar = Backbone.View.extend({
                 console.error('Export failed:', error);
                 $('.processing, .processing_container').hide();
             });
-    },    
+    },
     
     export_xls: function(event) {
         this.export_file('xls');
