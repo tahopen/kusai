@@ -491,44 +491,46 @@ var WorkspaceToolbar = Backbone.View.extend({
         (new ReportTitlesModal({ query: this.workspace.query })).render().open();
     },
 
+    export_file: function(type) {
+        $('.processing, .processing_container').show();
+        
+        var extension = type;
+        var sliceLength = type === 'xls' ? -5 : -6;
+        
+        var url = Settings.REST_URL + this.workspace.query.url() + "/export/" + type + "/" + 
+            this.workspace.query.getProperty('saiku.olap.result.formatter');
+        
+        if(this.workspace.query.name) {
+            var filename = this.workspace.query.name.substring(this.workspace.query.name.lastIndexOf('/')+1).slice(sliceLength);
+            url += "?exportname=" + "\"" + encodeURIComponent(filename) + "\"";
+        }
+    
+        fetch(url)
+            .then(function(response) {
+                return response.blob();
+            })
+            .then(function(blob) {
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = this.workspace.query.name || 'export.' + extension;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                $('.processing, .processing_container').hide();
+            }.bind(this));
+    },
+    
     export_xls: function(event) {
-		if(this.workspace.query.name!=undefined){
-			var filename = this.workspace.query.name.substring(this.workspace.query.name.lastIndexOf('/')+1).slice(0, -5);
-			window.location = Settings.REST_URL +
-			this.workspace.query.url() + "/export/xls/" + this.workspace.query.getProperty('saiku.olap.result.formatter')+"?exportname=" + "\"" + encodeURIComponent(filename)+"xls" + "\"";
-		}
-		else{
-			window.location = Settings.REST_URL +
-			this.workspace.query.url() + "/export/xls/" + this.workspace.query.getProperty('saiku.olap.result.formatter');
-		}
-
-
+        this.export_file('xls');
     },
-
+    
     export_csv: function(event) {
-		if(this.workspace.query.name!=undefined){
-			var filename = this.workspace.query.name.substring(this.workspace.query.name.lastIndexOf('/')+1).slice(0, -6);
-			window.location = Settings.REST_URL +
-			this.workspace.query.url() + "/export/csv/" + this.workspace.query.getProperty('saiku.olap.result.formatter')+"?exportname=" + "\"" + encodeURIComponent(filename) + "\"";
-		}
-		else{
-			window.location = Settings.REST_URL +
-			this.workspace.query.url() + "/export/csv/" + this.workspace.query.getProperty('saiku.olap.result.formatter');
-		}
-
+        this.export_file('csv'); 
     },
-
-
+    
     export_pdf: function(event) {
-		if(this.workspace.query.name!=undefined){
-			var filename = this.workspace.query.name.substring(this.workspace.query.name.lastIndexOf('/')+1).slice(0, -6);
-			window.location = Settings.REST_URL +
-			this.workspace.query.url() + "/export/pdf/" + this.workspace.query.getProperty('saiku.olap.result.formatter')+"?exportname=" + "\"" + encodeURIComponent(filename) + "\"";
-		}
-		else{
-			window.location = Settings.REST_URL +
-			this.workspace.query.url() + "/export/pdf/" + this.workspace.query.getProperty('saiku.olap.result.formatter');
-		}
+        this.export_file('pdf');
     },
 
     switch_to_mdx: function(event) {
