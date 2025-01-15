@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.saikuanalytics</groupId>
@@ -22,18 +24,6 @@
         <module>saiku-bi-platform-plugin-p7.1</module>
     </modules>
 
-    <distributionManagement>
-        <repository>
-            <id>utility</id>
-            <name>utility-releases</name>
-            <url>http://repo.meteorite.bi/repository/alabs-release-local/</url>
-        </repository>
-        <snapshotRepository>
-            <id>utility</id>
-            <name>utility-snapshots</name>
-            <url>http://repo.meteorite.bi/repository/alabs-snapshot-local/</url>
-        </snapshotRepository>
-    </distributionManagement>
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -46,106 +36,59 @@
         <tomcat.source>target/stage/tomcat/</tomcat.source>
         <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
         <calcite.version>0.9.2-incubating-SNAPSHOT</calcite.version>
-        <pentaho.libs.version>TRUNK-SNAPSHOT</pentaho.libs.version>
+        <pentaho.libs.version>LATEST</pentaho.libs.version>
         <pentaho.platform.version>5.0.0</pentaho.platform.version>
         <serenity.version>1.0.58</serenity.version>
         <jbehave.version>3.9.3</jbehave.version>
         <saiku-query.version>0.4-SNAPSHOT</saiku-query.version>
     </properties>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>Analytical Labs Plugin Repo</id>
-            <name>Analytical Labs Repo-releases</name>
-            <url>http://repo.meteorite.bi/repository/alabs-release-local/</url>
-        </pluginRepository>
-    </pluginRepositories>
 
     <repositories>
-        <repository>
-            <id>Analytical Labs Repo</id>
-            <name>Analytical Labs Repo-releases</name>
-            <url>http://repo.meteorite.bi/repository/alabs-release-local/</url>
-        </repository>
-        <repository>
-            <id>Analytical Labs snapshots</id>
-            <name>Analytical Labs Repo-releases</name>
-            <url>http://repo.meteorite.bi/repository/alabs-snapshot-local/</url>
-        </repository>
-        <repository>
-            <id>pentaho-third-party</id>
-            <url>http://nexus.pentaho.org/content/repositories/proxied-3rd-party-releases/</url>
-        </repository>
-        <repository>
-            <id>pentaho-public-release</id>
-            <url>http://nexus.pentaho.org/content/repositories/pentaho-public-release-repos/</url>
-        </repository>
-        <repository>
-            <id>pentaho-snapshot</id>
-            <url>http://nexus.pentaho.org/content/repositories/public-snapshots/</url>
-        </repository>
-        <!--<repository>
-            <id>atlassian2</id>
-            <url>http://repository.opencastproject.org/</url>
-        </repository>-->
-        <repository>
-            <id>central</id>
-            <name>Maven Repository Switchboard</name>
-            <layout>default</layout>
-            <url>http://repo1.maven.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
         <repository>
             <id>apache</id>
             <name>Apache repo</name>
             <layout>default</layout>
             <url>https://repository.apache.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
         </repository>
 
-        <repository>
-            <id>atlassian</id>
-            <name>Atlassian Public</name>
-            <layout>default</layout>
-            <url>https://maven.atlassian.com/content/repositories/atlassian-public</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-
-    	<repository>
-    		<id>pentaho-releases</id>
-    		<url>http://repository.pentaho.org/artifactory/repo/</url>
-    	</repository>
-
-        <repository>
-            <id>miredot</id>
-            <url>http://nexus.qmino.com/content/repositories/miredot/</url>
-        </repository>
         <repository>
             <id>clojars</id>
-            <url>http://clojars.org/repo/</url>
+            <url>https://conjars.wensel.net/repo</url>
+        </repository>
+
+        <repository>
+            <id>neomind</id>
+            <url>https://nexus.neomind.com.br/nexus/repository/neomind-jboss/</url>
+        </repository>
+
+        <repository>
+            <id>redhat</id>
+            <url>https://maven.repository.redhat.com/ga/</url>
+        </repository>
+
+        <repository>
+            <id>jboss</id>
+            <url>https://repository.jboss.org/</url>
+        </repository>
+
+        <repository>
+            <id>ceon</id>
+            <url>https://maven.ceon.pl/artifactory/ext-releases-local/</url>
+        </repository>
+
+        <repository>
+            <id>unihill</id>
+            <url>https://projects.sse.uni-hildesheim.de/qm/maven/</url>
+        </repository>
+
+        <repository>
+            <id>magic</id>
+            <url>https://developer.marklogic.com/maven2/</url>
         </repository>
     </repositories>
     <build>
         <plugins>
-
- <plugin>
-              <groupId>org.owasp</groupId>
-              <artifactId>dependency-check-maven</artifactId>
-              <version>2.1.1</version>
-              <executions>
-                  <execution>
-                      <goals>
-                          <goal>check</goal>
-                      </goals>
-                  </execution>
-              </executions>
-            </plugin>
-      <!--      <plugin>
+            <!--      <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-changes-plugin</artifactId>
                 <version>2.11</version>
@@ -197,11 +140,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <serverId>nexus</serverId>
-                    <nexusUrl>http://repo.meteorite.bi</nexusUrl>
-                    <skipStaging>true</skipStaging>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -314,9 +252,9 @@
         </plugins>
     </reporting>-->
     <profiles>
-            <profile>
-                <id>ci</id>
-                <modules>
+        <profile>
+            <id>ci</id>
+            <modules>
                 <module>saiku-core</module>
                 <module>saiku-ui</module>
                 <module>saiku-webapp</module>
@@ -455,7 +393,7 @@
             <dependency>
                 <groupId>org.olap4j</groupId>
                 <artifactId>olap4j</artifactId>
-                <version>TRUNK-SNAPSHOT</version>
+                <version>LATEST</version>
             </dependency>
             <dependency>
                 <groupId>org.mongodb</groupId>
@@ -506,7 +444,7 @@
             <dependency>
                 <groupId>org.olap4j</groupId>
                 <artifactId>olap4j-xmla</artifactId>
-                <version>TRUNK-SNAPSHOT</version>
+                <version>LATEST</version>
             </dependency>
             <dependency>
                 <groupId>org.olap4j</groupId>
@@ -1037,7 +975,7 @@
             <dependency>
                 <groupId>pentaho</groupId>
                 <artifactId>cda</artifactId>
-                <version>TRUNK-SNAPSHOT</version>
+                <version>LATEST</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.security</groupId>
