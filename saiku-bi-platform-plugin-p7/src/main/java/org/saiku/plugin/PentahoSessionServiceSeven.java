@@ -21,8 +21,6 @@ import org.pentaho.platform.engine.core.system.PentahoSystem;
 import org.saiku.plugin.util.PentahoAuditHelper;
 import org.saiku.service.ISessionService;
 
-import bi.meteorite.license.LicenseVersionExpiredException;
-import bi.meteorite.license.SaikuLicense2;
 import org.saiku.service.user.UserService;
 
 import org.pentaho.platform.util.logging.SimpleLogger;
@@ -46,18 +44,6 @@ import javax.servlet.http.HttpSession;
 
 
 public class PentahoSessionServiceSeven implements ISessionService {
-
-	private LicenseUtils l;
-
-
-	public LicenseUtils getL() {
-		return l;
-	}
-
-	public void setL(LicenseUtils l) {
-		this.l = l;
-	}
-
 	private static final Logger log = LoggerFactory.getLogger(PentahoSessionService.class);
 
 	private AuthenticationManager authenticationManager;
@@ -223,20 +209,8 @@ public class PentahoSessionServiceSeven implements ISessionService {
 	 * @see org.saiku.web.service.ISessionService#getSession(javax.servlet.http.HttpServletRequest)
 	 */
 	public Map<String,Object> getSession() throws Exception {
-
 		if (SecurityContextHolder.getContext() != null
-			&& SecurityContextHolder.getContext().getAuthentication() != null) {
-
-			try {
-
-
-				SaikuLicense2 sl = (SaikuLicense2) l.getLicense();
-
-				if (sl != null) try {
-					l.validateLicense();
-				} catch (RepositoryException | IOException | ClassNotFoundException e) {
-					log.error("Exception thrown when validating license", e);
-				}
+			&& SecurityContextHolder.getContext().getAuthentication() != null) {	
 				Object p = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				if (!sessionHolder.containsKey(p)) {
 					populateSession(p);
@@ -246,22 +220,8 @@ public class PentahoSessionServiceSeven implements ISessionService {
 				if (r.containsKey("password")) {
 					r.remove("password");
 				}
-				return r;
-
-			} catch (Exception e) {
-				if(e instanceof LicenseVersionExpiredException){
-					log.error("License is for wrong version. Please update your license http://licensing.meteorite.bi", e);
-					throw new Exception("License for wrong version please update your free license(http://licensing"
-										+ ".meteorite.bi)");
-				}
-				else {
-					log.error("No license found, please fetch a free license from http://licensing.meteorite.bi", e);
-					throw new Exception("No license found, please fetch a free license from http://licensing.meteorite"
-										+ ".bi and move it to: pentaho-solutions/system/saiku/license.lic");
-				}
-
+				return r;		
 			}
-
 		}
 		return null;
 	}

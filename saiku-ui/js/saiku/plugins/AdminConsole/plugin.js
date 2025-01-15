@@ -62,7 +62,7 @@ var AdminConsole = Backbone.View.extend({
 
         license.fetch_license('api/license/', function(opt) {
             if (opt.status === 'success') {
-                that.licenseInfo = opt.data.toJSON();
+                that.licenseInfo = LICENSE_TRIAL;
                 that.licenseUsers = new LicenseUsersCollection(null, {});
                 that.licenseUsers.fetch();
             }
