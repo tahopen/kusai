@@ -313,7 +313,7 @@ var Workspace = Backbone.View.extend({
         // Adjust the dimensions of the results window
         var editorHeight = $(this.el).find('.workspace_editor').is(':hidden') ? 0 : $(this.el).find('.workspace_editor').height();
         var processingHeight = $(this.el).find('.query_processing').is(':hidden') ? 0 : $(this.el).find('.query_processing').height() + 62;
-        var upgradeHeight = $(this.el).find('.upgradeheader').is(':hidden') ? 0 : $(this.el).find('.upgrade').height();
+        var upgradeHeight = 0;
 
         $(this.el).find('.workspace_results').css({
             height: $("body").height() - heightReduction -

@@ -21,11 +21,18 @@
 ./mvnw install:install-file -Dfile=./lib/pentaho-registry-7.1.0.0-12.jar -DgroupId=pentaho -DartifactId=pentaho-registry -Dversion=7.1.0.0-12 -Dpackaging=jar
 ./mvnw install:install-file -Dfile=./lib/kettle-engine-7.1.0.0-12.jar -DgroupId=pentaho-kettle -DartifactId=kettle-engine -Dversion=7.1.0.0-12 -Dpackaging=jar
 ./mvnw install:install-file -Dfile=./lib/kettle-core-7.1.0.0-12.jar -DgroupId=pentaho-kettle -DartifactId=kettle-core -Dversion=7.1.0.0-12 -Dpackaging=jar
+
+./mvnw clean
+./mvnw install -U
+
 ./mvnw dependency:purge-local-repository -DmanualInclude='org.pentaho.reporting.library:libformula,org.pentaho.reporting.library:libbase,org.pentaho.reporting.library:reporting-libraries'
 ./mvnw install:install-file -Dfile=./lib/libformula-7.1.0.0-12.jar -DgroupId=org.pentaho.reporting.library -DartifactId=libformula -Dversion=7.1.0.0-12 -Dpackaging=jar
 ./mvnw install:install-file -Dfile=./lib/libbase-7.1.0.0-12.jar -DgroupId=org.pentaho.reporting.library -DartifactId=libbase -Dversion=7.1.0.0-12 -Dpackaging=jar
-./mvnw dependency:purge-local-repository -DmanualInclude='pentaho.reporting.library:reporting-libraries'
+./mvnw dependency:purge-local-repository -DmanualInclude='org.pentaho.reporting.library:reporting-libraries'
+./mvnw dependency:purge-local-repository -DmanualInclude='org.pentaho.reporting:pentaho-reporting'
 ./mvnw install:install-file -Dfile=./lib/reporting-libraries-7.1.0.0-12.pom -DgroupId=org.pentaho.reporting.library -DartifactId=reporting-libraries -Dversion=7.1.0.0-12 -Dpackaging=pom
+./mvnw install:install-file -Dfile=./lib/reporting-libraries-7.1.0.0-12.pom -DgroupId=org.pentaho.reporting -DartifactId=pentaho-reporting -Dversion=7.1.0.0-12 -Dpackaging=pom
 ./mvnw install:install-file -Dfile=./lib/pentaho-versionchecker-7.1.0.0-12.jar -DgroupId=pentaho -DartifactId=pentaho-versionchecker -Dversion=7.1.0.0-12 -Dpackaging=jar
+
 ./mvnw clean
 ./mvnw install -U
