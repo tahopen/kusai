@@ -21,53 +21,67 @@
  * @param  {window} window Window is passed through as local variable rather than global
  * @return {String} Encoding data
  */
-;(function(window) {
-	'use strict';
+(function (window) {
+	"use strict";
 
-	var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+	var characters =
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 	var fromCharCode = String.fromCharCode;
-	var INVALID_CHARACTER_ERR = (function() {
-			// Fabricate a suitable error object
-			try {
-				document.createElement('$');
-			}
-			catch(error) {
-				return error;
-			}
-		}());
+	var INVALID_CHARACTER_ERR = (function () {
+		// Fabricate a suitable error object
+		try {
+			document.createElement("$");
+		} catch (error) {
+			return error;
+		}
+	})();
 
 	// Encoder
-	window.Base64 || (
-		window.Base64 = { encode: function(string) {
-			var a, b, b1, b2, b3, b4, c, i = 0,
-				len = string.length, max = Math.max, result = '';
+	window.Base64 ||
+		(window.Base64 = {
+			encode: function (string) {
+				var a,
+					b,
+					b1,
+					b2,
+					b3,
+					b4,
+					c,
+					i = 0,
+					len = string.length,
+					max = Math.max,
+					result = "";
 
-			while (i < len) {
-				a = string.charCodeAt(i++) || 0;
-				b = string.charCodeAt(i++) || 0;
-				c = string.charCodeAt(i++) || 0;
+				while (i < len) {
+					a = string.charCodeAt(i++) || 0;
+					b = string.charCodeAt(i++) || 0;
+					c = string.charCodeAt(i++) || 0;
 
-				if (max(a, b, c) > 0xFF) {
-					throw INVALID_CHARACTER_ERR;
+					if (max(a, b, c) > 0xff) {
+						throw INVALID_CHARACTER_ERR;
+					}
+
+					b1 = (a >> 2) & 0x3f;
+					b2 = ((a & 0x3) << 4) | ((b >> 4) & 0xf);
+					b3 = ((b & 0xf) << 2) | ((c >> 6) & 0x3);
+					b4 = c & 0x3f;
+
+					if (!b) {
+						b3 = b4 = 64;
+					} else if (!c) {
+						b4 = 64;
+					}
+					result +=
+						characters.charAt(b1) +
+						characters.charAt(b2) +
+						characters.charAt(b3) +
+						characters.charAt(b4);
 				}
 
-				b1 = (a >> 2) & 0x3F;
-				b2 = ((a & 0x3) << 4) | ((b >> 4) & 0xF);
-				b3 = ((b & 0xF) << 2) | ((c >> 6) & 0x3);
-				b4 = c & 0x3F;
-
-				if (!b) {
-					b3 = b4 = 64;
-				}
-				else if (!c) {
-					b4 = 64;
-				}
-				result += characters.charAt(b1) + characters.charAt(b2) + characters.charAt(b3) + characters.charAt(b4);
-			}
-
-			return result;
-		}});
-}(this));
+				return result;
+			},
+		});
+})(this);
 
 /**
  * IE Browser detection
@@ -75,36 +89,37 @@
  * @public
  * @return {Boolean} If `true` return the value of `v`, else return `false`
  */
-var isIE = (function() {
-	'use strict';
+var isIE = (function () {
+	"use strict";
 
-	var undef, v = 3;
+	var undef,
+		v = 3;
 	var dav = navigator.appVersion;
 
-	if (dav.indexOf('MSIE') !== -1) {
-		v  = parseFloat(dav.split('MSIE ')[1]);
+	if (dav.indexOf("MSIE") !== -1) {
+		v = parseFloat(dav.split("MSIE ")[1]);
 		return v > 4 ? v : false;
 	}
 
 	return false;
-}());
+})();
 
 /**
- * A client for working with files Saiku
+ * A client for working with files Kusai
  *
  * @class
  * @chainable
  * @example
- * 		var myClient = new SaikuClient({
+ * 		var myClient = new KusaiClient({
  * 			server: '/saiku',
  * 			path: '/rest/saiku/embed',
  * 			user: 'admin',
  * 			password: 'admin'
  * 		});
- * @return {SaikuClient} The SaikuClient instance (for chaining)
+ * @return {KusaiClient} The KusaiClient instance (for chaining)
  */
-var SaikuClient = (function() {
-	'use strict';
+var KusaiClient = (function () {
+	"use strict";
 
 	/**
 	 * The configuration settings for the request
@@ -122,11 +137,11 @@ var SaikuClient = (function() {
 	 * 		}
 	 */
 	var _settings = {
-		server: '/saiku',
-		path: '/rest/saiku/embed',
-		user: 'admin',
-		password: 'admin',
-		blockUI: false
+		server: "/saiku",
+		path: "/rest/saiku/embed",
+		user: "admin",
+		password: "admin",
+		blockUI: false,
 	};
 
 	/**
@@ -148,12 +163,12 @@ var SaikuClient = (function() {
 	 */
 	var _options = {
 		file: null,
-		render: 'table', // table || chart
-		mode: null,      // table: sparkline, sparkbar || chart: line, bar, treemap, ...
-		formatter: 'flattened', // Should be left unless you want an hierarchical resultset
-		htmlObject: '#saiku',
+		render: "table", // table || chart
+		mode: null, // table: sparkline, sparkbar || chart: line, bar, treemap, ...
+		formatter: "flattened", // Should be left unless you want an hierarchical resultset
+		htmlObject: "#saiku",
 		zoom: true,
-		params: {}
+		params: {},
 	};
 
 	/**
@@ -164,15 +179,18 @@ var SaikuClient = (function() {
 	 * @private
 	 * @default
 	 * 		{
-	 *      	'table': SaikuTableRenderer,
-	 *          'chart': SaikuChartRenderer
+	 *      	'table': KusaiTableRenderer,
+	 *          'chart': KusaiChartRenderer
 	 *      }
 	 */
 	var _saikuRendererFactory = {
-		'table': SaikuTableRenderer,
-		'chart': SaikuChartRenderer,
-		'map': typeof SaikuMapRenderer !== 'undefined' ? SaikuMapRenderer : '',
-		'playground': typeof SaikuPlaygroundRenderer !== 'undefined' ? SaikuPlaygroundRenderer : ''
+		table: KusaiTableRenderer,
+		chart: KusaiChartRenderer,
+		map: typeof KusaiMapRenderer !== "undefined" ? KusaiMapRenderer : "",
+		playground:
+			typeof KusaiPlaygroundRenderer !== "undefined"
+				? KusaiPlaygroundRenderer
+				: "",
 	};
 
 	/**
@@ -186,13 +204,19 @@ var SaikuClient = (function() {
 	function joinParameters(dataSchema, dataAxis) {
 		var parametersLevels = [];
 
-		_.each(dataAxis, function(axis) {
-			_.each(axis, function(value) {
-				_.each(value.levels, function(levels) {
+		_.each(dataAxis, function (axis) {
+			_.each(axis, function (value) {
+				_.each(value.levels, function (levels) {
 					if (levels.selection.parameterName) {
 						parametersLevels.push({
-							levels: dataSchema + '.' + value.name + '.[' + levels.name + ']',
-							parameterName: levels.selection.parameterName
+							levels:
+								dataSchema +
+								"." +
+								value.name +
+								".[" +
+								levels.name +
+								"]",
+							parameterName: levels.selection.parameterName,
 						});
 					}
 				});
@@ -209,20 +233,20 @@ var SaikuClient = (function() {
 	 * @private
 	 * @param  {Object} opts Settings for the request
 	 */
-	function SaikuClient(opts) {
+	function KusaiClient(opts) {
 		// Enforces new
-		if (!(this instanceof SaikuClient)) {
-			return new SaikuClient(opts);
+		if (!(this instanceof KusaiClient)) {
+			return new KusaiClient(opts);
 		}
 
 		this.settings = _.extend(_settings, opts);
 	}
 
 	/**
-	 * Method for execute the requests of files Saiku
+	 * Method for execute the requests of files Kusai
 	 *
 	 * @method execute
- 	 * @public
+	 * @public
 	 * @param  {Object} opts The configuration options to render the file on page
 	 * @example
 	 * 		myClient.execute({
@@ -231,19 +255,22 @@ var SaikuClient = (function() {
 	 *       	render: 'table',
 	 *      });
 	 */
-	SaikuClient.prototype.execute = function(opts) {
+	KusaiClient.prototype.execute = function (opts) {
 		var self = this;
 		var options = _.extend({}, _options, opts);
 		var parameters = {};
 
-		if (typeof ga !== 'undefined') {
-			ga('send', 'event', 'SaikuClient', 'Execute');
+		if (typeof ga !== "undefined") {
+			ga("send", "event", "KusaiClient", "Execute");
 		}
 
 		if ($.blockUI && this.settings.blockUI) {
-			$.blockUI.defaults.css = { 'color': 'black', 'font-weight': 'normal' };
+			$.blockUI.defaults.css = {
+				color: "black",
+				"font-weight": "normal",
+			};
 			$.blockUI.defaults.overlayCSS = {};
-			$.blockUI.defaults.blockMsgClass = 'processing';
+			$.blockUI.defaults.blockMsgClass = "processing";
 			$.blockUI.defaults.fadeOut = 0;
 			$.blockUI.defaults.fadeIn = 0;
 			$.blockUI.defaults.ignoreIfBlocked = false;
@@ -252,57 +279,85 @@ var SaikuClient = (function() {
 		if (options.params) {
 			for (var key in options.params) {
 				if (options.params.hasOwnProperty(key)) {
-					parameters['param' + key] = options.params[key];
+					parameters["param" + key] = options.params[key];
 				}
 			}
 		}
 
 		parameters = _.extend(
 			parameters,
-			{ 'formatter': options.formatter },
-			{ 'file': options.file }
+			{ formatter: options.formatter },
+			{ file: options.file }
 		);
 
 		if ($.blockUI && this.settings.blockUI) {
 			$(options.htmlObject).block({
-				message: '<span class="saiku_logo" style="float:left">&nbsp;&nbsp;</span> Executing....'
+				message:
+					'<span class="saiku_logo" style="float:left">&nbsp;&nbsp;</span> Executing....',
 			});
 		}
 
 		var params = {
-			url: self.settings.server + (self.settings.path ? self.settings.path : '') + '/export/saiku/json',
-			type: 'GET',
+			url:
+				self.settings.server +
+				(self.settings.path ? self.settings.path : "") +
+				"/export/saiku/json",
+			type: "GET",
 			cache: false,
 			data: parameters,
-			contentType: 'application/x-www-form-urlencoded',
-			dataType: 'json',
+			contentType: "application/x-www-form-urlencoded",
+			dataType: "json",
 			crossDomain: true,
 			async: true,
-			beforeSend: function(request) {
+			beforeSend: function (request) {
 				if (self.settings.user && self.settings.password) {
-					var auth = 'Basic ' + Base64.encode(
-							self.settings.user + ':' + self.settings.password
+					var auth =
+						"Basic " +
+						Base64.encode(
+							self.settings.user + ":" + self.settings.password
 						);
-					request.setRequestHeader('Authorization', auth);
+					request.setRequestHeader("Authorization", auth);
 					return true;
 				}
 			},
-			success: function(data, textStatus, jqXHR) {
+			success: function (data, textStatus, jqXHR) {
 				if (data.query && data.height > 0 && data.width > 0) {
-					var renderMode = data.query.properties['saiku.ui.render.mode'] ? data.query.properties['saiku.ui.render.mode'] : options.render;
-					var mode = data.query.properties['saiku.ui.render.type'] ? data.query.properties['saiku.ui.render.type'] : options.mode;
-					var chartDefinition = data.query.properties['saiku.ui.chart.options'] ? data.query.properties['saiku.ui.chart.options'].chartDefinition : '';
-					var mapDefinition = data.query.properties['saiku.ui.map.options'] ? data.query.properties['saiku.ui.map.options'] : '';
+					var renderMode = data.query.properties[
+						"saiku.ui.render.mode"
+					]
+						? data.query.properties["saiku.ui.render.mode"]
+						: options.render;
+					var mode = data.query.properties["saiku.ui.render.type"]
+						? data.query.properties["saiku.ui.render.type"]
+						: options.mode;
+					var chartDefinition = data.query.properties[
+						"saiku.ui.chart.options"
+					]
+						? data.query.properties["saiku.ui.chart.options"]
+								.chartDefinition
+						: "";
+					var mapDefinition = data.query.properties[
+						"saiku.ui.map.options"
+					]
+						? data.query.properties["saiku.ui.map.options"]
+						: "";
 					var dataSchema = data.query.cube.uniqueName;
 					var parametersValues = data.query.parameters;
 					var dataAxis = {};
 					var parametersLevels;
 
-					if (data.query.type === 'QUERYMODEL') {
+					if (data.query.type === "QUERYMODEL") {
 						dataAxis = {
-							dataFilter: data.query.queryModel.axes.FILTER['hierarchies'],
-							dataColumns: data.query.queryModel.axes.COLUMNS['hierarchies'],
-							dataRows: data.query.queryModel.axes.ROWS['hierarchies']
+							dataFilter:
+								data.query.queryModel.axes.FILTER[
+									"hierarchies"
+								],
+							dataColumns:
+								data.query.queryModel.axes.COLUMNS[
+									"hierarchies"
+								],
+							dataRows:
+								data.query.queryModel.axes.ROWS["hierarchies"],
 						};
 					}
 
@@ -313,78 +368,160 @@ var SaikuClient = (function() {
 						}
 
 						parametersLevels = joinParameters(dataSchema, dataAxis);
-						$(options.htmlObject).closest('.gs-w').data('parametersLevels', JSON.stringify(parametersLevels));
-						$(options.htmlObject).closest('.gs-w').data('parametersValues', JSON.stringify(parametersValues));
+						$(options.htmlObject)
+							.closest(".gs-w")
+							.data(
+								"parametersLevels",
+								JSON.stringify(parametersLevels)
+							);
+						$(options.htmlObject)
+							.closest(".gs-w")
+							.data(
+								"parametersValues",
+								JSON.stringify(parametersValues)
+							);
 
 						if (options.openDashboards) {
-							$(options.htmlObject).closest('.gs-w').data('id', options.htmlObject);
-							$(options.htmlObject).closest('.gs-w').data('title', options.title);
-							$(options.htmlObject).closest('.gs-w').data('file', options.file);
-							$(options.htmlObject).closest('.gs-w').data('htmlobject', options.htmlObject);
-							$(options.htmlObject).closest('.gs-w').data('render', options.render);
-							$(options.htmlObject).closest('.gs-w').data('mode', options.mode);
-							$(options.htmlObject).closest('.gs-w').data('chartDefinition', JSON.stringify(options.chartDefinition));
-							$(options.htmlObject).closest('.gs-w').data('mapDefinition', JSON.stringify(options.mapDefinition));
-						}
-						else if (options.dropDashboards) {
-							if (!(_.isEmpty(chartDefinition))) {
-								options['chartDefinition'] = chartDefinition;
-								$(options.htmlObject).closest('.gs-w').data('file', options.file);
-								$(options.htmlObject).closest('.gs-w').data('htmlobject', options.htmlObject);
-								$(options.htmlObject).closest('.gs-w').data('render', renderMode);
-								$(options.htmlObject).closest('.gs-w').data('mode', mode);
-								$(options.htmlObject).closest('.gs-w').data('chartDefinition', JSON.stringify(chartDefinition));
-							}
-							else if (!(_.isEmpty(mapDefinition))) {
-								if (Settings.MAPS && Settings.MAPS_TYPE === 'OSM') {
-									options['mapDefinition'] = mapDefinition;
-									$(options.htmlObject).closest('.gs-w').data('file', options.file);
-									$(options.htmlObject).closest('.gs-w').data('htmlobject', options.htmlObject);
-									$(options.htmlObject).closest('.gs-w').data('render', renderMode);
-									$(options.htmlObject).closest('.gs-w').data('mode', mode);
-									$(options.htmlObject).closest('.gs-w').data('mapDefinition', JSON.stringify(mapDefinition));
+							$(options.htmlObject)
+								.closest(".gs-w")
+								.data("id", options.htmlObject);
+							$(options.htmlObject)
+								.closest(".gs-w")
+								.data("title", options.title);
+							$(options.htmlObject)
+								.closest(".gs-w")
+								.data("file", options.file);
+							$(options.htmlObject)
+								.closest(".gs-w")
+								.data("htmlobject", options.htmlObject);
+							$(options.htmlObject)
+								.closest(".gs-w")
+								.data("render", options.render);
+							$(options.htmlObject)
+								.closest(".gs-w")
+								.data("mode", options.mode);
+							$(options.htmlObject)
+								.closest(".gs-w")
+								.data(
+									"chartDefinition",
+									JSON.stringify(options.chartDefinition)
+								);
+							$(options.htmlObject)
+								.closest(".gs-w")
+								.data(
+									"mapDefinition",
+									JSON.stringify(options.mapDefinition)
+								);
+						} else if (options.dropDashboards) {
+							if (!_.isEmpty(chartDefinition)) {
+								options["chartDefinition"] = chartDefinition;
+								$(options.htmlObject)
+									.closest(".gs-w")
+									.data("file", options.file);
+								$(options.htmlObject)
+									.closest(".gs-w")
+									.data("htmlobject", options.htmlObject);
+								$(options.htmlObject)
+									.closest(".gs-w")
+									.data("render", renderMode);
+								$(options.htmlObject)
+									.closest(".gs-w")
+									.data("mode", mode);
+								$(options.htmlObject)
+									.closest(".gs-w")
+									.data(
+										"chartDefinition",
+										JSON.stringify(chartDefinition)
+									);
+							} else if (!_.isEmpty(mapDefinition)) {
+								if (
+									Settings.MAPS &&
+									Settings.MAPS_TYPE === "OSM"
+								) {
+									options["mapDefinition"] = mapDefinition;
+									$(options.htmlObject)
+										.closest(".gs-w")
+										.data("file", options.file);
+									$(options.htmlObject)
+										.closest(".gs-w")
+										.data("htmlobject", options.htmlObject);
+									$(options.htmlObject)
+										.closest(".gs-w")
+										.data("render", renderMode);
+									$(options.htmlObject)
+										.closest(".gs-w")
+										.data("mode", mode);
+									$(options.htmlObject)
+										.closest(".gs-w")
+										.data(
+											"mapDefinition",
+											JSON.stringify(mapDefinition)
+										);
+								} else {
+									$(options.htmlObject)
+										.closest(".gs-w")
+										.data("file", options.file);
+									$(options.htmlObject)
+										.closest(".gs-w")
+										.data("htmlobject", options.htmlObject);
+									$(options.htmlObject)
+										.closest(".gs-w")
+										.data("render", "chart");
+									$(options.htmlObject)
+										.closest(".gs-w")
+										.data("mode", "stackedBar");
+									$(options.htmlObject)
+										.closest(".gs-w")
+										.data("chartDefinition", "");
+									$(options.htmlObject)
+										.closest(".gs-w")
+										.data("mapDefinition", "");
 								}
-								else {
-									$(options.htmlObject).closest('.gs-w').data('file', options.file);
-									$(options.htmlObject).closest('.gs-w').data('htmlobject', options.htmlObject);
-									$(options.htmlObject).closest('.gs-w').data('render', 'chart');
-									$(options.htmlObject).closest('.gs-w').data('mode', 'stackedBar');
-									$(options.htmlObject).closest('.gs-w').data('chartDefinition', '');
-									$(options.htmlObject).closest('.gs-w').data('mapDefinition', '');
-								}
-							}
-							else {
-								$(options.htmlObject).closest('.gs-w').data('file', options.file);
-								$(options.htmlObject).closest('.gs-w').data('htmlobject', options.htmlObject);
-								$(options.htmlObject).closest('.gs-w').data('render', renderMode);
-								$(options.htmlObject).closest('.gs-w').data('mode', mode);
-								$(options.htmlObject).closest('.gs-w').data('chartDefinition', '');
-								$(options.htmlObject).closest('.gs-w').data('mapDefinition', '');
+							} else {
+								$(options.htmlObject)
+									.closest(".gs-w")
+									.data("file", options.file);
+								$(options.htmlObject)
+									.closest(".gs-w")
+									.data("htmlobject", options.htmlObject);
+								$(options.htmlObject)
+									.closest(".gs-w")
+									.data("render", renderMode);
+								$(options.htmlObject)
+									.closest(".gs-w")
+									.data("mode", mode);
+								$(options.htmlObject)
+									.closest(".gs-w")
+									.data("chartDefinition", "");
+								$(options.htmlObject)
+									.closest(".gs-w")
+									.data("mapDefinition", "");
 							}
 						}
-					}
-					else {
+					} else {
 						renderMode = options.render;
 						mode = options.mode;
 					}
 
-					options['render'] = renderMode;
-					options['mode'] = mode;
+					options["render"] = renderMode;
+					options["mode"] = mode;
 
 					if (options.render in _saikuRendererFactory) {
-						var saikuRenderer = new _saikuRendererFactory[options.render](data, options);
+						var saikuRenderer = new _saikuRendererFactory[
+							options.render
+						](data, options);
 
-						if (options.render !== 'map') {
+						if (options.render !== "map") {
 							saikuRenderer.render();
-						}
-						else {
-							if (Settings.MAPS && Settings.MAPS_TYPE === 'OSM') {
+						} else {
+							if (Settings.MAPS && Settings.MAPS_TYPE === "OSM") {
 								saikuRenderer.renderMap();
-							}
-							else {
-								options.render = 'chart';
-								options.mode = 'stackedBar';
-								saikuRenderer = new _saikuRendererFactory[options.render](data, options);
+							} else {
+								options.render = "chart";
+								options.mode = "stackedBar";
+								saikuRenderer = new _saikuRendererFactory[
+									options.render
+								](data, options);
 								saikuRenderer.render();
 							}
 						}
@@ -392,35 +529,33 @@ var SaikuClient = (function() {
 						if ($.blockUI) {
 							$(options.htmlObject).unblock();
 						}
-					}
-					else {
-						alert('Render type ' + options.render + ' not found!');
+					} else {
+						alert("Render type " + options.render + " not found!");
 					}
 					if ($.blockUI) {
 						$(options.htmlObject).unblock();
 					}
-				}
-				else {
-					$(options.htmlObject).text('No data');
+				} else {
+					$(options.htmlObject).text("No data");
 
 					if ($.blockUI) {
 						$(options.htmlObject).unblock();
 					}
 				}
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error: function (jqXHR, textStatus, errorThrown) {
 				if ($.blockUI) {
 					$(options.htmlObject).unblock();
 				}
-				$(options.htmlObject).text('No data');
+				$(options.htmlObject).text("No data");
 				console.error(textStatus);
 				console.error(jqXHR);
 				console.error(errorThrown);
-			}
+			},
 		};
 
 		$.ajax(params);
 	};
 
-	return SaikuClient;
-}());
+	return KusaiClient;
+})();

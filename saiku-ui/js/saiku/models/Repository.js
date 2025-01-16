@@ -17,176 +17,186 @@
 /**
  * Repository query
  */
-var RepositoryUrl = 'api/repository';
+var RepositoryUrl = "api/repository";
 
-var repoPathUrl = function() {
-    /*
+var repoPathUrl = function () {
+	/*
     return (Settings.BIPLUGIN5 ? '/repository'
                     : (Settings.BIPLUGIN ? '/pentahorepository2' : '/repository2'));
     */
-    if (Settings.BIPLUGIN) {
-        return 'pentaho/repository';
-    }
+	if (Settings.BIPLUGIN) {
+		return "pentaho/repository";
+	}
 
-    return  RepositoryUrl;
+	return RepositoryUrl;
 };
 
 var RepositoryObject = Backbone.Model.extend({
-    initialize: function(args, options) {
-        if (options && options.dialog) {
-            this.dialog = options.dialog;
-            this.file = options.file;
-        }
-    },
+	initialize: function (args, options) {
+		if (options && options.dialog) {
+			this.dialog = options.dialog;
+			this.file = options.file;
+		}
+	},
 
-    parse: function(response) {
-        if (this.dialog) {
-            this.dialog.generate_grids_reports(response);
+	parse: function (response) {
+		if (this.dialog) {
+			this.dialog.generate_grids_reports(response);
 
-            return response;
-        }
-    },
+			return response;
+		}
+	},
 
-    url: function() {
-        var segment;
+	url: function () {
+		var segment;
 
-        if (this.file) {
-            segment = repoPathUrl() + '/resource?file=' + this.file;
-        }
-        else {
-            segment = repoPathUrl() + '/resource';
-        }
+		if (this.file) {
+			segment = repoPathUrl() + "/resource?file=" + this.file;
+		} else {
+			segment = repoPathUrl() + "/resource";
+		}
 
-        return segment;
-    }
+		return segment;
+	},
 });
 
 var RepositoryAclObject = Backbone.Model.extend({
-    url: function() {
-        var segment = repoPathUrl() + '/resource/acl';
+	url: function () {
+		var segment = repoPathUrl() + "/resource/acl";
 
-        return segment;
-    },
+		return segment;
+	},
 
-    parse: function(response) {
-        if (response !== 'OK') {
-            _.extend(this.attributes, response);
-        }
-    }
+	parse: function (response) {
+		if (response !== "OK") {
+			_.extend(this.attributes, response);
+		}
+	},
 });
 
 var RepositoryZipExport = Backbone.Model.extend({
-    url: function() {
-        var segment = repoPathUrl() + '/zip';
+	url: function () {
+		var segment = repoPathUrl() + "/zip";
 
-        return segment;
-    }
+		return segment;
+	},
 });
 
 var SavedQuery = Backbone.Model.extend({
-    initialize: function(args) {
-        if (args && args.svg) {
-            this.svg = args.svg;
-        }
-    },
+	initialize: function (args) {
+		if (args && args.svg) {
+			this.svg = args.svg;
+		}
+	},
 
-    parse: function(response) {
-        // console.log('response: ' + response);
-        // this.xml = response;
-    },
+	parse: function (response) {
+		// console.log('response: ' + response);
+		// this.xml = response;
+	},
 
-    url: function() {
-        var url;
+	url: function () {
+		var url;
 
-        if (Settings.EXTENDED_REPOSITORY_RESOURCE && this.svg) {
-            url = 'api/extendedrepository' + '/resourcemeta';
-        }
-        else {
-            url = repoPathUrl() + '/resource';
-        }
+		if (Settings.EXTENDED_REPOSITORY_RESOURCE && this.svg) {
+			url = "api/extendedrepository" + "/resourcemeta";
+		} else {
+			url = repoPathUrl() + "/resource";
+		}
 
-        return url;
-    },
+		return url;
+	},
 
-    move_query_to_workspace: function(model, response) {
-        var file = response;
-        var filename = model.get('file');
+	move_query_to_workspace: function (model, response) {
+		var file = response;
+		var filename = model.get("file");
 
-        for (var key in Settings) {
-            if (key.match('^PARAM') === 'PARAM') {
-                var variable = key.substring('PARAM'.length, key.length);
-                var Re = new RegExp('\\$\\{' + variable + '\\}', 'g');
-                var Re2 = new RegExp('\\$\\{' + variable.toLowerCase() + '\\}', 'g');
+		for (var key in Settings) {
+			if (key.match("^PARAM") === "PARAM") {
+				var variable = key.substring("PARAM".length, key.length);
+				var Re = new RegExp("\\$\\{" + variable + "\\}", "g");
+				var Re2 = new RegExp(
+					"\\$\\{" + variable.toLowerCase() + "\\}",
+					"g"
+				);
 
-                file = file.replace(Re, Settings[key]);
-                file = file.replace(Re2, Settings[key]);
-            }
-        }
+				file = file.replace(Re, Settings[key]);
+				file = file.replace(Re2, Settings[key]);
+			}
+		}
 
-        var query = new Query({
-            xml: file,
-            formatter: Settings.CELLSET_FORMATTER
-        },{
-            name: filename
-        });
+		var query = new Query(
+			{
+				xml: file,
+				formatter: Settings.CELLSET_FORMATTER,
+			},
+			{
+				name: filename,
+			}
+		);
 
-        var tab = Saiku.tabs.add(new Workspace({ query: query }));
-    }
+		var tab = Kusai.tabs.add(new Workspace({ query: query }));
+	},
 });
 
 /**
  * Repository adapter
  */
 var Repository = Backbone.Collection.extend({
-    model: SavedQuery,
+	model: SavedQuery,
 
-    file: null,
+	file: null,
 
-    initialize: function(args, options) {
-        if (options && options.dialog) {
-            this.dialog = options.dialog;
-            this.type = options.type;
-        }
-    },
+	initialize: function (args, options) {
+		if (options && options.dialog) {
+			this.dialog = options.dialog;
+			this.type = options.type;
+		}
+	},
 
-    parse: function(response) {
-        if (this.dialog) {
-            this.dialog.populate(response);
-        }
+	parse: function (response) {
+		if (this.dialog) {
+			this.dialog.populate(response);
+		}
 
-        return response;
-    },
+		return response;
+	},
 
-    url: function() {
-        var segment = repoPathUrl() + '?type=' + (this.type ? this.type : 'saiku,sdb');
+	url: function () {
+		var segment =
+			repoPathUrl() + "?type=" + (this.type ? this.type : "saiku,sdb");
 
-        if (Settings.REPO_BASE && !this.file) {
-            segment += '&path=' + Settings.REPO_BASE;
-        }
+		if (Settings.REPO_BASE && !this.file) {
+			segment += "&path=" + Settings.REPO_BASE;
+		}
 
-        return segment;
-    }
+		return segment;
+	},
 });
 
 var RepositoryLazyLoad = Backbone.Model.extend({
-    url: function() {
-        var segment = repoPathUrl() + '?type=' + (this.type ? this.type : 'saiku,sdb') + '&path=' + this.path;
-        return segment;
-    },
+	url: function () {
+		var segment =
+			repoPathUrl() +
+			"?type=" +
+			(this.type ? this.type : "saiku,sdb") +
+			"&path=" +
+			this.path;
+		return segment;
+	},
 
-    initialize: function(args, options) {
-        if (options && options.dialog) {
-            this.dialog = options.dialog;
-            this.folder = options.folder;
-            this.path = options.path;
-        }
-    },
+	initialize: function (args, options) {
+		if (options && options.dialog) {
+			this.dialog = options.dialog;
+			this.folder = options.folder;
+			this.path = options.path;
+		}
+	},
 
-    parse: function(response) {
-        if (this.dialog) {
-            this.dialog.populate_lazyload(this.folder, response);
-        }
+	parse: function (response) {
+		if (this.dialog) {
+			this.dialog.populate_lazyload(this.folder, response);
+		}
 
-        return response;
-    }
+		return response;
+	},
 });

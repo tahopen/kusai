@@ -1,4 +1,4 @@
-/*  
+/*
  *   Copyright 2012 OSBI Ltd
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,335 +18,378 @@
  * Allow the creation of buckets for queries
  */
 var Buckets = Backbone.View.extend({
+	events: {
+		"click .add_bucket": "add_bucket",
+		"click  a.save": "save_bucket",
+		"click .bucket": "click_bucket",
+		"click .delete": "delete_bucket",
+	},
 
-    events: {
-        'click .add_bucket': 'add_bucket',
-        'click  a.save' : 'save_bucket',
-        'click .bucket' : 'click_bucket',
-        'click .delete' : 'delete_bucket'
-    },
+	bucket_css: {
+		color: "#555",
+		"margin-right": "5px",
+		"text-decoration": "none",
+		border: "1px solid #ccc",
+		padding: "5px",
+		"-moz-border-radius": "3px",
+		"-webkit-border-radius": "3px",
+	},
 
-    bucket_css: { 
-        'color': '#555', 
-        'margin-right': '5px', 
-        'text-decoration': 'none', 
-        'border': '1px solid #ccc', 
-        'padding': '5px',
-        '-moz-border-radius': '3px',
-        '-webkit-border-radius': '3px'
-    },
+	tags: [],
+	bucket: null,
 
-    tags: [],
-    bucket: null,
+	tags_template: function () {
+		var self = this;
+		var t =
+			"<div class='bucket_items'><ul>" +
+			"<li><a href='#' class='add_bucket i18n button' title='Add new tag by selecting cells from your result!'> </a></li>";
+		_.each(this.tags, function (tag) {
+			t += self.tag_template(tag);
+		});
+		t += "</div>";
+		return t;
+	},
 
+	tag_template: function (tag) {
+		var title = tag.name + ": ";
+		_.each(tag.saikuTuples, function (tuple) {
+			var first = true;
+			title += " (";
+			_.each(tuple.saikuMembers, function (member) {
+				if (!first) {
+					title += ",  ";
+				}
+				first = false;
+				title += member.uniqueName;
+			});
+			title += ")";
+		});
 
-     tags_template: function() {
-            var self = this;
-            var t = "<div class='bucket_items'><ul>" +
-                "<li><a href='#' class='add_bucket i18n button' title='Add new tag by selecting cells from your result!'> </a></li>";
-            _.each(this.tags, function(tag) {
-              t += self.tag_template(tag);
-            });     
-            t += "</div>";
-            return t;
-    },
+		return (
+			"<li class='seperator'><a href='#" +
+			tag.name +
+			"' title='" +
+			title +
+			"' class='bucket button'>" +
+			tag.name +
+			"</a></li>" +
+			"<li style='padding-left:0px'><a class='delete' href='#" +
+			tag.name +
+			"'>x</a></li>"
+		);
+	},
 
-    tag_template: function(tag) {
-          var title = tag.name + ": ";
-        _.each(tag.saikuTuples, function(tuple) {
-            var first = true;
-            title += " (";
-            _.each(tuple.saikuMembers, function(member) {
-                    if (!first) {
-                        title += ",  ";
-                    }
-                    first = false;
-                    title += member.uniqueName;
-            });
-            title += ")";
-        });
+	initialize: function (args) {
+		this.workspace = args.workspace;
 
-          return "<li class='seperator'><a href='#" + tag.name + "' title='" + title + "' class='bucket button'>" + tag.name + "</a></li>" 
-          + "<li style='padding-left:0px'><a class='delete' href='#" + tag.name + "'>x</a></li>";
-    },
-    
+		// Create a unique ID for use as the CSS selector
+		this.id = _.uniqueId("buckets_");
+		$(this.el).attr({ id: this.id });
 
-    initialize: function(args) {
-        this.workspace = args.workspace;
-        
-        // Create a unique ID for use as the CSS selector
-        this.id = _.uniqueId("buckets_");
-        $(this.el).attr({ id: this.id });
-        
-        // Bind table rendering to query result event
-        _.bindAll(this, "render",  "show", "buildTemplate", "render", "deactivate_add_bucket", 
-            "add_bucket", "save_bucket", "click_bucket");
-        
-        // Add buckets button
-        this.add_button();
-        this.workspace.toolbar.buckets = this.show;
-        
-        // Listen to adjust event and rerender buckets
-        this.workspace.bind('workspace:adjust', this.render);
-        
-        $(this.workspace.el).find('.workspace_results')
-            .prepend($(this.el).hide());
+		// Bind table rendering to query result event
+		_.bindAll(
+			this,
+			"render",
+			"show",
+			"buildTemplate",
+			"render",
+			"deactivate_add_bucket",
+			"add_bucket",
+			"save_bucket",
+			"click_bucket"
+		);
 
+		// Add buckets button
+		this.add_button();
+		this.workspace.toolbar.buckets = this.show;
 
-    },
-    
-    add_button: function() {
-        var $stats_button = 
-            $('<a href="#buckets" class="buckets button disabled_toolbar i18n" title="Tags"></a>')
-            .css({  'background-image': "url('js/saiku/plugins/Buckets/tag_red.png')",
-                    'background-repeat':'no-repeat',
-                    'background-position':'50% 50%'
-                });
+		// Listen to adjust event and rerender buckets
+		this.workspace.bind("workspace:adjust", this.render);
 
-        var $stats_li = $('<li class="seperator"></li>').append($stats_button);
-        $(this.workspace.toolbar.el).find("ul").append($stats_li);
-    },
-    
-    show: function(event, ui) {
-        var self = this;
-        $(this.el).toggle();
-        $(event.target).toggleClass('on');
-        self.bucket = null;
-        if ($(event.target).hasClass('on')) {
-            if ($(self.workspace.toolbar.el).find(".zoom_mode.on").length > 0) {
-                $(self.workspace.toolbar.el).find(".zoom_mode.on").click();
-            }
+		$(this.workspace.el)
+			.find(".workspace_results")
+			.prepend($(this.el).hide());
+	},
 
-            
-            var schema = self.workspace.query.get('schema');
-            var cube = self.workspace.query.get('connection') + "-" + 
-                    self.workspace.query.get('catalog') + "-"
-                    + ((schema == "" || schema == null) ? "null" : schema) 
-                    + "-" + self.workspace.query.get('cube');
+	add_button: function () {
+		var $stats_button = $(
+			'<a href="#buckets" class="buckets button disabled_toolbar i18n" title="Tags"></a>'
+		).css({
+			"background-image": "url('js/saiku/plugins/Buckets/tag_red.png')",
+			"background-repeat": "no-repeat",
+			"background-position": "50% 50%",
+		});
 
+		var $stats_li = $('<li class="seperator"></li>').append($stats_button);
+		$(this.workspace.toolbar.el).find("ul").append($stats_li);
+	},
 
-            this.repo = new TagRepository({
-                cube: cube
-            }).fetch({success: this.buildTemplate});
-        } else {
-            this.workspace.query.action.del("/tag", { 
-                            success: this.workspace.query.run
-            });
-        }
-        
-    },
+	show: function (event, ui) {
+		var self = this;
+		$(this.el).toggle();
+		$(event.target).toggleClass("on");
+		self.bucket = null;
+		if ($(event.target).hasClass("on")) {
+			if ($(self.workspace.toolbar.el).find(".zoom_mode.on").length > 0) {
+				$(self.workspace.toolbar.el).find(".zoom_mode.on").click();
+			}
 
-    buildTemplate: function(model,response) {
-        this.tags = response;
-        this.render();
-    },
-    
-    render: function() {
-        if (! $(this.workspace.toolbar.el).find('.buckets').hasClass('on')) {
-            return;
-        }
+			var schema = self.workspace.query.get("schema");
+			var cube =
+				self.workspace.query.get("connection") +
+				"-" +
+				self.workspace.query.get("catalog") +
+				"-" +
+				(schema == "" || schema == null ? "null" : schema) +
+				"-" +
+				self.workspace.query.get("cube");
 
-        $(this.el).empty();
+			this.repo = new TagRepository({
+				cube: cube,
+			}).fetch({ success: this.buildTemplate });
+		} else {
+			this.workspace.query.action.del("/tag", {
+				success: this.workspace.query.run,
+			});
+		}
+	},
 
-        
-        var rendered = this.tags_template();
-        var $table = $(rendered);
-        if (this.bucket) {
-            $table.find('a.bucket[href="#' + this.bucket + '"]').addClass('on');
-        }
-        $(this.el).append($table);
+	buildTemplate: function (model, response) {
+		this.tags = response;
+		this.render();
+	},
 
+	render: function () {
+		if (!$(this.workspace.toolbar.el).find(".buckets").hasClass("on")) {
+			return;
+		}
 
-        
-    },
+		$(this.el).empty();
 
-    deactivate_add_bucket: function() {
-        var self = this;
-        var $addBtn = $(self.el).find('.add_bucket');
-        $addBtn.removeClass('on');
-        $(self.el).find('.new_bucket').parent().remove();
-        return;
-    },
+		var rendered = this.tags_template();
+		var $table = $(rendered);
+		if (this.bucket) {
+			$table.find('a.bucket[href="#' + this.bucket + '"]').addClass("on");
+		}
+		$(this.el).append($table);
+	},
 
-    add_bucket: function(event) {
-        var self = this;
-        var $addBtn = $(self.el).find('.add_bucket');
-        if ($addBtn.hasClass('on')) {
-            self.deactivate_add_bucket();
-            return;
-        }
-        $addBtn.addClass('on');
+	deactivate_add_bucket: function () {
+		var self = this;
+		var $addBtn = $(self.el).find(".add_bucket");
+		$addBtn.removeClass("on");
+		$(self.el).find(".new_bucket").parent().remove();
+		return;
+	},
 
-        
-        $("<li><input id='new_bucket' type='text' class='new_bucket'/></li><li>" 
-            + "<a href='#save_bucket' class='i18n save sprite button new_bucket' title='Save Tag'></a></li>")
-                            .insertAfter($(self.el).find('.bucket_items .add_bucket').parent());
+	add_bucket: function (event) {
+		var self = this;
+		var $addBtn = $(self.el).find(".add_bucket");
+		if ($addBtn.hasClass("on")) {
+			self.deactivate_add_bucket();
+			return;
+		}
+		$addBtn.addClass("on");
 
-        var clicked = function(event) {
-            $target = $(event.target).hasClass('data') ?
-                            $(event.target).find('div') : $(event.target);
+		$(
+			"<li><input id='new_bucket' type='text' class='new_bucket'/></li><li>" +
+				"<a href='#save_bucket' class='i18n save sprite button new_bucket' title='Save Tag'></a></li>"
+		).insertAfter($(self.el).find(".bucket_items .add_bucket").parent());
 
-            if ($target.parent().hasClass('selected')) {
-                $target.parent().removeClass('selected');
-            } else {
-                $target.parent().addClass('selected');
-            }
-        };
+		var clicked = function (event) {
+			$target = $(event.target).hasClass("data")
+				? $(event.target).find("div")
+				: $(event.target);
 
-        $(self.workspace.el).find("td.data").addClass('cellhighlight').unbind('click').click(clicked);
-        $(self.workspace.el).find(".query_scenario, .drillthrough, .drillthrough_export").removeClass('on');
-    },
+			if ($target.parent().hasClass("selected")) {
+				$target.parent().removeClass("selected");
+			} else {
+				$target.parent().addClass("selected");
+			}
+		};
 
-    save_bucket: function() {
-        var self = this;
-        var $cells = $(self.workspace.el).find("td.selected div");
-        if($cells.size() < 1) {
-            alert("You need to select at least 1 cell for tagging before you can save!");
-            return;
-        }
-        var positions = "";
-        $.each($cells, function(index,element) {
-            if (index > 0) {
-                positions += ",";
-            }
-            positions += $(element).attr('rel');
-            
-        });
+		$(self.workspace.el)
+			.find("td.data")
+			.addClass("cellhighlight")
+			.unbind("click")
+			.click(clicked);
+		$(self.workspace.el)
+			.find(".query_scenario, .drillthrough, .drillthrough_export")
+			.removeClass("on");
+	},
 
-        $(self.workspace.el).find("td.data").removeClass('cellhighlight').unbind('click');
-        $(self.workspace.el).find("td.selected").removeClass('selected');
+	save_bucket: function () {
+		var self = this;
+		var $cells = $(self.workspace.el).find("td.selected div");
+		if ($cells.size() < 1) {
+			alert(
+				"You need to select at least 1 cell for tagging before you can save!"
+			);
+			return;
+		}
+		var positions = "";
+		$.each($cells, function (index, element) {
+			if (index > 0) {
+				positions += ",";
+			}
+			positions += $(element).attr("rel");
+		});
 
-        var tagname = $(self.el).find('#new_bucket').val();
-        
-        var saveBucket = function(model, response) {
-            self.tags.push(model);
-            self.deactivate_add_bucket();
-                $tag = $(self.tag_template(model))
-                            .appendTo($(self.el).find('.bucket_items ul'));
-        };
+		$(self.workspace.el)
+			.find("td.data")
+			.removeClass("cellhighlight")
+			.unbind("click");
+		$(self.workspace.el).find("td.selected").removeClass("selected");
 
-        var schema = self.workspace.query.get('schema');
-        var cube = self.workspace.query.get('connection') + "-" + 
-                self.workspace.query.get('catalog') + "-"
-                + ((schema == "" || schema == null) ? "null" : schema) 
-                + "-" + self.workspace.query.get('cube');
+		var tagname = $(self.el).find("#new_bucket").val();
 
-        (new SaikuTag({
-            positions: positions,
-            name: tagname,
-            cube: cube,
-            queryname: self.workspace.query.id
-        },{success: saveBucket})).save();
+		var saveBucket = function (model, response) {
+			self.tags.push(model);
+			self.deactivate_add_bucket();
+			$tag = $(self.tag_template(model)).appendTo(
+				$(self.el).find(".bucket_items ul")
+			);
+		};
 
-    },
-    click_bucket: function(event) {
-        var tagName = $(event.target).attr('href').replace('#','');
-        var self = this;
-        if ($(event.target).hasClass('on')) {
-            $(event.target).removeClass('on');
-            self.bucket = null;
-            this.workspace.query.action.del("/tag", { 
-                            success: this.workspace.query.run
-            });
-        } else {
-            $(event.target).addClass('on');
-            self.bucket = tagName;
-            _.each(this.tags, function(tag) {
-                if (tag.name == tagName) {
-                    self.workspace.query.action.put("/tag", { 
-                          success: self.workspace.query.run, data: {tag:JSON.stringify(tag)}});
-                }
-            });     
-        }
-        $(event.target).parent().siblings().find('.on').removeClass('on');
-    },
+		var schema = self.workspace.query.get("schema");
+		var cube =
+			self.workspace.query.get("connection") +
+			"-" +
+			self.workspace.query.get("catalog") +
+			"-" +
+			(schema == "" || schema == null ? "null" : schema) +
+			"-" +
+			self.workspace.query.get("cube");
 
-    delete_bucket: function(event) {
-        var tagname = $(event.target).attr('href').replace('#','');
-        var self = this;
-        var al= function() {
-            alert('y');
-        };
+		new KusaiTag(
+			{
+				positions: positions,
+				name: tagname,
+				cube: cube,
+				queryname: self.workspace.query.id,
+			},
+			{ success: saveBucket }
+		).save();
+	},
+	click_bucket: function (event) {
+		var tagName = $(event.target).attr("href").replace("#", "");
+		var self = this;
+		if ($(event.target).hasClass("on")) {
+			$(event.target).removeClass("on");
+			self.bucket = null;
+			this.workspace.query.action.del("/tag", {
+				success: this.workspace.query.run,
+			});
+		} else {
+			$(event.target).addClass("on");
+			self.bucket = tagName;
+			_.each(this.tags, function (tag) {
+				if (tag.name == tagName) {
+					self.workspace.query.action.put("/tag", {
+						success: self.workspace.query.run,
+						data: { tag: JSON.stringify(tag) },
+					});
+				}
+			});
+		}
+		$(event.target).parent().siblings().find(".on").removeClass("on");
+	},
 
-        var schema = self.workspace.query.get('schema');
-        var cube = self.workspace.query.get('connection') + "-" + 
-                self.workspace.query.get('catalog') + "-"
-                + ((schema == "" || schema == null) ? "null" : schema) 
-                + "-" + self.workspace.query.get('cube');
+	delete_bucket: function (event) {
+		var tagname = $(event.target).attr("href").replace("#", "");
+		var self = this;
+		var al = function () {
+			alert("y");
+		};
 
+		var schema = self.workspace.query.get("schema");
+		var cube =
+			self.workspace.query.get("connection") +
+			"-" +
+			self.workspace.query.get("catalog") +
+			"-" +
+			(schema == "" || schema == null ? "null" : schema) +
+			"-" +
+			self.workspace.query.get("cube");
 
-        (new SaikuTag({
-            name: tagname,
-            id: 'dummy',
-            cube: cube
-        },{})).destroy();
+		new KusaiTag(
+			{
+				name: tagname,
+				id: "dummy",
+				cube: cube,
+			},
+			{}
+		).destroy();
 
-        $(event.target).parent().prev().remove();
-        $(event.target).parent().remove();
-    }
+		$(event.target).parent().prev().remove();
+		$(event.target).parent().remove();
+	},
 });
 
 /**
  * Start Plugin
- */ 
- Saiku.events.bind('session:new', function(session) {
+ */
+Kusai.events.bind("session:new", function (session) {
+	function new_workspace(args) {
+		// Add stats element
+		if (typeof args.workspace.buckets == "undefined") {
+			args.workspace.buckets = new Buckets({ workspace: args.workspace });
+			args.workspace.bind(
+				"query:result",
+				args.workspace.buckets.deactivate_add_bucket
+			);
+		}
+	}
 
-        function new_workspace(args) {
-            // Add stats element
-            if (typeof args.workspace.buckets == "undefined") {
-                args.workspace.buckets = new Buckets({ workspace: args.workspace });
-                args.workspace.bind('query:result', args.workspace.buckets.deactivate_add_bucket);
-            }
-        }
+	function clear_workspace(args) {
+		if (typeof args.workspace.buckets != "undefined") {
+			$(args.workspace.buckets.el).hide();
+		}
+	}
 
-        function clear_workspace(args) {
-                    if (typeof args.workspace.buckets != "undefined") {
-                        $(args.workspace.buckets.el).hide();
+	// Attach stats to existing tabs
+	for (var i = 0, len = Kusai.tabs._tabs.length; i < len; i++) {
+		var tab = Kusai.tabs._tabs[i];
+		new_workspace({
+			workspace: tab.content,
+		});
+	}
 
-                    }
-        }
-        
-        // Attach stats to existing tabs
-        for(var i = 0, len = Saiku.tabs._tabs.length; i < len; i++) {
-            var tab = Saiku.tabs._tabs[i];
-            new_workspace({
-                workspace: tab.content
-            });
-        };
+	// Attach stats to future tabs
+	Kusai.session.bind("workspace:new", new_workspace);
+	Kusai.session.bind("workspace:clear", clear_workspace);
+});
 
-        // Attach stats to future tabs
-        Saiku.session.bind("workspace:new", new_workspace);
-        Saiku.session.bind("workspace:clear", clear_workspace);
-    });
+var KusaiTag = Backbone.Model.extend({
+	initialize: function (args, options) {
+		_.extend(this.attributes, args);
+		if (options != null && options.success) {
+			this.parse = options.success;
+		}
+	},
 
-
-var SaikuTag = Backbone.Model.extend({
-    initialize: function(args, options) {
-        _.extend(this.attributes, args);
-        if (options != null && options.success) {
-            this.parse = options.success;
-        }
-
-    },
-
-    url: function() {
-        return encodeURI(Saiku.session.username + "/tags/" + this.get('cube') + "/" + this.get('name'));
-    }
+	url: function () {
+		return encodeURI(
+			Kusai.session.username +
+				"/tags/" +
+				this.get("cube") +
+				"/" +
+				this.get("name")
+		);
+	},
 });
 
 /**
  * Repository adapter
  */
 var TagRepository = Backbone.Collection.extend({
-    model: SaikuTag,
-    
-    initialize: function(args, options) {
-        this.cube = args.cube;
-    },
-    
-    
-    url: function() {
-        return encodeURI(Saiku.session.username + "/tags/" + this.cube);
-    }
+	model: KusaiTag,
+
+	initialize: function (args, options) {
+		this.cube = args.cube;
+	},
+
+	url: function () {
+		return encodeURI(Kusai.session.username + "/tags/" + this.cube);
+	},
 });
- 

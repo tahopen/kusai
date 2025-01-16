@@ -18,59 +18,63 @@
  * Router for opening query when session is initialized
  */
 var QueryRouter = Backbone.Router.extend({
-    routes: {
-        'query/open/*query_name': 'open_query',
-        'query/open': 'open_query_repository'
-    },
+	routes: {
+		"query/open/*query_name": "open_query",
+		"query/open": "open_query_repository",
+	},
 
-    open_query: function(query_name) {
-        Settings.ACTION = "OPEN_QUERY";
-        var options = {};
-        var dataType = "text";
-        if (!Settings.BIPLUGIN5 && Settings.BIPLUGIN) {
-            var file = (Settings.GET.SOLUTION ? (Settings.GET.SOLUTION + "/") : "") +
-                       (Settings.GET.PATH && Settings.GET.PATH != "/" ? (Settings.GET.PATH + "/") : "") +
-                       (Settings.GET.ACTION || "");
-            options = {
-                file: file
-            };
-        } else {
-            options = {
-                file: query_name
-            };
-        }
+	open_query: function (query_name) {
+		Settings.ACTION = "OPEN_QUERY";
+		var options = {};
+		var dataType = "text";
+		if (!Settings.BIPLUGIN5 && Settings.BIPLUGIN) {
+			var file =
+				(Settings.GET.SOLUTION ? Settings.GET.SOLUTION + "/" : "") +
+				(Settings.GET.PATH && Settings.GET.PATH != "/"
+					? Settings.GET.PATH + "/"
+					: "") +
+				(Settings.GET.ACTION || "");
+			options = {
+				file: file,
+			};
+		} else {
+			options = {
+				file: query_name,
+			};
+		}
 
-        var params = _.extend({
-                file: options.file
-            }, Settings.PARAMS);
+		var params = _.extend(
+			{
+				file: options.file,
+			},
+			Settings.PARAMS
+		);
 
-        var dialog = {
-            populate: function(repository) {
-                if (repository && repository.length > 0) {
-                    var f = repository[0];
-                    var query = new Query(params,{ name: options.file });
+		var dialog = {
+			populate: function (repository) {
+				if (repository && repository.length > 0) {
+					var f = repository[0];
+					var query = new Query(params, { name: options.file });
 
-                    Saiku.tabs.add(new Workspace({ query: query, item: repository[0] }));
+					Kusai.tabs.add(
+						new Workspace({ query: query, item: repository[0] })
+					);
+				} else {
+					Kusai.tabs.add(new Workspace());
+				}
+				Settings.INITIAL_QUERY = false;
+			},
+		};
 
-                } else {
-                    Saiku.tabs.add(new Workspace());
-                }
-                Settings.INITIAL_QUERY = false;
-            }
-        };
+		var repositoryFile = new Repository(
+			{},
+			{ dialog: dialog, file: options.file }
+		).fetch({ async: false, data: { path: options.file } });
+	},
 
-		var repositoryFile = new Repository({}, { dialog: dialog, file: options.file }).fetch({ async: false, data: { path: options.file }});
-
-
-
-
-
-
-    },
-
-    open_query_repository: function( ) {
-        Toolbar.prototype.open_query( );
-    }
+	open_query_repository: function () {
+		Toolbar.prototype.open_query();
+	},
 });
 
-Saiku.routers.push(new QueryRouter());
+Kusai.routers.push(new QueryRouter());

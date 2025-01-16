@@ -14,31 +14,35 @@
  *   limitations under the License.
  */
 
-'use strict';
+"use strict";
 
 // Necessary Plugins
-var gulp        = require('gulp');
-var url         = require('url');
-var proxy       = require('proxy-middleware');
-var browserSync = require('browser-sync');
-var paths       = require('../paths');
+var gulp = require("gulp");
+var url = require("url");
+var proxy = require("proxy-middleware");
+var browserSync = require("browser-sync");
+var paths = require("../paths");
 
 // Serve files from /www/
-module.exports = gulp.task('browser-sync', function() {
-  var files = [
-    paths.browserSync.html,
-    paths.browserSync.js,
-    paths.browserSync.cssBase,
-    paths.browserSync.cssSaiku,
-    paths.browserSync.img,
-  ];
-  var proxyUrl = paths.nodeProxy.protocol + '://' + paths.nodeProxy.hostname +
-    ':' + paths.nodeProxy.port;
+module.exports = gulp.task("browser-sync", function () {
+	var files = [
+		paths.browserSync.html,
+		paths.browserSync.js,
+		paths.browserSync.cssBase,
+		paths.browserSync.cssKusai,
+		paths.browserSync.img,
+	];
+	var proxyUrl =
+		paths.nodeProxy.protocol +
+		"://" +
+		paths.nodeProxy.hostname +
+		":" +
+		paths.nodeProxy.port;
 
-  browserSync.init(files, {
-    server: {
-      baseDir: paths.browserSync.html,
-      middleware: proxy(url.parse(proxyUrl))
-    }
-  });
+	browserSync.init(files, {
+		server: {
+			baseDir: paths.browserSync.html,
+			middleware: proxy(url.parse(proxyUrl)),
+		},
+	});
 });

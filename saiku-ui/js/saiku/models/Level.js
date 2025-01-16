@@ -20,32 +20,40 @@
  * @class Level
  */
 var Level = Backbone.Model.extend({
-    /**
-     * The constructor of view, it will be called when the view is first created
-     *
-     * @constructor
-     * @private
-     */
-    initialize: function(args, options) {
-        if (options && !(_.isEmpty(options))) {
-            this.ui = options.ui;
-            this.cube = options.cube;
-            this.dimension = options.dimension;
-            this.hierarchy = options.hierarchy;
-        }
-    },
+	/**
+	 * The constructor of view, it will be called when the view is first created
+	 *
+	 * @constructor
+	 * @private
+	 */
+	initialize: function (args, options) {
+		if (options && !_.isEmpty(options)) {
+			this.ui = options.ui;
+			this.cube = options.cube;
+			this.dimension = options.dimension;
+			this.hierarchy = options.hierarchy;
+		}
+	},
 
-    /**
-     * Returns the relative URL where the model's resource would be located on the server
-     *
-     * @method url
-     * @private
-     * @return {String} Relative URL
-     */
-    url: function() {
-        return Saiku.session.username + '/discover/' + this.cube + '/dimensions/' + this.dimension + '/hierarchies/' + 
-            this.hierarchy + '/levels';
-    }
+	/**
+	 * Returns the relative URL where the model's resource would be located on the server
+	 *
+	 * @method url
+	 * @private
+	 * @return {String} Relative URL
+	 */
+	url: function () {
+		return (
+			Kusai.session.username +
+			"/discover/" +
+			this.cube +
+			"/dimensions/" +
+			this.dimension +
+			"/hierarchies/" +
+			this.hierarchy +
+			"/levels"
+		);
+	},
 });
 
 /**
@@ -54,33 +62,42 @@ var Level = Backbone.Model.extend({
  * @class LevelMember
  */
 var LevelMember = Backbone.Model.extend({
-    /**
-     * The constructor of view, it will be called when the view is first created
-     *
-     * @constructor
-     * @private
-     */
-    initialize: function(args, options) {
-        if (options && !(_.isEmpty(options))) {
-            this.ui = options.ui;
-            this.cube = options.cube;
-            this.dimension = options.dimension;
-            this.hierarchy = options.hierarchy;
-            this.level = options.level;
-        }
-    },
+	/**
+	 * The constructor of view, it will be called when the view is first created
+	 *
+	 * @constructor
+	 * @private
+	 */
+	initialize: function (args, options) {
+		if (options && !_.isEmpty(options)) {
+			this.ui = options.ui;
+			this.cube = options.cube;
+			this.dimension = options.dimension;
+			this.hierarchy = options.hierarchy;
+			this.level = options.level;
+		}
+	},
 
-    /**
-     * Returns the relative URL where the model's resource would be located on the server
-     *
-     * @method url
-     * @private
-     * @return {String} Relative URL
-     */
-    url: function() {
-        return Saiku.session.username + '/discover/' + this.cube + '/dimensions/' + this.dimension + '/hierarchies/' + 
-            this.hierarchy + '/levels/' + encodeURIComponent(this.level);
-    }
+	/**
+	 * Returns the relative URL where the model's resource would be located on the server
+	 *
+	 * @method url
+	 * @private
+	 * @return {String} Relative URL
+	 */
+	url: function () {
+		return (
+			Kusai.session.username +
+			"/discover/" +
+			this.cube +
+			"/dimensions/" +
+			this.dimension +
+			"/hierarchies/" +
+			this.hierarchy +
+			"/levels/" +
+			encodeURIComponent(this.level)
+		);
+	},
 });
 
 /**
@@ -89,31 +106,38 @@ var LevelMember = Backbone.Model.extend({
  * @class LevelMember
  */
 var LevelChildMember = Backbone.Model.extend({
-    /**
-     * The constructor of view, it will be called when the view is first created
-     *
-     * @constructor
-     * @private
-     */
-    initialize: function(args, options) {
-        if (options && !(_.isEmpty(options))) {
-            this.ui = options.ui;
-            this.cube = options.cube;
-            this.uniqueName = options.uniqueName;
-            this.levelUniqueName = options.levelUniqueName;
-            this.mname = options.mname;
-            this.mcaption = options.mcaption;
-        }
-    },
+	/**
+	 * The constructor of view, it will be called when the view is first created
+	 *
+	 * @constructor
+	 * @private
+	 */
+	initialize: function (args, options) {
+		if (options && !_.isEmpty(options)) {
+			this.ui = options.ui;
+			this.cube = options.cube;
+			this.uniqueName = options.uniqueName;
+			this.levelUniqueName = options.levelUniqueName;
+			this.mname = options.mname;
+			this.mcaption = options.mcaption;
+		}
+	},
 
-    /**
-     * Returns the relative URL where the model's resource would be located on the server
-     *
-     * @method url
-     * @private
-     * @return {String} Relative URL
-     */
-    url: function() {
-        return Saiku.session.username + '/discover/' + this.cube + '/member/' + encodeURIComponent(this.uniqueName) + '/children';
-    }
+	/**
+	 * Returns the relative URL where the model's resource would be located on the server
+	 *
+	 * @method url
+	 * @private
+	 * @return {String} Relative URL
+	 */
+	url: function () {
+		return (
+			Kusai.session.username +
+			"/discover/" +
+			this.cube +
+			"/member/" +
+			encodeURIComponent(this.uniqueName) +
+			"/children"
+		);
+	},
 });

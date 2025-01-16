@@ -14,20 +14,20 @@
  *   limitations under the License.
  */
 
-'use strict';
+"use strict";
 
 module.exports = {
-  nodeProxy: {
-    protocol: 'http',
-    hostname: 'localhost',
-    port: '9999'
-  },
+	nodeProxy: {
+		protocol: "http",
+		hostname: "localhost",
+		port: "9999",
+	},
 
-  browserSync: {
-    html: './**/*.html',
-    cssBase: './css/**/*.css',
-    cssSaiku: './js/saiku/**/*.css',
-    js: './js/saiku/**/*.js',
-    img: './images/**/*'
-  }
+	browserSync: {
+		html: "./**/*.html",
+		cssBase: "./css/**/*.css",
+		cssKusai: "./js/saiku/**/*.css",
+		js: "./js/saiku/**/*.js",
+		img: "./images/**/*",
+	},
 };

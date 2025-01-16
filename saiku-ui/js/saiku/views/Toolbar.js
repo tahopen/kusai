@@ -18,133 +18,132 @@
  * The global toolbar
  */
 var Toolbar = Backbone.View.extend({
-    tagName: "div",
+	tagName: "div",
 
-    buttons: false,
+	buttons: false,
 
-    events: {
-        'click a' : 'call',
-        'click #logo': 'site'
-    },
+	events: {
+		"click a": "call",
+		"click #logo": "site",
+	},
 
-    template: function() {
-		var paramsURI = Saiku.URLParams.paramsURI();
+	template: function () {
+		var paramsURI = Kusai.URLParams.paramsURI();
 
-		if (Saiku.URLParams.contains({ hide_workspace_icons: paramsURI.hide_workspace_icons })) {
-			this.buttons =  paramsURI.hide_workspace_icons;
-
+		if (
+			Kusai.URLParams.contains({
+				hide_workspace_icons: paramsURI.hide_workspace_icons,
+			})
+		) {
+			this.buttons = paramsURI.hide_workspace_icons;
 		}
-        return _.template( $("#template-toolbar").html() )({data: this});
-    },
+		return _.template($("#template-toolbar").html())({ data: this });
+	},
 
-    initialize: function() {
-        _.extend(this, Backbone.Events);
-        _.bindAll(this, "call");
-        var self = this;
-        if(Settings.LOGO){
-            self.logo = "<h1 id='logo_override'>"+
-                "<img src='"+Settings.LOGO+"'/>"+
-                "</h1>";
-            self.render();
-        }
-        else{
-            self.logo = "<h1 id='logo'>"+
-                "<a href='http://www.meteorite.bi/' title='Saiku - Next Generation Open Source Analytics' target='_blank' class='sprite'>Saiku</a>"+
-                "</h1>";
-            self.render();
-        }
-    },
+	initialize: function () {
+		_.extend(this, Backbone.Events);
+		_.bindAll(this, "call");
+		var self = this;
+		if (Settings.LOGO) {
+			self.logo =
+				"<h1 id='logo_override'>" +
+				"<img src='" +
+				Settings.LOGO +
+				"'/>" +
+				"</h1>";
+			self.render();
+		} else {
+			self.logo =
+				"<h1 id='logo'>" +
+				"<a href='http://www.meteorite.bi/' title='Kusai - Next Generation Open Source Analytics' target='_blank' class='sprite'>Kusai</a>" +
+				"</h1>";
+			self.render();
+		}
+	},
 
-    render: function() {
-        $(this.el).attr('id', 'toolbar')
-            .html(this.template());
+	render: function () {
+		$(this.el).attr("id", "toolbar").html(this.template());
 
-        // Trigger render event on toolbar so plugins can register buttons
-        Saiku.events.trigger('toolbar:render', { toolbar: this });
+		// Trigger render event on toolbar so plugins can register buttons
+		Kusai.events.trigger("toolbar:render", { toolbar: this });
 
+		return this;
+	},
 
-        return this;
-    },
+	call: function (e) {
+		var target = $(e.target);
+		var callback = target.attr("href").replace("#", "");
+		if (this[callback]) {
+			this[callback](e);
+		}
+		e.preventDefault();
+	},
+	/**
+	 * Add a new tab to the interface
+	 */
+	new_query: function () {
+		if (typeof ga != "undefined") {
+			ga("send", "event", "MainToolbar", "New Query");
+		}
+		var wspace = new Workspace();
+		Kusai.tabs.add(wspace);
+		Kusai.events.trigger("toolbar:new_query", this, wspace);
+		return false;
+	},
 
-    call: function(e) {
-        var target = $(e.target);
-        var callback = target.attr('href').replace('#', '');
-        if(this[callback]) {
-            this[callback](e);
-        }
-        e.preventDefault();
-    },
-    /**
-     * Add a new tab to the interface
-     */
-    new_query: function() {
-        if(typeof ga!= 'undefined'){
-		ga('send', 'event', 'MainToolbar', 'New Query');
-        }
-        var wspace = new Workspace();
-        Saiku.tabs.add(wspace);
-        Saiku.events.trigger('toolbar:new_query', this, wspace);
-        return false;
-    },
+	/**
+	 * Open a query from the repository into a new tab
+	 */
+	open_query: function () {
+		var tab = _.find(Kusai.tabs._tabs, function (tab) {
+			return tab.content instanceof OpenQuery;
+		});
 
-    /**
-     * Open a query from the repository into a new tab
-     */
-    open_query: function() {
-        var tab = _.find(Saiku.tabs._tabs, function(tab) {
-            return tab.content instanceof OpenQuery;
-        });
+		if (tab) {
+			tab.select();
+		} else {
+			Kusai.tabs.add(new OpenQuery());
+		}
 
-        if (tab) {
-            tab.select();
-        } else {
-            Saiku.tabs.add(new OpenQuery());
-        }
+		return false;
+	},
 
-        return false;
-    },
+	/**
+	 * Clear the current session and show the login window
+	 */
+	logout: function () {
+		Kusai.session.logout();
+	},
 
-    /**
-     * Clear the current session and show the login window
-     */
-    logout: function() {
-					Saiku.session.logout();
+	/**
+	 * Show the credits dialog
+	 */
+	about: function () {
+		new AboutModal().render().open();
+		return false;
+	},
 
-    },
-
-    /**
-     * Show the credits dialog
-     */
-    about: function() {
-
-			(new AboutModal()).render().open();
-			return false;
-
-    },
-
-    /**
-     * Go to the issue tracker
-     */
-    issue_tracker: function() {
-        window.open('http://jira.meteorite.bi/');
-        return false;
-    },
+	/**
+	 * Go to the issue tracker
+	 */
+	issue_tracker: function () {
+		window.open("http://jira.meteorite.bi/");
+		return false;
+	},
 
 	/**
 	 * Go to the help
 	 */
-	help: function() {
-
-			window.open('http://saiku-documentation.readthedocs.io/en/latest');
-			return false;
-
+	help: function () {
+		window.open("http://saiku-documentation.readthedocs.io/en/latest");
+		return false;
 	},
 
-    /**
-     * Force go to the Meteorite BI site
-     */
-    site: function() {
-        window.open('http://www.meteorite.bi/');
-        return false;
-    }
+	/**
+	 * Force go to the Meteorite BI site
+	 */
+	site: function () {
+		window.open("http://www.meteorite.bi/");
+		return false;
+	},
 });

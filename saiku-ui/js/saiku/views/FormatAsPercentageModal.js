@@ -18,7 +18,6 @@
  *
  */
 var FormatAsPercentageModal = Modal.extend({
-
 	type: "filter",
 	closeText: "Save",
 
@@ -28,28 +27,27 @@ var FormatAsPercentageModal = Modal.extend({
 	asPercent: true,
 
 	events: {
-		'click .dialog_footer a': 'call',
-		'click .formatButton': 'format'
-
+		"click .dialog_footer a": "call",
+		"click .formatButton": "format",
 	},
 
 	buttons: [
-		{text: "Cancel", method: "close"},
-		{text: "Help", method: "help"}
+		{ text: "Cancel", method: "close" },
+		{ text: "Help", method: "help" },
 	],
 
 	addMeasureTemplate: _.template(
 		"<div class='text'>Name: <input type='text' class='measure_name form-control'></input> </div> " +
-		"<div> <span> Select how to express the measures: </span> </div>" +
-		"<ol style='list-style-type: none;'> " +
-		"<li style='padding-bottom: 10px; padding-right: 10px; float: inherit;'>     " +
-		"    <button class='form_button btn btn-primary formatButton' id='formatOverRows'> Format as % of rows </button></li>" +
-		"<li style='padding-bottom: 10px; padding-right: 10px; float: inherit;'>     " +
-		"    <button class='form_button btn btn-primary formatButton' id='formatOverColumns'> Format as % of columns </button></li>" +
-		"<li style='padding-bottom: 10px; padding-right: 10px; float: inherit;'>     " +
-		"    <button class='form_button formatButton btn btn-primary' id='formatOverTotal'> Format as % of total </button></li>" +
-		"</ol>" +
-		"<span id='userFeedback'> <p> <%= userFeedback %> </p> </span>"
+			"<div> <span> Select how to express the measures: </span> </div>" +
+			"<ol style='list-style-type: none;'> " +
+			"<li style='padding-bottom: 10px; padding-right: 10px; float: inherit;'>     " +
+			"    <button class='form_button btn btn-primary formatButton' id='formatOverRows'> Format as % of rows </button></li>" +
+			"<li style='padding-bottom: 10px; padding-right: 10px; float: inherit;'>     " +
+			"    <button class='form_button btn btn-primary formatButton' id='formatOverColumns'> Format as % of columns </button></li>" +
+			"<li style='padding-bottom: 10px; padding-right: 10px; float: inherit;'>     " +
+			"    <button class='form_button formatButton btn btn-primary' id='formatOverTotal'> Format as % of total </button></li>" +
+			"</ol>" +
+			"<span id='userFeedback'> <p> <%= userFeedback %> </p> </span>"
 	),
 
 	userFeedback: "",
@@ -72,39 +70,53 @@ var FormatAsPercentageModal = Modal.extend({
 
 		// fix event listening in IE < 9
 		if (isIE && isIE < 9) {
-			$(this.el).find('form').on('submit', this.save);
+			$(this.el).find("form").on("submit", this.save);
 		}
 
 		// Determine feasibility
-		this.userFeedback = this.checkRowsOrColumnsPresent(this.selectedColumns, this.selectedRows);
+		this.userFeedback = this.checkRowsOrColumnsPresent(
+			this.selectedColumns,
+			this.selectedRows
+		);
 
 		// Load template
-		this.message = this.addMeasureTemplate({userFeedback: this.userFeedback});
+		this.message = this.addMeasureTemplate({
+			userFeedback: this.userFeedback,
+		});
 
-		this.$el.find('.dialog_icon')
-
+		this.$el.find(".dialog_icon");
 	},
 
 	save: function (measureExpression, measureName, percentOver) {
 		var self = this;
-		var measure_name = $(this.el).find('.measure_name').val();
+		var measure_name = $(this.el).find(".measure_name").val();
 		if (measure_name == null || measure_name == "") {
-			measure_name = measureName + ' % of ' + percentOver;
+			measure_name = measureName + " % of " + percentOver;
 		}
 		var measure_formula = measureExpression;
-		var measure_format = '0.00%';
+		var measure_format = "0.00%";
 
 		var alert_msg = "";
 		if (typeof measure_name == "undefined" || !measure_name) {
 			alert_msg += "You have to enter a name for the measure! ";
 		}
-		if (typeof measure_formula == "undefined" || !measure_formula || measure_formula === "") {
-			alert_msg += "You have to enter a MDX formula for the calculated measure! ";
+		if (
+			typeof measure_formula == "undefined" ||
+			!measure_formula ||
+			measure_formula === ""
+		) {
+			alert_msg +=
+				"You have to enter a MDX formula for the calculated measure! ";
 		}
 		if (alert_msg !== "") {
 			alert(alert_msg);
 		} else {
-			var m = {name: measure_name, formula: measure_formula, properties: {}, uniqueName: "[Measures]." + measure_name};
+			var m = {
+				name: measure_name,
+				formula: measure_formula,
+				properties: {},
+				uniqueName: "[Measures]." + measure_name,
+			};
 			if (measure_format) {
 				m.properties.FORMAT_STRING = measure_format;
 			}
@@ -123,7 +135,11 @@ var FormatAsPercentageModal = Modal.extend({
 			var measure = this.measures[m].uniqueName;
 			try {
 				var formattedMeasure = this.formatMeasure(measure, action);
-				this.save(formattedMeasure, this.measures[m].caption, formatOver);
+				this.save(
+					formattedMeasure,
+					this.measures[m].caption,
+					formatOver
+				);
 			} catch (err) {
 				this.setUserFeedback(err);
 			}
@@ -142,26 +158,50 @@ var FormatAsPercentageModal = Modal.extend({
 		if (action == "formatOverRows") {
 			if (this.selectedColumns.length == 0) {
 				throw "There are no dimensions in the columns to format over";
+			} else {
+				var dimensionsCrossJoined = this.makeCrossJoinExpression(
+					this.selectedColumns
+				);
+				measureExpression =
+					measure +
+					" / SUM(CROSSJOIN(" +
+					dimensionsCrossJoined +
+					"," +
+					measure +
+					"))";
 			}
-			else {
-				var dimensionsCrossJoined = this.makeCrossJoinExpression(this.selectedColumns);
-				measureExpression = measure + " / SUM(CROSSJOIN(" + dimensionsCrossJoined + "," + measure + "))";
-			}
-		}
-		else if (action == "formatOverColumns") {
+		} else if (action == "formatOverColumns") {
 			if (this.selectedRows.length == 0) {
 				throw "There are no dimensions in the rows to format over";
 			} else {
-				var dimensionsCrossJoined = this.makeCrossJoinExpression(this.selectedRows);
-				measureExpression = measure + " / SUM(CROSSJOIN(" + dimensionsCrossJoined + "," + measure + "))";
+				var dimensionsCrossJoined = this.makeCrossJoinExpression(
+					this.selectedRows
+				);
+				measureExpression =
+					measure +
+					" / SUM(CROSSJOIN(" +
+					dimensionsCrossJoined +
+					"," +
+					measure +
+					"))";
 			}
-		}
-		else if (action == "formatOverTotal") {
-			if (this.selectedRows.length == 0 && this.selectedColumns.length == 0) {
+		} else if (action == "formatOverTotal") {
+			if (
+				this.selectedRows.length == 0 &&
+				this.selectedColumns.length == 0
+			) {
 				throw "There are no dimensions in the rows and columns to format over";
 			} else {
-				var dimensionsCrossJoined = this.makeCrossJoinExpression(this.selectedRows.concat(this.selectedColumns));
-				measureExpression = measure + " / SUM(CROSSJOIN(" + dimensionsCrossJoined + "," + measure + "))";
+				var dimensionsCrossJoined = this.makeCrossJoinExpression(
+					this.selectedRows.concat(this.selectedColumns)
+				);
+				measureExpression =
+					measure +
+					" / SUM(CROSSJOIN(" +
+					dimensionsCrossJoined +
+					"," +
+					measure +
+					"))";
 			}
 		}
 
@@ -175,27 +215,33 @@ var FormatAsPercentageModal = Modal.extend({
 		var calculatedMeasuresNamesAndTypes = [];
 		for (var m = 0; m < calculatedMeasures.length; m++) {
 			var calculatedMeasure = calculatedMeasures[m];
-			calculatedMeasuresNamesAndTypes[m] = {name: calculatedMeasure.name, type: "CALCULATED"};
+			calculatedMeasuresNamesAndTypes[m] = {
+				name: calculatedMeasure.name,
+				type: "CALCULATED",
+			};
 		}
 		queryHelper.setMeasures(calculatedMeasuresNamesAndTypes);
 	},
 
 	extractFromMdx: function (mdx, what) {
-		// A Saiku generated MDX query always generates the columns and rows as SET's prefixed with '~ROWS' or '~COLUMNS', let's find these
+		// A Kusai generated MDX query always generates the columns and rows as SET's prefixed with '~ROWS' or '~COLUMNS', let's find these
 		var extraction = [];
 		if (mdx == null || mdx == "") {
 			extraction = [];
-		}
-		else {
+		} else {
 			var searchArea = mdx.substring(0, mdx.indexOf("SELECT") - 1);
 
-			var amountOfTimesToBeFound = this.occurrences(searchArea, what, false);
+			var amountOfTimesToBeFound = this.occurrences(
+				searchArea,
+				what,
+				false
+			);
 			var previousStart = 0;
 			for (var i = 0; i < amountOfTimesToBeFound; i++) {
 				var start = searchArea.indexOf(what, previousStart);
 				var end = searchArea.indexOf("]", start);
 				var dimensionSetName = searchArea.substring(start, end);
-				extraction[i] = '[' + dimensionSetName + ']';
+				extraction[i] = "[" + dimensionSetName + "]";
 				previousStart = start + 1;
 			}
 		}
@@ -208,13 +254,13 @@ var FormatAsPercentageModal = Modal.extend({
 	 * @param {Boolean} allowOverlapping    Optional. Default: false;
 	 */
 	occurrences: function (string, subString, allowOverlapping) {
-
 		string += "";
 		subString += "";
 		if (subString.length <= 0) return string.length + 1;
 
-		var n = 0, pos = 0;
-		var step = (allowOverlapping) ? (1) : (subString.length);
+		var n = 0,
+			pos = 0;
+		var step = allowOverlapping ? 1 : subString.length;
 
 		while (true) {
 			pos = string.indexOf(subString, pos);
@@ -223,14 +269,14 @@ var FormatAsPercentageModal = Modal.extend({
 				pos += step;
 			} else break;
 		}
-		return (n);
+		return n;
 	},
 
 	makeCrossJoinExpression: function (dimensions) {
 		var crossJoinExpression = dimensions[0];
 
 		for (var i = 1; i < dimensions.length; i++) {
-			crossJoinExpression += ' * ';
+			crossJoinExpression += " * ";
 			crossJoinExpression += dimensions[i];
 		}
 
@@ -255,13 +301,16 @@ var FormatAsPercentageModal = Modal.extend({
 	},
 
 	checkRowsOrColumnsPresent: function (rows, cols) {
-		if ((rows == null || rows == undefined || rows.length == 0) && (cols == null || cols == undefined || cols.length == 0)) {
+		if (
+			(rows == null || rows == undefined || rows.length == 0) &&
+			(cols == null || cols == undefined || cols.length == 0)
+		) {
 			return "You selected no columns or rows, you should probably return.";
 		} else return "";
 	},
-	help: function(){
-		window.location("http://saiku-documentation.readthedocs.io/en/latest/totals_and_subtotals.htmlTou");
-	}
-
-
+	help: function () {
+		window.location(
+			"http://saiku-documentation.readthedocs.io/en/latest/totals_and_subtotals.htmlTou"
+		);
+	},
 });

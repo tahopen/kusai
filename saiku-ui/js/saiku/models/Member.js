@@ -1,4 +1,4 @@
-/*  
+/*
  *   Copyright 2012 OSBI Ltd
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,22 +13,27 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
- 
+
 /**
  * Controls member selections
  */
 var Member = Backbone.Model.extend({
-    initialize: function(args, options) {
-        this.cube = options.cube;
-        var dimension = options.dimension.split("/");
-        this.hierarchy = decodeURIComponent(dimension[0]);
-        this.level = decodeURIComponent(dimension[1]);
-    },
-    
-    url: function() {
-        var url = encodeURI(Saiku.session.username + "/discover/") +
-            this.cube + "/hierarchies/" + encodeURIComponent(this.hierarchy) + "/levels/" + encodeURIComponent(this.level);
-        
-        return url;
-    }
+	initialize: function (args, options) {
+		this.cube = options.cube;
+		var dimension = options.dimension.split("/");
+		this.hierarchy = decodeURIComponent(dimension[0]);
+		this.level = decodeURIComponent(dimension[1]);
+	},
+
+	url: function () {
+		var url =
+			encodeURI(Kusai.session.username + "/discover/") +
+			this.cube +
+			"/hierarchies/" +
+			encodeURIComponent(this.hierarchy) +
+			"/levels/" +
+			encodeURIComponent(this.level);
+
+		return url;
+	},
 });

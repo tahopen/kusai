@@ -23,154 +23,164 @@
  *       reference by the "window.parent" reference. This was done to
  *       make saiku work in systems where Pentaho runs inside an iframe.
  *
-**/
+ **/
 
 var puc = {
-    allowSave: function(isAllowed) {
-        if(window.parent.mantle_initialized !== undefined && window.parent.mantle_initialized &&
-            window.parent.enableAdhocSave ) {
-            if (window.ALLOW_PUC_SAVE === undefined || ALLOW_PUC_SAVE) {
-                window.parent.enableAdhocSave(isAllowed);
-            }
-        }
-    },
+	allowSave: function (isAllowed) {
+		if (
+			window.parent.mantle_initialized !== undefined &&
+			window.parent.mantle_initialized &&
+			window.parent.enableAdhocSave
+		) {
+			if (window.ALLOW_PUC_SAVE === undefined || ALLOW_PUC_SAVE) {
+				window.parent.enableAdhocSave(isAllowed);
+			}
+		}
+	},
 
-    refresh_repo: function() {
-        if(window.parent.mantle_initialized !== undefined && window.parent.mantle_initialized) {
-            window.parent.mantle_refreshRepository();
-        }
-    },
+	refresh_repo: function () {
+		if (
+			window.parent.mantle_initialized !== undefined &&
+			window.parent.mantle_initialized
+		) {
+			window.parent.mantle_refreshRepository();
+		}
+	},
 
-    save_to_solution: function(filename, solution, path, type, overwrite) {
-        var query = Saiku.tabs._tabs[0].content.query;
-        query.action.gett("/xml", {
-            success: function(model, response) {
-                    filename = filename
-                                && filename.length > ".saiku".length
-                                && filename.substring(filename.length - ".saiku".length,filename.length) == ".saiku" ? filename : filename + ".saiku";
+	save_to_solution: function (filename, solution, path, type, overwrite) {
+		var query = Kusai.tabs._tabs[0].content.query;
+		query.action.gett("/xml", {
+			success: function (model, response) {
+				filename =
+					filename &&
+					filename.length > ".saiku".length &&
+					filename.substring(
+						filename.length - ".saiku".length,
+						filename.length
+					) == ".saiku"
+						? filename
+						: filename + ".saiku";
 
-                    var file = (solution ? (solution + "/") : "")
-                        + (path ? (path + "/") : "")
-                        + (filename || "");
+				var file =
+					(solution ? solution + "/" : "") +
+					(path ? path + "/" : "") +
+					(filename || "");
 
-                    (new SavedQuery({
-                        name: filename,
-                        file: file,
-                        content: response.xml
-                })).save({ success: function() {
-                    puc.refresh_repo();
-                }});
-            }
-        });
-    }
+				new SavedQuery({
+					name: filename,
+					file: file,
+					content: response.xml,
+				}).save({
+					success: function () {
+						puc.refresh_repo();
+					},
+				});
+			},
+		});
+	},
 };
 
 /**
  * Objects required for BI server integration
  */
-var RepositoryBrowserControllerProxy = function() {
-    this.remoteSave = puc.save_to_solution;
+var RepositoryBrowserControllerProxy = function () {
+	this.remoteSave = puc.save_to_solution;
 };
 
-var Wiz = function() {
-    this.currPgNum = 0;
+var Wiz = function () {
+	this.currPgNum = 0;
 };
 
-var WaqrProxy = function() {
-    this.wiz = new Wiz();
-    this.repositoryBrowserController = new RepositoryBrowserControllerProxy();
+var WaqrProxy = function () {
+	this.wiz = new Wiz();
+	this.repositoryBrowserController = new RepositoryBrowserControllerProxy();
 };
 
 var gCtrlr = new WaqrProxy();
 
-var savePg0 = function() {};
+var savePg0 = function () {};
 
 /**
  * Manually start session
  */
 if (Settings.BIPLUGIN) {
-    Settings.PLUGIN = true;
-    Settings.REST_URL = "../saiku/";
-    if (Settings.BIPLUGIN5) {
-        Settings.REST_URL = "../../plugin/saiku/api/";
-    }
+	Settings.PLUGIN = true;
+	Settings.REST_URL = "../saiku/";
+	if (Settings.BIPLUGIN5) {
+		Settings.REST_URL = "../../plugin/saiku/api/";
+	}
 
-
-
-    $(document).ready(function() {
-    var pluginUrl = Settings.REST_URL + "load/plugin/plugins";
-        if (Settings.DEBUG) {
-            pluginUrl += "?debug=true";
-        }
-        $.getScript(pluginUrl, function() {  //).promise().done(function() {
-                Saiku.session = new Session();
-        })/*.fail(function() {
-                Saiku.session = new Session();
+	$(document).ready(function () {
+		var pluginUrl = Settings.REST_URL + "load/plugin/plugins";
+		if (Settings.DEBUG) {
+			pluginUrl += "?debug=true";
+		}
+		$.getScript(pluginUrl, function () {
+			//).promise().done(function() {
+			Kusai.session = new Session();
+		}) /*.fail(function() {
+                Kusai.session = new Session();
         })*/;
-
-
-    });
+	});
 }
 
 /**
  * Bind callbacks to workspace
  */
 var BIPlugin = {
-    bind_callbacks: function(workspace) {
-        $(workspace.toolbar.el).find('.run').parent().removeClass('seperator');
+	bind_callbacks: function (workspace) {
+		$(workspace.toolbar.el).find(".run").parent().removeClass("seperator");
 
-        // Toggle save button
-        workspace.bind('query:result', function(args) {
-            var isAllowed = args.data.cellset &&
-                args.data.cellset.length > 0;
-            puc.allowSave(isAllowed);
-        });
-    }
+		// Toggle save button
+		workspace.bind("query:result", function (args) {
+			var isAllowed = args.data.cellset && args.data.cellset.length > 0;
+			puc.allowSave(isAllowed);
+		});
+	},
 };
 
 /**
  * If plugin active, customize chrome
  */
-Saiku.events.bind('session:new', function(session) {
-    if (Settings.PLUGIN) {
-        // Remove tabs and global toolbar
-        $('#header').remove();
-        // Bind to workspace
-        if (Saiku.tabs._tabs[0] && Saiku.tabs._tabs[0].content) {
-            BIPlugin.bind_callbacks(Saiku.tabs._tabs[0].content);
-        }
+Kusai.events.bind("session:new", function (session) {
+	if (Settings.PLUGIN) {
+		// Remove tabs and global toolbar
+		$("#header").remove();
+		// Bind to workspace
+		if (Kusai.tabs._tabs[0] && Kusai.tabs._tabs[0].content) {
+			BIPlugin.bind_callbacks(Kusai.tabs._tabs[0].content);
+		}
 
-        Saiku.session.bind('workspace:new', function(args) {
-            BIPlugin.bind_callbacks(args.workspace);
-        });
-    }
+		Kusai.session.bind("workspace:new", function (args) {
+			BIPlugin.bind_callbacks(args.workspace);
+		});
+	}
 });
 
 var Datasources = Backbone.Model.extend({
-    list: [],
+	list: [],
 
-    initialize: function(args, options) {
-        // Attach a custom event bus to this model
-        _.extend(this, Backbone.Events);
-    },
+	initialize: function (args, options) {
+		// Attach a custom event bus to this model
+		_.extend(this, Backbone.Events);
+	},
 
-    parse: function(response) {
-        this.set({
-            list: response
-        });
+	parse: function (response) {
+		this.set({
+			list: response,
+		});
 
-        return response;
-    },
-    url: function() {
-        return (Saiku.session.username + "/datasources");
-    }
+		return response;
+	},
+	url: function () {
+		return Kusai.session.username + "/datasources";
+	},
 });
 
-
 // if (Settings.PLUGIN) {
-//     window.parent.getSaikuMdx = function() {
+//     window.parent.getKusaiMdx = function() {
 //             var myself = this;
-//             var query = Saiku.tabs._tabs[0].content.query;
+//             var query = Kusai.tabs._tabs[0].content.query;
 //             query.clear();
 //             query.fetch({
 //             success: function(model, response) {
@@ -197,7 +207,7 @@ var Datasources = Backbone.Model.extend({
 //                                         jndi: jndi,
 //                                         mdx: response.mdx
 //                                     }
-//                                     window.parent.saveSaiku(saikuStub);
+//                                     window.parent.saveKusai(saikuStub);
 //                                 }
 //                             }
 //                         }
@@ -209,14 +219,14 @@ var Datasources = Backbone.Model.extend({
 // }
 
 if (Settings.PLUGIN) {
-    window.parent.getSaikuMdx = function() {
-            var query = Saiku.tabs._tabs[Saiku.tabs.queryCount-1].content.query;
-            var saikuStub = {
-                  connection: query.model.cube.connection,
-                  catalog: query.model.cube.catalog,
-                  jndi: '',
-                  mdx: query.model.mdx
-                }
-            window.parent.saveSaiku(saikuStub);
-    };
+	window.parent.getKusaiMdx = function () {
+		var query = Kusai.tabs._tabs[Kusai.tabs.queryCount - 1].content.query;
+		var saikuStub = {
+			connection: query.model.cube.connection,
+			catalog: query.model.cube.catalog,
+			jndi: "",
+			mdx: query.model.mdx,
+		};
+		window.parent.saveKusai(saikuStub);
+	};
 }
