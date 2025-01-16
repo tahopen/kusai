@@ -35,7 +35,7 @@ OpenJDK Runtime Environment (Temurin)(build 1.8.0_432-b06)
 OpenJDK 64-Bit Server VM (Temurin)(build 25.432-b06, mixed mode)</pre>
 
 <h3>2.2 Configure Maven Settings</h3>
-<p>Place the settings.xml in your Maven configuration directory:</p>
+<p>Place the  <a href="./settings.xml">settings.xml</a> in your Maven configuration directory:</p>
 <ul>
     <li>Linux/MacOS: ~/.m2/settings.xml</li>
     <li>Windows: C:\Users\YourUsername\.m2\settings.xml</li>
@@ -48,7 +48,7 @@ OpenJDK 64-Bit Server VM (Temurin)(build 25.432-b06, mixed mode)</pre>
 
 <h3>2.4 Launch Server</h3>
 <p>Start Kusai at http://localhost:8080:</p>
-<pre>./start</pre>
+<pre>./server</pre>
 
 <h2>3. Access and Authentication</h2>
 
