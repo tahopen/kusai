@@ -46,4 +46,4 @@ jobs:
       - store_artifacts:
           path: kusai-server/target/
       - store_artifacts:
-          path: kusai-bi-platform-plugin-p7.1/target/
+          path: kusai-bi-platform-plugin/target/

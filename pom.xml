@@ -20,7 +20,7 @@
         <module>kusai-ui</module>
         <module>kusai-webapp</module>
         <module>kusai-server</module>
-        <module>kusai-bi-platform-plugin-p7.1</module>
+        <module>kusai-bi-platform-plugin</module>
     </modules>
 
     <properties>

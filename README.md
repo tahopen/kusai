@@ -15,7 +15,7 @@
     </li>
     <li>Copy the plugin to Pentaho system directory:
         <pre>
-cp -R ./kusai-bi-platform-plugin-p7.1/target/dist/saiku /opt/pentaho/pentaho-server/pentaho-solutions/system</pre>
+cp -R ./kusai-bi-platform-plugin/target/dist/saiku /opt/pentaho/pentaho-server/pentaho-solutions/system</pre>
     </li>
     <li>Start Pentaho Server:
         <pre>
