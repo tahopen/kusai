@@ -1,9 +1,9 @@
-package org.saiku.service.datasource;
+package org.kusai.service.datasource;
 
 import org.olap4j.OlapConnection;
-import org.saiku.datasources.connection.IConnectionManager;
-import org.saiku.datasources.connection.ISaikuConnection;
-import org.saiku.olap.util.exception.SaikuOlapException;
+import org.kusai.datasources.connection.IConnectionManager;
+import org.kusai.datasources.connection.ISaikuConnection;
+import org.kusai.olap.util.exception.SaikuOlapException;
 
 import java.util.Map;
 

@@ -17,7 +17,8 @@
   -->
 <!--
 <!DOCTYPE config [
-        <!ELEMENT config (iomanager , propertymanager, (collection | noncollection)? , filter?, mimetypeproperties?) >
+        <!ELEMENT config (iomanager , propertymanager, (collection | noncollection)? , filter?,
+mimetypeproperties?) >
 
         <!ELEMENT iomanager (class, iohandler*) >
         <!ELEMENT iohandler (class) >
@@ -71,7 +72,7 @@
         <iohandler>
             <class name="org.apache.jackrabbit.server.io.VersionHistoryHandler" />
         </iohandler>
-<!--        <iohandler>
+        <!--        <iohandler>
             <class name="org.apache.jackrabbit.server.io.ZipHandler" />
         </iohandler>
         <iohandler>
@@ -81,7 +82,7 @@
             <class name="org.apache.jackrabbit.server.io.DirListingExportHandler" />
         </iohandler>
         <iohandler>
-            <class name="org.saiku.repository.SaikuDavResourceImpl" />
+            <class name="org.kusai.repository.SaikuDavResourceImpl" />
         </iohandler>
     </iomanager>
     <!--
@@ -117,7 +118,7 @@
             <class name="org.apache.jackrabbit.server.io.XmlHandler" />
         </propertyhandler>-->
         <propertyhandler>
-            <class name="org.saiku.repository.SaikuDavResourceImpl" />
+            <class name="org.kusai.repository.SaikuDavResourceImpl" />
         </propertyhandler>
     </propertymanager>
     <!--
@@ -181,4 +182,3 @@
     </filter>
 
 </config>
-

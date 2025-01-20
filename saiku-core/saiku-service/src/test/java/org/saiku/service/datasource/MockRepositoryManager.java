@@ -1,12 +1,12 @@
-package org.saiku.service.datasource;
+package org.kusai.service.datasource;
 
-import org.saiku.database.dto.MondrianSchema;
-import org.saiku.datasources.connection.RepositoryFile;
-import org.saiku.repository.AclEntry;
-import org.saiku.repository.DataSource;
-import org.saiku.repository.IRepositoryManager;
-import org.saiku.repository.IRepositoryObject;
-import org.saiku.service.user.UserService;
+import org.kusai.database.dto.MondrianSchema;
+import org.kusai.datasources.connection.RepositoryFile;
+import org.kusai.repository.AclEntry;
+import org.kusai.repository.DataSource;
+import org.kusai.repository.IRepositoryManager;
+import org.kusai.repository.IRepositoryObject;
+import org.kusai.service.user.UserService;
 
 import javax.jcr.RepositoryException;
 import java.io.IOException;
@@ -73,7 +73,8 @@ public class MockRepositoryManager implements IRepositoryManager {
     }
 
     @Override
-    public Object saveFile(Object file, String path, String user, String type, List<String> roles) throws RepositoryException {
+    public Object saveFile(Object file, String path, String user, String type, List<String> roles)
+            throws RepositoryException {
         return null;
     }
 
@@ -102,12 +103,12 @@ public class MockRepositoryManager implements IRepositoryManager {
 
     @Override
     public String getFile(String s, String username, List<String> roles) throws RepositoryException {
-        return (String)this.files.get(s);
+        return (String) this.files.get(s);
     }
 
     @Override
     public String getInternalFile(String s) throws RepositoryException {
-        return (String)this.files.get(s);
+        return (String) this.files.get(s);
     }
 
     @Override
@@ -161,7 +162,8 @@ public class MockRepositoryManager implements IRepositoryManager {
     }
 
     @Override
-    public List<IRepositoryObject> getAllFiles(List<String> type, String username, List<String> roles, String path) throws RepositoryException {
+    public List<IRepositoryObject> getAllFiles(List<String> type, String username, List<String> roles, String path)
+            throws RepositoryException {
         return null;
     }
 

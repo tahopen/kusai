@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <artifactId>saiku-core</artifactId>
         <groupId>org.saikuanalytics</groupId>
@@ -9,7 +11,6 @@
     <version>3.17</version>
     <name>saiku - web</name>
     <packaging>jar</packaging>
-
 
 
     <build>
@@ -61,7 +62,7 @@
                         <Bundle-Name>${pom.artifactId}</Bundle-Name>
                         <Bundle-Version>1.0.0</Bundle-Version>
                         <Private-Package>org.saiku</Private-Package>
-                        <Bundle-Activator>org.saiku.Activator</Bundle-Activator>
+                        <Bundle-Activator>org.kusai.Activator</Bundle-Activator>
                         <Import-Package>
                             org.osgi.framework,
                             *;resolution:=optional,

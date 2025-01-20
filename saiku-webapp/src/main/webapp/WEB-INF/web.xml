@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE web-app PUBLIC
-  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-  "http://java.sun.com/dtd/web-app_2_3.dtd">
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
 
-	<display-name>saiku</display-name>
+    <display-name>saiku</display-name>
 
-	<context-param>
-		<param-name>encoding</param-name>
-		<param-value>UTF-8</param-value>
-	</context-param>
+    <context-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </context-param>
     <context-param>
         <param-name>db.url</param-name>
         <param-value>jdbc:h2:../../data/saiku;MODE=MySQL</param-value>
@@ -56,12 +54,12 @@
     </context-param>
 
     <context-param>
-     <param-name>contextConfigLocation</param-name>
-     <param-value>/WEB-INF/applicationContext.xml</param-value>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
-	<session-config>
-		<session-timeout>60</session-timeout>
-	</session-config>
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
 
     <filter>
         <filter-name>org.springframework.security.filterChainProxy</filter-name>
@@ -130,11 +128,11 @@
     -->
     <!-- END - Hazelcast Filter -->
 
-    <!-- BEGIN - Saiku Orbis SSO Filter Definition --> 
+    <!-- BEGIN - Saiku Orbis SSO Filter Definition -->
     <!--
     <filter>
         <filter-name>hazelcastAuthFilter</filter-name>
-        <filter-class>org.saiku.web.service.HazelcastAuthFilter</filter-class>
+        <filter-class>org.kusai.web.service.HazelcastAuthFilter</filter-class>
         <init-param>
             <param-name>orbisAuthCookie</param-name>
             <param-value>ORBIS_WORKSPACE_USER</param-value>
@@ -177,23 +175,17 @@
     <!-- ====================================================================== -->
     <servlet>
         <servlet-name>Webdav</servlet-name>
-        <description>
-            The webdav servlet that connects HTTP request to the repository.
-        </description>
-        <servlet-class>org.saiku.repository.SaikuWebdavServlet</servlet-class>
+        <description> The webdav servlet that connects HTTP request to the repository. </description>
+        <servlet-class>org.kusai.repository.SaikuWebdavServlet</servlet-class>
         <init-param>
             <param-name>resource-path-prefix</param-name>
             <param-value>/repository</param-value>
-            <description>
-                defines the prefix for spooling resources out of the repository.
-            </description>
+            <description> defines the prefix for spooling resources out of the repository. </description>
         </init-param>
         <init-param>
             <param-name>resource-config</param-name>
             <param-value>/WEB-INF/config.xml</param-value>
-            <description>
-                Defines various dav-resource configuration parameters.
-            </description>
+            <description> Defines various dav-resource configuration parameters. </description>
         </init-param>
 
 
@@ -202,7 +194,7 @@
     <!-- ====================================================================== -->
     <!-- J C R R E M O T I N G S E R V L E T -->
     <!-- ====================================================================== -->
-   <!-- <servlet>
+    <!-- <servlet>
         <servlet-name>JCRWebdavServer</servlet-name>
         <description>
             The servlet used to remote JCR calls over HTTP.
@@ -222,7 +214,8 @@
         <init-param>
             <param-name>batchread-config</param-name>
             <param-value>/WEB-INF/batchread.properties</param-value>
-            <description>JcrRemotingServlet: Optional mapping from node type names to default depth.</description>
+            <description>JcrRemotingServlet: Optional mapping from node type names to default
+    depth.</description>
         </init-param>
          <load-on-startup>5</load-on-startup>
     </servlet>-->
@@ -240,7 +233,7 @@
         <servlet-name>Webdav</servlet-name>
         <url-pattern>/repository/*</url-pattern>
     </servlet-mapping>
-  <!--  <servlet-mapping>
+    <!--  <servlet-mapping>
         <servlet-name>JCRWebdavServer</servlet-name>
         <url-pattern>/server/*</url-pattern>
     </servlet-mapping>-->
@@ -269,18 +262,18 @@
         <url-pattern>/console/*</url-pattern>
     </servlet-mapping>
 
-	<servlet>
-    	<servlet-name>jersey2</servlet-name>
-    	<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
-    	<init-param>
-      		<param-name>com.sun.jersey.config.property.packages</param-name>
-      		<param-value>org.saiku.web;com.fasterxml.jackson.jaxrs.json</param-value>
-    	</init-param>
+    <servlet>
+        <servlet-name>jersey2</servlet-name>
+        <servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>org.kusai.web;com.fasterxml.jackson.jaxrs.json</param-value>
+        </init-param>
         <init-param>
             <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
             <param-value>true</param-value>
         </init-param>
-    	<!--<init-param>
+        <!--<init-param>
       		<param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
       		<param-value>com.sun.jersey.api.container.filter.PostReplaceFilter</param-value>
     	</init-param>-->
@@ -290,28 +283,28 @@
         </init-param>
         <init-param>
             <param-name>jaxrs.providers</param-name>
-            <param-value>org.saiku.web.rest.SerializableProvider</param-value>
+            <param-value>org.kusai.web.rest.SerializableProvider</param-value>
         </init-param>
-<!-- 		<init-param>
+        <!-- 		<init-param>
 		    <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
 		    <param-value>com.sun.jersey.api.container.filter.GZIPContentEncodingFilter</param-value>
 		</init-param>  -->
 
-    	<load-on-startup>1</load-on-startup>
-  	</servlet>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-	  <servlet-mapping>
-	    <servlet-name>jersey2</servlet-name>
-	    <url-pattern>/rest/*</url-pattern>
-	  </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jersey2</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
 
-  <!--<servlet-mapping>
+    <!--<servlet-mapping>
     <servlet-name>jersey2</servlet-name>
     <url-pattern>/rest/saiku/session</url-pattern>
   </servlet-mapping>-->
     <servlet>
         <servlet-name>xmla</servlet-name>
-        <servlet-class>org.saiku.olap.util.SaikuXmlaServlet</servlet-class>
+        <servlet-class>org.kusai.olap.util.SaikuXmlaServlet</servlet-class>
 
         <init-param>
             <param-name>OlapDriverUsePreConfiguredDiscoverDatasourcesResponse</param-name>
@@ -353,7 +346,8 @@
 
         <init-param>
             <param-name>OlapDriverConnectionString</param-name>
-            <param-value>jdbc:ld://olap4ld;Catalog=LdCatalog;JdbcDrivers=com.mysql.jdbc.Driver;Server=http://;Database=EMBEDDEDSESAME;Datastructuredefinitions=;Datasets=;</param-value>
+            <param-value>
+                jdbc:ld://olap4ld;Catalog=LdCatalog;JdbcDrivers=com.mysql.jdbc.Driver;Server=http://;Database=EMBEDDEDSESAME;Datastructuredefinitions=;Datasets=;</param-value>
         </init-param>
 
         <init-param>

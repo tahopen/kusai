@@ -1,4 +1,4 @@
-package org.saiku.service.datasource;
+package org.kusai.service.datasource;
 
 import java.util.*;
 

@@ -1,7 +1,7 @@
-package org.saiku.security;
+package org.kusai.security;
 
 import org.junit.Test;
-import org.saiku.security.NoReHashPasswordEncoder;
+import org.kusai.security.NoReHashPasswordEncoder;
 
 import java.util.regex.Pattern;
 

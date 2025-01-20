@@ -143,7 +143,7 @@ var WorkspaceToolbar = Backbone.View.extend({
 			$(this.el).find(".explain_query").addClass("disabled_toolbar");
 		}
 
-		if (properties["org.saiku.connection.scenario"] !== true) {
+		if (properties["org.kusai.connection.scenario"] !== true) {
 			$(this.el).find(".query_scenario").addClass("disabled_toolbar");
 		} else {
 			$(this.el).find(".query_scenario").removeClass("disabled_toolbar");
