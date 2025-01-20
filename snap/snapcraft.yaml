@@ -1,9 +1,9 @@
-name: saiku-ce
-version: '3.15'
-summary: Saiku Analytics OLAP Tool (Community Edition)
+name: kusai-ce
+version: "3.15"
+summary: Kusai Analytics OLAP Tool (Community Edition)
 description: |
-    OLAP Browser for relational datasources. Open source. More info at
-    Meteorite.bi
+  OLAP Browser for relational datasources. Open source. More info at
+  Meteorite.bi
 
 grade: devel
 confinement: devmode
@@ -20,6 +20,5 @@ parts:
     source: ./
     plugin: x_maven
     maven-targets:
-      - saiku-server
+      - kusai-server
     maven-options: [-DskipTests]
-

@@ -2,7 +2,7 @@
 
 To get started, please [sign the Contributor License Agreement](https://www.clahub.com/agreements/OSBI/saiku) so we can accept your pull requests.
 
-Follow the standards of [**Style Guide**](https://github.com/OSBI/saiku-styleguide) Saiku :metal:
+Follow the standards of [**Style Guide**](https://github.com/OSBI/kusai-styleguide) Saiku :metal:
 
 ### Commit Messages
 

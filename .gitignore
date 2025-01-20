@@ -1,26 +1,25 @@
 ### saiku ###
 
 *.iml
-saiku-bi-platform-plugin-p6/target/
-saiku-bi-platform-plugin-p7/target/
+kusai-bi-platform-plugin-p7/target/
 util/__MACOSX/
 thucydides.properties
-saiku-web-tests/thucydides.properties
-saiku-web-tests/data/
-saiku-service-osgi/nbactions.xml
-saiku-service-osgi/target/
-saiku-core/saiku-service/thucydides.properties
+kusai-web-tests/thucydides.properties
+kusai-web-tests/data/
+kusai-service-osgi/nbactions.xml
+kusai-service-osgi/target/
+kusai-core/kusai-service/thucydides.properties
 .clover
-saiku-webapp/saiku-webapp.iml
-saiku-core/jackrabbit.properties
-saiku-core/jackrabbit2.properties
-saiku-core/saiku-service/data/
-saiku-core/saiku-service/derby.log
-saiku-core/saiku-service/locks
-saiku-core/saiku-service/output/
-saiku-core/saiku-service/repo-conf
-saiku-core/saiku-service/repository.xml
-saiku-ui/target/
+kusai-webapp/kusai-webapp.iml
+kusai-core/jackrabbit.properties
+kusai-core/jackrabbit2.properties
+kusai-core/kusai-service/data/
+kusai-core/kusai-service/derby.log
+kusai-core/kusai-service/locks
+kusai-core/kusai-service/output/
+kusai-core/kusai-service/repo-conf
+kusai-core/kusai-service/repository.xml
+kusai-ui/target/
 osgitests/
 
 # Created by https://www.gitignore.io/api/vim,git,node,java,linux,macos,maven,windows,webstorm,jetbrains,sublimetext,jetbrains+all,visualstudiocode,eclipse,netbeans
@@ -86,8 +85,8 @@ cmake-build-debug/
 
 # IntelliJ
 /out/
-saiku-bi-platform-plugin-p5/saiku-bi-platform-plugin-p5.iml
-saiku-bi-platform-plugin/saiku-bi-platform-plugin.iml
+kusai-bi-platform-plugin-p5/kusai-bi-platform-plugin-p5.iml
+kusai-bi-platform-plugin/kusai-bi-platform-plugin.iml
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/

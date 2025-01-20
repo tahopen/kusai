@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# saiku     This shell script takes care of starting and stopping Saiku Analytics
+# saiku     This shell script takes care of starting and stopping Kusai Analytics
 #
 # chkconfig: - 80 20
 #

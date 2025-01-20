@@ -13,14 +13,14 @@
         <developerConnection>
             scm:git:git@github.com:OSBI/saiku.git
         </developerConnection>
-        <tag>saiku-3.9-SNAPSHOT</tag>
+        <tag>kusai-3.9-SNAPSHOT</tag>
     </scm>
     <modules>
-        <module>saiku-core</module>
-        <module>saiku-ui</module>
-        <module>saiku-webapp</module>
-        <module>saiku-server</module>
-        <module>saiku-bi-platform-plugin-p7.1</module>
+        <module>kusai-core</module>
+        <module>kusai-ui</module>
+        <module>kusai-webapp</module>
+        <module>kusai-server</module>
+        <module>kusai-bi-platform-plugin-p7.1</module>
     </modules>
 
     <properties>
@@ -250,10 +250,10 @@
         <profile>
             <id>ci</id>
             <modules>
-                <module>saiku-core</module>
-                <module>saiku-ui</module>
-                <module>saiku-webapp</module>
-                <module>saiku-server</module>
+                <module>kusai-core</module>
+                <module>kusai-ui</module>
+                <module>kusai-webapp</module>
+                <module>kusai-server</module>
             </modules>
         </profile>
     </profiles>
@@ -356,12 +356,12 @@
             </dependency>
             <dependency>
                 <groupId>org.saikuanalytics</groupId>
-                <artifactId>saiku-service</artifactId>
+                <artifactId>kusai-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.saikuanalytics</groupId>
-                <artifactId>saiku-webapp</artifactId>
+                <artifactId>kusai-webapp</artifactId>
                 <version>3.1-SNAPSHOT</version>
                 <type>war</type>
             </dependency>
@@ -603,7 +603,7 @@
             </dependency>
             <dependency>
                 <groupId>org.saikuanalytics</groupId>
-                <artifactId>saiku-web</artifactId>
+                <artifactId>kusai-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -644,13 +644,13 @@
             </dependency>
             <dependency>
                 <groupId>org.saikuanalytics</groupId>
-                <artifactId>saiku-ui</artifactId>
+                <artifactId>kusai-ui</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>
             </dependency>
             <dependency>
                 <groupId>org.saikuanalytics</groupId>
-                <artifactId>saiku-olap-util</artifactId>
+                <artifactId>kusai-olap-util</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

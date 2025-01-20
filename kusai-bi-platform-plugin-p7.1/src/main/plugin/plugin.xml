@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin title="saiku" name="saiku" loader="OVERRIDING">
+
+	<overlays>
+		<overlay id="startup.saikuAnalytics"
+			resourcebundle="content/kusai-ui/saikuplugin.properties" priority="1">
+			<menubar id="newmenu">
+				<menuitem id="new-kusai-analytics" label="Kusai Analytics"
+					command="mantleXulHandler.openUrl('Kusai Analytics','Kusai Analytics','content/kusai-ui/index.html?biplugin5=true')" />
+			</menubar>
+		</overlay>
+
+		<overlay id="launch" resourcebundle="content/kusai-ui/saikuplugin.properties">
+			<button id="SaikuAnalytics" label="Kusai Analytics"
+				command="Home.openFile('Kusai Analytics','Kusai Analytics', 'content/kusai-ui/index.html?biplugin5=true');$('#btnCreateNew').popover('hide')" />
+		</overlay>
+	</overlays>
+
+	<!--
+    <content-types>
+    	<content-type mime-type="text/xml" type="saiku">
+		<title>Kusai Analytics</title>
+		<description>Kusai Analytics File</description>
+		<icon-url>content/kusai-ui/images/src/saiku_16.png</icon-url>
+			<operations>
+				<operation>
+					<id>EDIT</id>
+					<perspective>editor</perspective>
+				</operation>
+			</operations>
+        </content-type>
+    </content-types>
+-->
+
+	<content-type type="saiku" mime-type="text/html">
+		<title>Kusai Analytics</title>
+		<description>Kusai Analytics query definition file</description>
+		<icon-url>content/kusai-ui/images/src/saiku_16.png</icon-url>
+		<meta-provider>org.kusai.plugin.SaikuContentTypeMetaProvider</meta-provider>
+		<operations>
+			<operation>
+				<id>RUN</id>
+				<perspective>run</perspective>
+			</operation>
+			<operation>
+				<id>EDIT</id>
+				<perspective>editor</perspective>
+			</operation>
+		</operations>
+	</content-type>
+
+	<lifecycle-listener class="org.kusai.plugin.SaikuPluginLifecycleListener" />
+
+
+	<static-paths>
+		<static-path url="/kusai-ui" localFolder="ui" />
+		<static-path url="/kusai-ui/css" localFolder="ui/css" />
+		<static-path url="/kusai-ui/docs" localFolder="ui/docs" />
+		<static-path url="/kusai-ui/i18n" localFolder="ui/i18n" />
+		<static-path url="/kusai-ui/images" localFolder="ui/images" />
+		<static-path url="/kusai-ui/views" localFolder="ui/views" />
+		<static-path url="/kusai-ui/js" localFolder="ui/js" />
+		<static-path url="/kusai-ui/config" localFolder="ui/config" />
+		<static-path url="/saiku/ui" localFolder="ui" />
+		<static-path url="/saiku/components" localFolder="components" />
+	</static-paths>
+
+</plugin>

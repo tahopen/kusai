@@ -4,8 +4,8 @@
 export CATALINA_OPTS="-Xms512m -Xmx1024m -XX:MaxPermSize=128m -Dfile.encoding=UTF-8 -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true -Djava.awt.headless=true"
 
 # Saiku server directory
-SAIKU_SERVER_DIR="./saiku-server/target/dist/saiku-server"
-LOG_DIR="./saiku-server/target/dist/saiku-server/tomcat/logs"
+SAIKU_SERVER_DIR="./kusai-server/target/dist/kusai-server"
+LOG_DIR="./kusai-server/target/dist/kusai-server/tomcat/logs"
 
 # Function to set Java home and environment
 set_java_env() {

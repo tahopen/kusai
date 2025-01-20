@@ -1,0 +1,25 @@
+#Maven
+target/
+#Eclipse
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+kusai-web/src/test/resources/org/saiku/web/rest/resources/foodmart/foodmart.backup
+kusai-web/src/test/resources/org/saiku/web/rest/resources/foodmart/foodmart.data
+kusai-core/kusai-service/kusai-service.iml
+kusai-core/kusai-web/kusai-web.iml
+bin/
+#IntelliJ IDEA
+.idea
+*.iml
+**/*.iml
