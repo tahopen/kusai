@@ -139,7 +139,7 @@ public class LicenseUtils implements ILicenseUtils {
     String version = "";
     ClassLoader classloader = Thread.currentThread().getContextClassLoader();
     InputStream is = classloader.getResourceAsStream(
-        "org/saiku/web/rest/resources/version.properties");
+        "org/kusai/web/rest/resources/version.properties");
     try {
 
       // input = new FileInputStream("version.properties");

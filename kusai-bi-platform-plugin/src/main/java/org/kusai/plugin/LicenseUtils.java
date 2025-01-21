@@ -24,7 +24,7 @@ import javax.jcr.RepositoryException;
 /**
  * Created by bugg on 01/07/14.
  */
-public class LicenseUtils extends org.kusai.service.license.LicenseUtils{
+public class LicenseUtils extends org.kusai.service.license.LicenseUtils {
   private static final Logger log = LoggerFactory.getLogger(LicenseUtils.class);
 
   private IDatasourceManager repositoryDatasourceManager;
@@ -38,7 +38,6 @@ public class LicenseUtils extends org.kusai.service.license.LicenseUtils{
       IDatasourceManager repositoryDatasourceManager) {
     this.repositoryDatasourceManager = repositoryDatasourceManager;
   }
-
 
   public void init() {
 
@@ -57,7 +56,6 @@ public class LicenseUtils extends org.kusai.service.license.LicenseUtils{
     this.repositoryDatasourceManager
         .saveInternalFile("/etc/license.lic", bo.toString(), null);
 
-
   }
 
   public void setLicense(String lic) {
@@ -66,18 +64,17 @@ public class LicenseUtils extends org.kusai.service.license.LicenseUtils{
     this.repositoryDatasourceManager
         .saveInternalFile("/etc/license.lic", lic, null);
 
-
   }
 
   public Object getLicense()
       throws IOException, ClassNotFoundException, RepositoryException {
 
     String file = this.repositoryDatasourceManager
-        //.getInternalFileData("/etc/license.lic");
+        // .getInternalFileData("/etc/license.lic");
         .getInternalFileData("license.lic");
 
     Object obj = null;
-    if(file == null){
+    if (file == null) {
       throw new RepositoryException("Could not find license in predefined places");
     }
     byte[] b = Base64Coder.decode(file);
@@ -89,13 +86,11 @@ public class LicenseUtils extends org.kusai.service.license.LicenseUtils{
         license = in.readObject();
       } catch (ClassNotFoundException e) {
         log.debug("Could not decode license(classnotfound) please fetch a new one", e);
-      }
-      catch (InvalidClassException e){
+      } catch (InvalidClassException e) {
         log.debug("Could not decode license, please fetch a new one", e);
       }
       return license;
     }
-
 
   }
 
@@ -118,7 +113,6 @@ public class LicenseUtils extends org.kusai.service.license.LicenseUtils{
       return license;
     }
 
-
   }
 
   public void validateLicense() throws RepositoryException, IOException, ClassNotFoundException, LicenseException {
@@ -139,10 +133,10 @@ public class LicenseUtils extends org.kusai.service.license.LicenseUtils{
     String version = "";
     ClassLoader classloader = Thread.currentThread().getContextClassLoader();
     InputStream is = classloader.getResourceAsStream(
-        "org/saiku/web/rest/resources/version.properties");
+        "org/kusai/web/rest/resources/version.properties");
     try {
 
-      //input = new FileInputStream("version.properties");
+      // input = new FileInputStream("version.properties");
 
       // load a properties file
       prop.load(is);
@@ -162,7 +156,6 @@ public class LicenseUtils extends org.kusai.service.license.LicenseUtils{
     }
     return "3.8.8";
   }
-
 
   public void setAdminuser(String adminuser) {
     this.adminuser = adminuser;

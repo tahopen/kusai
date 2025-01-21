@@ -15,7 +15,7 @@
     </li>
     <li>Copy the plugin to Pentaho system directory:
         <pre>
-cp -R ./kusai-bi-platform-plugin/target/dist/saiku /opt/pentaho/pentaho-server/pentaho-solutions/system</pre>
+cp -R ./kusai-bi-platform-plugin/target/dist/kusai /opt/pentaho/pentaho-server/pentaho-solutions/system</pre>
     </li>
     <li>Start Pentaho Server:
         <pre>
@@ -47,7 +47,7 @@ OpenJDK 64-Bit Server VM (Temurin)(build 25.432-b06, mixed mode)</pre>
 <pre>./install</pre>
 
 <h3>2.4 Launch Server</h3>
-<p>Start Kusai at http://localhost:8080:</p>
+<p>Start Kusai at <a href="http://localhost:8080">http://localhost:8080</a></p>
 <pre>./server</pre>
 
 <h2>3. Access and Authentication</h2>

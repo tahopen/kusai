@@ -110,7 +110,7 @@
 										<include name="FoodMart.xml" />
 									</fileset>
 								</copy>
-								>>>>>>> tag-3.16.1 <copy todir="target/test-classes/org/saiku/"
+								>>>>>>> tag-3.16.1 <copy todir="target/test-classes/org/kusai/"
 									overwrite="true">
 									<fileset dir="target/test/">
 										<include name="foodmart_hsql.script" />

@@ -590,7 +590,7 @@ public class AdminResource {
         Properties prop = new Properties();
         String version = "";
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream is = classloader.getResourceAsStream("org/saiku/web/rest/resources/version.properties");
+        InputStream is = classloader.getResourceAsStream("org/kusai/web/rest/resources/version.properties");
         try {
             // load a properties file
             prop.load(is);

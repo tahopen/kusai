@@ -1,11 +1,12 @@
 package org.kusai.plugin.resources;
-//package org.saiku.plugin.resources;
+
+// package org.saiku.plugin.resources;
 //
-//import javax.ws.rs.Path;
+// import javax.ws.rs.Path;
 //
-//import org.saiku.web.rest.resources.DataSourceResource;
+// import org.kusai.web.rest.resources.DataSourceResource;
 //
-//@Path("/saiku/api/{username}/datasources")
-//public class PentahoDatasourceResource extends DataSourceResource {
+// @Path("/saiku/api/{username}/datasources")
+// public class PentahoDatasourceResource extends DataSourceResource {
 //
-//}
+// }

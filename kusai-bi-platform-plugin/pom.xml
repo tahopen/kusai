@@ -15,7 +15,7 @@
         <resources>
             <!--<resource>
                 <directory>src/main/plugin</directory>
-                <targetPath>${basedir}/../kusai-bi-platform-plugin-p5/target/dist/saiku</targetPath>
+                <targetPath>${basedir}/../kusai-bi-platform-plugin-p5/target/dist/kusai</targetPath>
                 <filtering>true</filtering>
                 <includes>
                     <include>**/*.xml</include>
@@ -41,12 +41,12 @@
                                     <groupId>bi.meteorite</groupId>
                                     <artifactId>licenseserver-core</artifactId>
                                     <version>1.0-SNAPSHOT</version>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.mozilla</groupId>
                                     <artifactId>rhino</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.saikuanalytics</groupId>
@@ -59,149 +59,149 @@
                                     <artifactId>kusai-web</artifactId>
                                     <type>jar</type>
                                     <classifier>sources</classifier>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.saikuanalytics</groupId>
                                     <artifactId>kusai-service</artifactId>
                                     <type>jar</type>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <!--<artifactItem>
                                     <groupId>org.saikuanalytics</groupId>
                                     <artifactId>kusai-bi-platform-plugin-p5</artifactId>
                                     <type>jar</type>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>-->
                                 <artifactItem>
                                     <groupId>org.saikuanalytics</groupId>
                                     <artifactId>kusai-web</artifactId>
                                     <type>jar</type>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.saikuanalytics</groupId>
                                     <artifactId>kusai-olap-util</artifactId>
                                     <type>jar</type>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.saiku</groupId>
                                     <artifactId>saiku-query</artifactId>
                                     <type>jar</type>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>eigenbase</groupId>
                                     <artifactId>eigenbase-properties</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>eigenbase</groupId>
                                     <artifactId>eigenbase-resgen</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
 
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>eigenbase</groupId>
                                     <artifactId>eigenbase-xom</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>pentaho</groupId>
                                     <artifactId>mondrian</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.jvnet.mimepull</groupId>
                                     <artifactId>mimepull</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>commons-lang</groupId>
                                     <artifactId>commons-lang</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.jdom</groupId>
                                     <artifactId>jdom</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>pentaho</groupId>
                                     <artifactId>cda</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>pentaho</groupId>
                                     <artifactId>cpf-core</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>pentaho</groupId>
                                     <artifactId>cpf-pentaho</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>com.fasterxml.jackson.core</groupId>
                                     <artifactId>jackson-databind</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>com.fasterxml.jackson.core</groupId>
                                     <artifactId>jackson-core</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>com.fasterxml.jackson.jaxrs</groupId>
                                     <artifactId>jackson-jaxrs-json-provider</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>com.fasterxml.jackson.jaxrs</groupId>
                                     <artifactId>jackson-jaxrs-base</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>com.fasterxml.jackson.core</groupId>
                                     <artifactId>jackson-annotations</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
 
                                 <!--<artifactItem>
                                     <groupId>avalon-framework</groupId>
                                     <artifactId>avalon-framework</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>-->
                                 <artifactItem>
                                     <groupId>org.apache.xmlgraphics</groupId>
                                     <artifactId>xmlgraphics-commons</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>iText</groupId>
                                     <artifactId>iText</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.mozilla</groupId>
                                     <artifactId>rhino</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.apache.pdfbox</groupId>
                                     <artifactId>pdfbox-app</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.apache.xmlgraphics</groupId>
                                     <artifactId>fop</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>net.sourceforge.htmlcleaner</groupId>
                                     <artifactId>htmlcleaner</artifactId>
-                                    <outputDirectory>target/dist/saiku/lib</outputDirectory>
+                                    <outputDirectory>target/dist/kusai/lib</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
@@ -240,27 +240,27 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <unzip dest="target/dist/saiku/ui/">
+                                <unzip dest="target/dist/kusai/ui/">
                                     <fileset dir="target/stage/">
                                         <include name="kusai-ui-${project.version}.war" />
                                     </fileset>
                                 </unzip>
                                 <copy
                                     file="${basedir}/target/${project.artifactId}-${project.version}.jar"
-                                    todir="target/dist/saiku/lib" />
-                                <copy todir="target/dist/saiku/" overwrite="true">
+                                    todir="target/dist/kusai/lib" />
+                                <copy todir="target/dist/kusai/" overwrite="true">
                                     <fileset dir="${basedir}/src/main/plugin/">
                                         <include name="**/*.xml" />
                                         <exclude name="**/version.xml" />
                                     </fileset>
                                 </copy>
-                                <copy todir="target/dist/saiku/" overwrite="true">
+                                <copy todir="target/dist/kusai/" overwrite="true">
                                     <fileset dir="${basedir}/src/main/plugin/">
                                         <include name="plugin.spring.xml" />
                                     </fileset>
                                 </copy>
-                                <mkdir dir="target/dist/saiku/kusai-repository" />
-                                <copy todir="target/dist/saiku/ui/" overwrite="true">
+                                <mkdir dir="target/dist/kusai/kusai-repository" />
+                                <copy todir="target/dist/kusai/ui/" overwrite="true">
                                     <fileset dir="${basedir}/src/main/plugin/">
                                         <include name="*.properties" />
                                     </fileset>
@@ -268,13 +268,13 @@
                                 <replaceregexp match="(&lt;!-- Saiku plugins --&gt;)"
                                     replace=" &lt;script type='text/javascript' src='js/saiku/plugins/Statistics/plugin.js' defer&gt;&lt;/script&gt;&#xA; &lt;script type='text/javascript' src='js/saiku/plugins/BIServer/plugin.js' defer&gt;&lt;/script&gt;&#xA;     &lt;script type='text/javascript' src='js/saiku/plugins/CCC_Chart/plugin.js'&gt;&lt;/script&gt;&#xA;       "
                                     flags="gs" byline="false">
-                                    <fileset dir="target/dist/saiku/ui/" includes="index.html" />
+                                    <fileset dir="target/dist/kusai/ui/" includes="index.html" />
                                 </replaceregexp>
                                 <replaceregexp match="(REPOSITORY_LAZY: false,)"
                                     replace="REPOSITORY_LAZY: true," flags="gs" byline="false">
-                                    <fileset dir="target/dist/saiku/ui/js/saiku/"
+                                    <fileset dir="target/dist/kusai/ui/js/saiku/"
                                         includes="Settings.js" />
-                                    <fileset dir="target/dist/saiku/ui/js/saiku/"
+                                    <fileset dir="target/dist/kusai/ui/js/saiku/"
                                         includes="Settings.yaml" />
                                 </replaceregexp>
                                 <zip destfile="target/kusai-plugin-p7.1-${project.version}.zip">

@@ -260,7 +260,7 @@ public class ExporterResource {
 			}
 			if (getVersion() != null && !getVersion().contains("EE")) {
 				String watermark = IOUtils
-						.toString(ExporterResource.class.getResource("/org/saiku/web/svg/watermark.svg"));
+						.toString(ExporterResource.class.getResource("/org/kusai/web/svg/watermark.svg"));
 				svg = svg.replace("</svg>", watermark + "</svg>");
 			}
 			final InputStream in = new ByteArrayInputStream(svg.getBytes("UTF-8"));
@@ -299,7 +299,7 @@ public class ExporterResource {
 		InputStream input = null;
 		String version = "";
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		InputStream is = classloader.getResourceAsStream("org/saiku/web/rest/resources/version.properties");
+		InputStream is = classloader.getResourceAsStream("org/kusai/web/rest/resources/version.properties");
 		try {
 			prop.load(is);
 			version = prop.getProperty("VERSION");

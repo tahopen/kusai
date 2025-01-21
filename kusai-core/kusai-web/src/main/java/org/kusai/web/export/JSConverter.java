@@ -35,7 +35,7 @@ public class JSConverter {
 
     private static void executeJavascript(Context javascriptContext, Scriptable globalScope) {
         String code = "eval('var cellset = ' + data); \n" +
-                "var renderer = new SaikuTableRenderer(); \n" +
+                "var renderer = new KusaiTableRenderer(); \n" +
                 "var html = renderer.render(cellset, { wrapContent : " + false + " }); out.write(html);";
         javascriptContext.evaluateString(globalScope, code, "<mem>", 1, null);
     }
@@ -74,11 +74,6 @@ public class JSConverter {
     }
 
     private static String appendSaikuCommercialIfNecessary(String content) {
-        if (getVersion() != null && !getVersion().contains("EE")) {
-            content = content
-                    + "<div style='margin-top:10px;'><h5>Export Provided By Kusai Analytics Community Edition(http://meteorite.bi)"
-                    + "</h5></div>";
-        }
         content = content.replaceAll("&nbsp;", " ");
         content = content.replaceAll("&nbsp", " ");
         return content;
@@ -93,7 +88,7 @@ public class JSConverter {
         InputStream input = null;
         String version = "";
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream is = classloader.getResourceAsStream("org/saiku/web/rest/resources/version.properties");
+        InputStream is = classloader.getResourceAsStream("org/kusai/web/rest/resources/version.properties");
         try {
 
             // input = new FileInputStream("version.properties");

@@ -62,8 +62,8 @@
 		<static-path url="/kusai-ui/views" localFolder="ui/views" />
 		<static-path url="/kusai-ui/js" localFolder="ui/js" />
 		<static-path url="/kusai-ui/config" localFolder="ui/config" />
-		<static-path url="/saiku/ui" localFolder="ui" />
-		<static-path url="/saiku/components" localFolder="components" />
+		<static-path url="/kusai/ui" localFolder="ui" />
+		<static-path url="/kusai/components" localFolder="components" />
 	</static-paths>
 
 </plugin>

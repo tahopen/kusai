@@ -14,8 +14,8 @@ local.properties
 .classpath
 .settings/
 .loadpath
-kusai-web/src/test/resources/org/saiku/web/rest/resources/foodmart/foodmart.backup
-kusai-web/src/test/resources/org/saiku/web/rest/resources/foodmart/foodmart.data
+kusai-web/src/test/resources/org/kusai/web/rest/resources/foodmart/foodmart.backup
+kusai-web/src/test/resources/org/kusai/web/rest/resources/foodmart/foodmart.data
 kusai-core/kusai-service/kusai-service.iml
 kusai-core/kusai-web/kusai-web.iml
 bin/
